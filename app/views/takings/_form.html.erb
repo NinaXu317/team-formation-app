@@ -1,0 +1,32 @@
+<%= form_with(model: taking, local: true) do |form| %>
+  <% if taking.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(taking.errors.count, "error") %> prohibited this taking from being saved:</h2>
+
+      <ul>
+        <% taking.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :student_id %>
+    <%= form.number_field :student_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :course_id %>
+    <%= form.number_field :course_id %>
+  </div>
+
+  <div class="field">
+    <%= form.label :group_id %>
+    <%= form.number_field :group_id %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>
