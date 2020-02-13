@@ -52,3 +52,17 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+gem 'pry-byebug'
+gem 'better_errors'
+gem 'awesome_print'
+gem 'faker'
+gem 'hirb'
+gem 'activerecord-reset-pk-sequence'
+group :development, :test do
+  gem 'rspec-rails'
+end
+group :test do
+  gem 'shoulda', '~> 3.5'
+  gem 'shoulda-matchers'
+end
