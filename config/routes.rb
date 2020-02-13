@@ -1,8 +1,9 @@
 Rails.application.routes.draw do
+  get 'pages/home'
   resources :takings
   resources :groups
   resources :courses
   resources :professors
   resources :students
-  root 'application#hello'
+  root 'pages#home'
 end
