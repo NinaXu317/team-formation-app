@@ -40,5 +40,6 @@ end
 
 10.times do
   n = Course.all.sample.id
-  t = Taking.create(student_id: Student.all.sample.id, course_id: n, group_id: Group.where(course_id: n).sample.id)
+  s = Student.all.sample.id
+  t = Taking.create(student_id: s, course_id: n, group_id: Group.where(course_id: n).sample.id)
 end
