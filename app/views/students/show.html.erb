@@ -15,5 +15,15 @@
   <%= @student.email %>
 </p>
 
+<p>
+  <strong>Courses:</strong>
+  <% @courses.each do |course|%>
+    <td> <%= link_to course.name, course %> </td>
+  <%end%>
+</p>
+
+<button>add new course</button>
+<br> <br>
+
 <%= link_to 'Edit', edit_student_path(@student) %> |
 <%= link_to 'Back', students_path %>

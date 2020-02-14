@@ -59,10 +59,4 @@ gem 'awesome_print'
 gem 'faker'
 gem 'hirb'
 gem 'activerecord-reset-pk-sequence'
-group :development, :test do
-  gem 'rspec-rails'
-end
-group :test do
-  gem 'shoulda', '~> 3.5'
-  gem 'shoulda-matchers'
-end
+

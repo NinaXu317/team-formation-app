@@ -20,8 +20,6 @@ class ApplicationController < ActionController::Base
     
         student.each do |x|
     
-            
-    
             while(result[proj[temp_project_index]].size>group_size)
                 temp_project_index = (temp_project_index+1) % proj.size
             end
