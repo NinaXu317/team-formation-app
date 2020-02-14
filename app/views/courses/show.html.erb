@@ -22,9 +22,13 @@
 <% @groups.each do |group| %>
   <ul> <%= group.project_name%>: <%=@group_hash[group.project_name]%></ul>
 <% end %>
-
-<button> create groups </button>
+<% create_groups_path = @course.id.to_s+ "/create_groups" %>
+<%= link_to 'Create Groups', create_groups_path%>
 <br> <br>
+
+<% @teams.each do |teamname, group| %>
+  <ul> <%= teamname + ": " + group.to_s%> </ul>
+<%end%>
 
 <%= link_to 'Edit', edit_course_path(@course) %> |
 <%= link_to 'Back', courses_path %>

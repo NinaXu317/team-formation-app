@@ -10,6 +10,11 @@ class CoursesController < ApplicationController
   # GET /courses/1
   # GET /courses/1.json
   def show
+    if params[:teams].nil?
+      @teams = {}
+    else
+      @teams = params[:teams]
+    end
     @students = @course.students
     @student_string = ""
     @students.each do |student|
@@ -24,6 +29,15 @@ class CoursesController < ApplicationController
       end
       @group_hash[group.project_name] = group_string
     end
+  end
+
+  #GET /courses/1/create_groups
+  def create_groups
+    #session[:teams] = {"a" => [1,2,3], "b" => [3,4,5]}
+    #@teams = session[:teams]
+    puts params.inspect
+    @course = Course.find(params[:id])
+    redirect_to :controller => 'courses', :action => 'show', :id => params[:id], :teams => {"a" => [1,2,3], "b" => [3,4,5]}
   end
 
   # GET /courses/new
