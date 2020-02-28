@@ -20,6 +20,21 @@ class StudentsController < ApplicationController
 
   # GET /students/1/edit
   def edit
+    @courses = @student.courses.all
+  end
+
+  #GET /students/1/add_course
+  def add_course
+    @student = Student.find(params[:id])
+    @student_id = params[:id]
+  end
+
+  #POST /students/1/search_course
+  def search_course
+    puts params.inspect
+    course = Course.where(pin: params[:pin]).take
+    @taking = Taking.create(student_id: params[:id], course_id: course.id, group_id: 1)
+    redirect_to :controller => 'students', :action => 'show', :id => params[:id]
   end
 
   # POST /students
@@ -70,6 +85,6 @@ class StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:firstname, :lastname, :email)
+      params.require(:student).permit(:firstname, :lastname, :email, courses_attributes: [:id, :name, :_destroy])
     end
 end

@@ -33,9 +33,6 @@ class CoursesController < ApplicationController
 
   #GET /courses/1/create_groups
   def create_groups
-    #session[:teams] = {"a" => [1,2,3], "b" => [3,4,5]}
-    #@teams = session[:teams]
-    puts params.inspect
     @course = Course.find(params[:id])
     redirect_to :controller => 'courses', :action => 'show', :id => params[:id], :teams => {"a" => [1,2,3], "b" => [3,4,5]}
   end

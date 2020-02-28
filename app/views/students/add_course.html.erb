@@ -1,0 +1,7 @@
+<% search_course_path = @student.id.to_s+ "/search_course" %>
+
+<%= form_tag(:controller => "students", :action => "search_course")  do %>
+    <%= label_tag(:label, "Course Pin") %>
+    <%= text_field_tag(:pin) %>
+    <%= submit_tag("Add") %>
+<% end %>

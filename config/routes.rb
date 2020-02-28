@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
   get 'pages/home'
-  
-  #get  '/courses/1/create_groups',  to: 'courses#create_groups'
   resources :takings
   resources :groups
   resources :courses do 
@@ -10,6 +8,11 @@ Rails.application.routes.draw do
     end
   end
   resources :professors
-  resources :students
+  resources :students do
+    member do
+      get 'add_course'
+      post 'search_course'
+    end
+  end
   root 'pages#home'
 end

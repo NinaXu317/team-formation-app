@@ -22,7 +22,8 @@
   <%end%>
 </p>
 
-<button>add new course</button>
+<% add_course_path = @student.id.to_s+ "/add_course" %>
+<%= link_to 'Add new course', add_course_path%>
 <br> <br>
 
 <%= link_to 'Edit', edit_student_path(@student) %> |
