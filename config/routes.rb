@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :preferences
   get 'pages/home'
   resources :takings
   resources :groups
