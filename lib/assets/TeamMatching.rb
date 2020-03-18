@@ -10,9 +10,7 @@ def randomAlgo (proj, student)
     result = {}
     proj.each do |x|
         result[x]=[]
-        # puts result[x].inspect
     end
-    # puts result.inspect
     group_size = (student.size/ proj.size)
     temp_project_index = 0
 
@@ -23,13 +21,12 @@ def randomAlgo (proj, student)
         while(result[proj[temp_project_index]].size>group_size)
             temp_project_index = (temp_project_index+1) % proj.size
         end
-        #puts "before" + result.inspect
         result[proj[temp_project_index]].append(x)
         temp_project_index = (temp_project_index+1) % proj.size
         
 
     end
 
-
+    return result
 
 end

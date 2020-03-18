@@ -10,5 +10,12 @@
   <%= @group.project_name %>
 </p>
 
+<p>
+  <strong>Teammates:</strong>
+  <% @students.each do |student| %>
+    <td> <%=student.firstname + " " + student.lastname%> </td>
+  <% end %>
+</p>
+
 <%= link_to 'Edit', edit_group_path(@group) %> |
 <%= link_to 'Back', groups_path %>

@@ -11,6 +11,7 @@ class StudentsController < ApplicationController
   # GET /students/1.json
   def show
     @courses = @student.courses
+    @groups = @student.groups
   end
 
   # GET /students/new

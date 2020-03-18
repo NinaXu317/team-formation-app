@@ -22,6 +22,13 @@
   <%end%>
 </p>
 
+<p>
+  <strong>Groups:</strong>
+  <% @groups.each do |group|%>
+    <td> <%= link_to group.project_name, group %> </td>
+  <%end%>
+</p>
+
 <% add_course_path = @student.id.to_s+ "/add_course" %>
 <%= link_to 'Add new course', add_course_path%>
 <br> <br>

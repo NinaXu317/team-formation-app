@@ -1,6 +1,7 @@
+
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
-
+  include CoursesHelper
   # GET /courses
   # GET /courses.json
   def index
@@ -15,26 +16,19 @@ class CoursesController < ApplicationController
     else
       @teams = params[:teams]
     end
-    @students = @course.students
-    @student_string = ""
-    @students.each do |student|
-      @student_string += student.firstname + " " + student.lastname + ", "
-    end
+    @students = showStudents(@course.students)
     @groups = @course.groups
-    @group_hash = {}
-    @groups.each do |group|
-      group_string = ""
-      group.students.each do |student|
-        group_string += student.firstname + " " + student.lastname + ", "
-      end
-      @group_hash[group.project_name] = group_string
-    end
+    @group_hash = showGroups(@groups)
   end
 
   #GET /courses/1/create_groups
   def create_groups
     @course = Course.find(params[:id])
-    redirect_to :controller => 'courses', :action => 'show', :id => params[:id], :teams => {"a" => [1,2,3], "b" => [3,4,5]}
+    projects = getProjects(@course)
+    students = getStudents(@course)
+    result = randomAlgo(projects, students)
+    assignGroups(result)
+    redirect_to :controller => 'courses', :action => 'show', :id => params[:id]
   end
 
   # GET /courses/new

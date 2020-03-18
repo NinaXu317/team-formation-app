@@ -16,30 +16,31 @@ Course.reset_pk_sequence
 Taking.delete_all
 Taking.reset_pk_sequence
 
-(1..10).each do
+(1..100).each do
     s = Student.create(firstname: Faker::Name.first_name,
     lastname: Faker::Name.last_name,
     email: Faker::Internet.email)
 end
-(1..5).each do
+(1..50).each do
     p = Professor.create(firstname: Faker::Name.first_name,
     lastname: Faker::Name.last_name,
     email: Faker::Internet.email)
 end
 
-10.times do
+30.times do
     c = Course.create(name: Faker::Educator.course_name,
     pin: Faker::Number.number(digits: 4),
     professor_id: Professor.all.sample.id)
 end
 
-20.times do
+60.times do
     g = Group.create(course_id: Course.all.sample.id,
     project_name: Faker::Team.name)
 end
 
-10.times do
+200.times do
   n = Course.all.sample.id
   s = Student.all.sample.id
-  t = Taking.create(student_id: s, course_id: n, group_id: Group.where(course_id: n).sample.id)
+  #t = Taking.create(student_id: s, course_id: n, group_id: Group.where(course_id: n).sample.id)
+  t = Taking.create(student_id: s, course_id: n)
 end

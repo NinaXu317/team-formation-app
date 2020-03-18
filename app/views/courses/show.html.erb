@@ -16,19 +16,19 @@
 </p>
 
 <p> <strong> Students: </strong> </p>
-<ul> <%=@student_string%></ul>
+<ul> <%=@students%></ul>
 
 <p> <strong> Groups: </strong> </p>
 <% @groups.each do |group| %>
   <ul> <%= group.project_name%>: <%=@group_hash[group.project_name]%></ul>
 <% end %>
+
 <% create_groups_path = @course.id.to_s+ "/create_groups" %>
 <%= link_to 'Create Groups', create_groups_path%>
 <br> <br>
 
-<% @teams.each do |teamname, group| %>
-  <ul> <%= teamname + ": " + group.to_s%> </ul>
-<%end%>
+<%= link_to 'Propose project', new_group_path%>
+<br> <br>
 
 <%= link_to 'Edit', edit_course_path(@course) %> |
 <%= link_to 'Back', courses_path %>
