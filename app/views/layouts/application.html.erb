@@ -10,6 +10,23 @@
   </head>
 
   <body>
+    <header class="navbar navbar-fixed-top navbar-inverse">
+      <div class="container">
+        <%= link_to "TeamFormation", root_path, id: "logo" %>
+        <nav>
+          <ul class="nav navbar-nav navbar-right">
+            <li><%= link_to "Home",   root_path %></li>
+            <li><%= link_to "Login", '#' %></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
     <%= yield %>
+    <div class="container">
+      <% flash.each do |message_type, message| %>
+        <div class="alert alert-<%= message_type %>"><%= message %></div>
+      <% end %>
+      <%= debug(params) if Rails.env.development? %>
+    </div>
   </body>
 </html>

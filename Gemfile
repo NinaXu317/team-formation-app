@@ -59,4 +59,6 @@ gem 'awesome_print'
 gem 'faker'
 gem 'hirb'
 gem 'activerecord-reset-pk-sequence'
+gem 'bootstrap-sass', '3.4.1'
+
 
