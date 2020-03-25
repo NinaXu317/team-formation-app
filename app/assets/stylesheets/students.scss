@@ -1,3 +1,78 @@
 // Place all the styles related to the Students controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+
+
+
+#student_info_container{
+    padding-top: 120px;
+    .info_container{
+        > p {
+            font-family: "Poppins", sans-serif;
+            font-size: 15px;
+        }
+    } 
+}
+.custom_add_course_button{
+    position: absolute;
+    right: 80px;
+    top: 140px;
+
+    display: inline-block;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    border: 0;
+    border: 1px solid rgb(28, 125, 236);
+    border-radius: 3px;
+    text-align: center;
+    color:  rgb(28, 125, 236) !important;
+    text-transform: uppercase;
+    transition: 0.5s;
+}
+
+.custom_add_course_button:hover{
+    color: #fff !important;
+    //background-color:  #1fc2d9;
+    background-color:   rgb(28, 125, 236) ;
+
+}
+hr {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-left: 60px;
+    margin-right:60px;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+.group-column-box{
+    box-sizing: border-box;
+    width: 300px;
+    height: 350px;
+    padding: 30px;
+    margin:20px;
+    border: 1.5px solid   rgb(150, 194, 243);
+    border-radius: 5px;
+    > h4 {
+        font-size:bold;
+    }
+}
+
+.courses-info-row{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#course-name{
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+/* index page*/ 
+#body-container-students-index{
+    margin-top: 60px;
+}

@@ -1,37 +1,42 @@
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Firstname:</strong>
-  <%= @student.firstname %>
-</p>
+<body>
+  <div class='container' id='student_info_container'>
+      <div class='info_container'>
+        <p><strong>Name: </strong><%= @student.firstname%> <%=@student.lastname %></p>
+        <p><strong>Email: </strong><%= @student.email %></p>
+      </div>
+      <% add_course_path = @student.id.to_s+ "/add_course" %>
+      <%= link_to 'Add new course', add_course_path, class: 'btn custom_add_course_button'%>
+  </div>
+  <br><br>
+  <hr/>
+  <div class = "container" id="student-course-info-row">
+    <div class="courses-info-row">
+      <% @courses.each do |course|%>
+        <div class="group-column-box">
+          <div id="course-name"><%= link_to course.name, course %></div>
+          <% project_name = projectName(@student, course) %>
+          <% if project_name.nil? %>
+              <p>Not yet assigned by the professor</p>
+          <% else %>
+              <h4><%= project_name %></h4>
+              <div>
+                  <a href="#" class="info-link">Show members</a>
+              </div>
+              <div class="members-info">
+                  <p></p>
+              </div>
+          <% end %>
+        </div>
+      <%end%>
+    </div>
+  </div>
 
-<p>
-  <strong>Lastname:</strong>
-  <%= @student.lastname %>
-</p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @student.email %>
-</p>
+</body>
 
-<p>
-  <strong>Courses:</strong>
-  <% @courses.each do |course|%>
-    <td> <%= link_to course.name, course %> </td>
-  <%end%>
-</p>
-
-<p>
-  <strong>Groups:</strong>
-  <% @groups.each do |group|%>
-    <td> <%= link_to group.project_name, group %> </td>
-  <%end%>
-</p>
-
-<% add_course_path = @student.id.to_s+ "/add_course" %>
-<%= link_to 'Add new course', add_course_path%>
-<br> <br>
-
+<div class='container'>
 <%= link_to 'Edit', edit_student_path(@student) %> |
 <%= link_to 'Back', students_path %>
+</div>
