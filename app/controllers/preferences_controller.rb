@@ -5,6 +5,8 @@ class PreferencesController < ApplicationController
     
     def new 
         @preference = Preference.new
+        @course = Course.find(params[:course])
+        @projects = @course.groups.all
     end
 
     def create

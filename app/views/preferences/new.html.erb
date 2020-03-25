@@ -1,4 +1,9 @@
 <h1>Choose Your Preference</h1>
+<p> CURRENT COURSE: <%= @course.name %> </p>
+<p> Course Projects: 
+<% @projects.each do |project| %>
+    <%= project.project_name %>
+<% end %> </p>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <%= form_for(@preference) do |f| %>

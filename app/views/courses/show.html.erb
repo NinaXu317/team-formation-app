@@ -28,6 +28,10 @@
 <br> <br>
 
 <%= link_to 'Propose project', new_group_path%>
+<br>
+<% if current_user_type == "student"%>
+  <%= link_to 'Create preference', new_preference_path(course: @course)%>
+<% end %>
 <br> <br>
 
 <%= link_to 'Edit', edit_course_path(@course) %> |

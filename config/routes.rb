@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'student_login', to: 'sessions#new_student'
+  get 'professor_login', to: 'sessions#new_professor'
+  post 'login', to: 'sessions#create'
+  get 'logout', to: 'sessions#logout'
   resources :preferences
   get 'pages/home'
   resources :takings
