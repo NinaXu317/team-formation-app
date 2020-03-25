@@ -37,6 +37,7 @@ ActiveRecord::Schema.define(version: 2020_03_25_210223) do
     t.string "first"
     t.string "second"
     t.string "third"
+    t.integer "codingProficiency"
     t.index ["student_id"], name: "index_preferences_on_student_id"
   end
 
