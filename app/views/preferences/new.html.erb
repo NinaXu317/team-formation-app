@@ -1,19 +1,5 @@
+<div class='container' id='new-preference-container-1'>
 <h1>Choose Your Preference</h1>
-<div class="row">
-  <div class="col-md-6 col-md-offset-3">
-    <%= form_for(@preference) do |f| %>
-      
-      <%= f.label :first_choice %>
-      <%= f.text_field :first, class: 'form-control' %>
 
-      <%= f.label :second_choice %>
-      <%= f.text_field :second, class: 'form-control' %>
-
-      <%= f.label :third_choice %>
-      <%= f.text_field :third, class: 'form-control' %>
-
-      <%= f.submit "Submit my preference", class: "btn btn-primary" %>
-    <% end %>
-  </div>
+<%= render 'form', preference: @preference %>
 </div>
-

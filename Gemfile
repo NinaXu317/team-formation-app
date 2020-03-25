@@ -61,5 +61,5 @@ gem 'hirb'
 gem 'activerecord-reset-pk-sequence'
 gem 'bootstrap-sass'
 gem 'bootstrap'
-
+gem 'simple_form'
 
