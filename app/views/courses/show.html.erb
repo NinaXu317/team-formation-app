@@ -16,11 +16,11 @@
 </p>
 
 <p> <strong> Students: </strong> </p>
-<ul> <%=@students%></ul>
+<ul> <%=showStudents(@course.students)%></ul>
 
 <p> <strong> Groups: </strong> </p>
 <% @groups.each do |group| %>
-  <ul> <%= group.project_name%>: <%=@group_hash[group.project_name]%></ul>
+  <ul> <%= group.project_name%>: <%=showGroups(@groups)[group.project_name]%></ul>
 <% end %>
 
 <% create_groups_path = @course.id.to_s+ "/create_groups" %>

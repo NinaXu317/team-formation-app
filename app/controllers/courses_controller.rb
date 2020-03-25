@@ -1,7 +1,10 @@
+require 'poro/matching'
+require 'services/group_creation_service'
 
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
   include CoursesHelper
+  
   # GET /courses
   # GET /courses.json
   def index
@@ -16,18 +19,20 @@ class CoursesController < ApplicationController
     else
       @teams = params[:teams]
     end
-    @students = showStudents(@course.students)
     @groups = @course.groups
-    @group_hash = showGroups(@groups)
   end
 
   #GET /courses/1/create_groups
   def create_groups
     @course = Course.find(params[:id])
-    projects = getProjects(@course)
-    students = getStudents(@course)
-    result = randomAlgo(projects, students)
-    assignGroups(result)
+
+    group_service = GroupCreationService.new
+    students, projects = group_service.getStudentsAndProjects(@course)
+
+    matching_object = SimpleMatching.new
+    matching_object.initAndMatch(students, projects)
+
+    group_service.assignGroups(matching_object.matched_groups)
     redirect_to :controller => 'courses', :action => 'show', :id => params[:id]
   end
 
