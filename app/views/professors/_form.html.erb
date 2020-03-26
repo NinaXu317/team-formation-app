@@ -1,3 +1,5 @@
+<div class="row">
+<div class="col-md-6 col-md-offset-3">
 <%= form_with(model: professor, local: true) do |form| %>
   <% if professor.errors.any? %>
     <div id="error_explanation">
@@ -11,27 +13,23 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.label :firstname %>
-    <%= form.text_field :firstname %>
-  </div>
+  <%= form.label :First_name %>
+  <%= form.text_field :firstname, class: 'form-control' %>
 
-  <div class="field">
-    <%= form.label :lastname %>
-    <%= form.text_field :lastname %>
-  </div>
+  <%= form.label :Last_name %>
+  <%= form.text_field :lastname, class: 'form-control' %>
 
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
-  </div>
+  <%= form.label :email %>
+  <%= form.email_field :email, class: 'form-control' %>
+  
+  <%= form.label :password %>
+  <%= form.password_field :password, class: 'form-control' %>
 
-  <div class="field">
-    <%= form.label :password%>
-    <%= form.password_field :password%>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
+  <%= form.label :password_confirmation, "Confirmation" %>
+  <%= form.password_field :password_confirmation, class: 'form-control' %>
+  <br>
+  <%= form.submit "Create Professor Account", class: "btn btn-primary" %>
 <% end %>
+</div>
+</div>
+

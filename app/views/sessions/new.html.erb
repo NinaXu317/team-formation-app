@@ -1,12 +1,23 @@
-<br> <br>
-<br> <br>
 
-<%= form_tag(login_path, :method => "post") do %>
-  <%= label_tag(:email, "email") %>
-  <%= text_field_tag(:email) %>
-  <%= label_tag(:password, "password") %>
-  <%= text_field_tag(:password) %>
-  <%= hidden_field(:type, :field, :value => @type)%>
-  <br> <br>
-  <%= submit_tag("Login") %>
-<% end %>
+<div class='container' style="margin-top: 60px">
+  <% provide(:title, "Log in") %>
+  <h1 style='text-align: center'>Log in</h1>
+  <br><br>
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <%= form_for(login_path, :method => "post") do |f| %>
+
+        <%= f.label :email %>
+        <%= f.email_field :email, class: 'form-control' %>
+
+        <%= f.label :password %>
+        <%= f.password_field :password, class: 'form-control' %>
+        <%= hidden_field(:type, :field, :value => @type)%>
+        <br>
+        <%= f.submit "Log in", class: "btn btn-primary" %>
+      <% end %>
+
+      <p>New user? <%= link_to "Sign up now!", root_path %></p>
+    </div>
+  </div>
+  <div>

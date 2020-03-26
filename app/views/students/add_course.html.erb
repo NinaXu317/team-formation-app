@@ -1,7 +1,14 @@
-<% search_course_path = @student.id.to_s+ "/search_course" %>
-
-<%= form_tag(:controller => "students", :action => "search_course")  do %>
-    <%= label_tag(:label, "Course Pin") %>
-    <%= text_field_tag(:pin) %>
-    <%= submit_tag("Add") %>
-<% end %>
+<div class ='container' style="margin-top: 120px">
+ <h2 style="text-align: center">Input Pin to Add Course</h2>
+    <% search_course_path = @student.id.to_s+ "/search_course" %>
+    <br><br>
+        <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <%= form_tag(:controller => "students", :action => "search_course")  do %>
+                <%= label_tag(:label, "Course Pin") %>
+                <%= text_field_tag(:pin) %>
+                <%= submit_tag("Add") %>
+            <% end %>
+        </div>
+        </div>
+</div>

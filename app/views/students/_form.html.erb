@@ -1,56 +1,58 @@
-<%= form_with(model: student, local: true) do |form| %>
-  <% if student.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
+<div class='row'>
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_with(model: student, local: true) do |form| %>
+      <% if student.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
 
-      <ul>
-        <% student.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :firstname %>
-    <%= form.text_field :firstname %>
-  </div>
-
-  <div class="field">
-    <%= form.label :lastname %>
-    <%= form.text_field :lastname %>
-  </div>
-
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email %>
-  </div>
-
-  <div class="field">
-    <%= form.label :password%>
-    <%= form.password_field :password%>
-  </div>
-
-  Courses:
-  <ul>
-    <div class="field">
-      <%= form.fields_for :courses do |courses_form|%>
-        <li>
-          <%= courses_form.label :name %>
-          <%= courses_form.text_field :name%>
-          Delete? <%= courses_form.check_box :_destroy %>
-        </li>
+          <ul>
+            <% student.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
+
+      <%= form.label :First_name %>
+      <%= form.text_field :firstname, class: 'form-control' %>
+
+      <%= form.label :Last_name %>
+      <%= form.text_field :lastname, class: 'form-control' %>
+
+      <%= form.label :email %>
+      <%= form.email_field :email, class: 'form-control' %>
+
+      <%= form.label :password %>
+      <%= form.password_field :password, class: 'form-control' %>
+
+      <%= form.label :password_confirmation, "Confirmation" %>
+      <%= form.password_field :password_confirmation, class: 'form-control' %>
+      <br>
+      <%= form.submit "Create Student Account", class: "btn btn-primary" %>
+
+
+    Courses:
+    <ul>
+      <div class="field">
+        <%= form.fields_for :courses do |courses_form|%>
+          <li>
+            <%= courses_form.label :name %>
+            <%= courses_form.text_field :name%>
+            Delete? <%= courses_form.check_box :_destroy %>
+          </li>
+        <% end %>
+      </div>
+    </ul>
+
+    Add a course:
+    <div>
+      <%= form.label :PIN %>
+      <%= form.text_field :PIN%>
     </div>
-  </ul>
 
-  Add a course:
-  <div>
-    <%= form.label :PIN %>
-    <%= form.text_field :PIN%>
+    <div class="actions">
+      <%= form.submit %>
+    </div>
+    <% end %>
   </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>
