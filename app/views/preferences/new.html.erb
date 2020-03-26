@@ -2,26 +2,23 @@
 <h1>Choose Your Preference</h1>
 <p> CURRENT COURSE: <%= @course.name %> </p>
 <p> Course Projects: 
+
 <% @projects.each do |project| %>
     <%= project.project_name %>
 <% end %> </p>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
-    <%= form_for(@preference) do |f| %>
-      
-      <%= f.label :first_choice %>
-      <%= f.text_field :first, class: 'form-control' %>
-
-      <%= f.label :second_choice %>
-      <%= f.text_field :second, class: 'form-control' %>
-
-      <%= f.label :third_choice %>
-      <%= f.text_field :third, class: 'form-control' %>
-
-      <%= f.submit "Submit my preference", class: "btn btn-primary" %>
+    <%= simple_form_for @preference do |f| %>
+        <%= f.input :first, label: 'First choice'%>
+        <%= f.input :second, label: 'First choice'%>
+        <%= f.input :third, label: 'First choice'%>
+        <%= f.input :codingProficiency, label: 'Coding profiency', as: :range, input_html: { step: 10 }%>
+        <%= f.input :dreampartner, label:'Partner you want to work with'%>
+        <%= f.button :submit, class: "btn-primary" %>
+        <%= f.button :button, "Cancel", type: "reset", class: "btn-primary" %>
     <% end %>
   </div>
 </div>
 
-<%= render 'form', preference: @preference %>
+
 </div>

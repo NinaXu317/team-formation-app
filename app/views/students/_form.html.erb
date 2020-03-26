@@ -29,30 +29,6 @@
       <%= form.password_field :password_confirmation, class: 'form-control' %>
       <br>
       <%= form.submit "Create Student Account", class: "btn btn-primary" %>
-
-
-    Courses:
-    <ul>
-      <div class="field">
-        <%= form.fields_for :courses do |courses_form|%>
-          <li>
-            <%= courses_form.label :name %>
-            <%= courses_form.text_field :name%>
-            Delete? <%= courses_form.check_box :_destroy %>
-          </li>
-        <% end %>
-      </div>
-    </ul>
-
-    Add a course:
-    <div>
-      <%= form.label :PIN %>
-      <%= form.text_field :PIN%>
-    </div>
-
-    <div class="actions">
-      <%= form.submit %>
-    </div>
-    <% end %>
+    <%end%>
   </div>
 </div>

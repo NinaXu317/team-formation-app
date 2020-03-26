@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_25_210223) do
+ActiveRecord::Schema.define(version: 2020_03_26_152747) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,7 @@ ActiveRecord::Schema.define(version: 2020_03_25_210223) do
     t.string "second"
     t.string "third"
     t.integer "codingProficiency"
+    t.string "dreampartner"
     t.index ["student_id"], name: "index_preferences_on_student_id"
   end
 
