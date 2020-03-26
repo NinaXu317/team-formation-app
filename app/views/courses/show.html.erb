@@ -23,7 +23,7 @@
   <ul> <%= group.project_name%>: <%=showGroups(@groups)[group.project_name]%></ul>
 <% end %>
 
-<% if current_user_type == "professor"%>
+<% if current_user_type == "professor" && @professor_id == current_user.id%>
   <% create_groups_path = @course.id.to_s+ "/create_groups" %>
   <%= link_to 'Create Groups', create_groups_path%>
   <br> <br>
