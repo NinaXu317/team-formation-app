@@ -12,8 +12,7 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :course_id %>
-    <%= form.number_field :course_id %>
+    <%= form.hidden_field :course_id, :value => params[:course].to_i %>
   </div>
 
   <div class="field">

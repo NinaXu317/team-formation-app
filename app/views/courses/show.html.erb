@@ -23,11 +23,13 @@
   <ul> <%= group.project_name%>: <%=showGroups(@groups)[group.project_name]%></ul>
 <% end %>
 
-<% create_groups_path = @course.id.to_s+ "/create_groups" %>
-<%= link_to 'Create Groups', create_groups_path%>
-<br> <br>
+<% if current_user_type == "professor"%>
+  <% create_groups_path = @course.id.to_s+ "/create_groups" %>
+  <%= link_to 'Create Groups', create_groups_path%>
+  <br> <br>
+<%end%>
 
-<%= link_to 'Propose project', new_group_path%>
+<%= link_to 'Propose project', new_group_path(course: @course)%>
 <br>
 <% if current_user_type == "student"%>
   <%= link_to 'Create preference', new_preference_path(course: @course)%>
