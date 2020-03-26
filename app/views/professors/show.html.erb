@@ -22,7 +22,7 @@
   <%end%>
 </p>
 
-<a href="/courses/new"> <button>add new course</button> </a>
+<%= link_to 'Add new course', new_course_path, class: 'btn btn-primary btn-lg'%>
 <br> <br>
 
 <%= link_to 'Edit', edit_professor_path(@professor) %> |

@@ -19,7 +19,10 @@ module SessionsHelper
     def current_user_type
         session[:type]
     end
-  
+
+    def profile_url
+      "/" + current_user_type + "s/" + session[:user_id].to_s
+    end
     
     def current_student
       @current_user ||= Student.find_by(id: session[:user_id])
@@ -31,7 +34,7 @@ module SessionsHelper
   
     # Returns true if the user is logged in, false otherwise.
     def logged_in?
-      !current_user.nil?
+      !session[:user_id].nil?
     end
   
     # Logs out the current user.

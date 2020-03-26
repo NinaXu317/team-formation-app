@@ -19,20 +19,29 @@ class CoursesController < ApplicationController
     else
       @teams = params[:teams]
     end
+
+    @professor = @course.professor
+    if !@professor.nil?
+      @professor_id = @professor.id
+    else
+      @professor_id = nil
+    end
+
     @groups = @course.groups
   end
 
   #GET /courses/1/create_groups
   def create_groups
     @course = Course.find(params[:id])
+    if @course.students.size > 0 && @course.groups.size > 0
+      group_service = GroupCreationService.new
+      students, projects = group_service.getStudentsAndProjects(@course)
 
-    group_service = GroupCreationService.new
-    students, projects = group_service.getStudentsAndProjects(@course)
+      matching_object = SimpleMatching.new
+      matching_object.initAndMatch(students, projects)
 
-    matching_object = SimpleMatching.new
-    matching_object.initAndMatch(students, projects)
-
-    group_service.assignGroups(matching_object.matched_groups)
+      group_service.assignGroups(matching_object.matched_groups)
+    end
     redirect_to :controller => 'courses', :action => 'show', :id => params[:id]
   end
 

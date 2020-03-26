@@ -22,8 +22,7 @@
   </div>
 
   <div class="field">
-    <%= form.label :professor_id %>
-    <%= form.number_field :professor_id %>
+    <%= form.hidden_field :professor_id, :value => current_user.id%>
   </div>
 
   <div class="actions">
