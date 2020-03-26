@@ -5,18 +5,17 @@
   <br><br>
   <div class="row">
     <div class="col-md-6 col-md-offset-3">
-      <%= form_for(login_path, :method => "post") do |f| %>
+        <%= form_with(url: login_path, method: "post") do %>
 
-        <%= f.label :email %>
-        <%= f.email_field :email, class: 'form-control' %>
+          <%= label_tag(:email) %>
+          <%= email_field_tag(:email, "", class: 'form-control') %>
 
-        <%= f.label :password %>
-        <%= f.password_field :password, class: 'form-control' %>
-        <%= hidden_field(:type, :field, :value => @type)%>
-        <br>
-        <%= f.submit "Log in", class: "btn btn-primary" %>
-      <% end %>
-
+          <%= label_tag(:password) %>
+          <%= password_field_tag(:password, "", class: 'form-control') %>
+          <%= hidden_field(:type, :field, :value => @type)%>
+          <br>
+          <%= submit_tag("Log in", class: "btn btn-primary" )%>
+        <% end %>
       <p>New user? <%= link_to "Sign up now!", root_path %></p>
     </div>
   </div>
