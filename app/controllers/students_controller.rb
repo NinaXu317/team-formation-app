@@ -32,9 +32,10 @@ class StudentsController < ApplicationController
 
   #POST /students/1/search_course
   def search_course
-    puts params.inspect
     course = Course.where(pin: params[:pin]).take
-    @taking = Taking.create(student_id: params[:id], course_id: course.id, group_id: 1)
+    if Taking.where(student_id: params[:id], course_id: course.id).size == 0
+      @taking = Taking.create(student_id: params[:id], course_id: course.id)
+    end
     redirect_to :controller => 'students', :action => 'show', :id => params[:id]
   end
 
@@ -45,6 +46,7 @@ class StudentsController < ApplicationController
 
     respond_to do |format|
       if @student.save
+        log_in(@student, "student")
         format.html { redirect_to @student, notice: 'Student was successfully created.' }
         format.json { render :show, status: :created, location: @student }
       else

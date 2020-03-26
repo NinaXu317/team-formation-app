@@ -29,6 +29,7 @@ class ProfessorsController < ApplicationController
 
     respond_to do |format|
       if @professor.save
+        log_in(@professor, "professor")
         format.html { redirect_to @professor, notice: 'Professor was successfully created.' }
         format.json { render :show, status: :created, location: @professor }
       else

@@ -16,11 +16,15 @@
         <nav>
           <ul class="nav navbar-nav navbar-right">
             <li><%= link_to "Home",   root_path %></li>
-            <li><%= link_to "Student Login", '/student_login' %></li>
-            <li><%= link_to "Professor Login", '/professor_login' %></li>
-            <li><%= link_to "Student Sign Up", new_student_path %></li>
-            <li><%= link_to "Professor Sign Up", new_professor_path %></li>
-            <li><%= link_to "Logout", logout_path %></li>
+            <% if !logged_in? %>
+              <li><%= link_to "Student Login", '/student_login' %></li>
+              <li><%= link_to "Professor Login", '/professor_login' %></li>
+              <li><%= link_to "Student Sign Up", new_student_path %></li>
+              <li><%= link_to "Professor Sign Up", new_professor_path %></li>
+            <% else %>
+              <li><%= link_to "Profile", profile_url %></li>
+              <li><%= link_to "Logout", logout_path %></li>
+            <% end %>
           </ul>
         </nav>
       </div>
