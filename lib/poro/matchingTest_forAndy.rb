@@ -1,54 +1,19 @@
-class SimpleMatching
-
-    def matched_groups
-        @matched_groups
-    end
-
-    def add_students(students)
-        @students = students
-    end
-
-    def add_projects(projects)
-        @projects = projects
-    end
-
-    def init(students, projects)
-        add_students(students)
-        add_projects(projects)
-    end
-
-    def initAndMatch(students, projects)
-        init(students,projects)
-        randomMatching()
-    end
-
-    def randomMatching()
-        result = {}
-        @projects.each do |x|
-            result[x]=[]
-        end
-        group_size = (@students.size/ @projects.size)
-        temp_project_index = 0
+class MatchingTest_forAndy
+    #list of the project ids
+@projects = [1,2,3]
     
-        @students.each do |x|
-    
-            while(result[@projects[temp_project_index]].size>group_size)
-                temp_project_index = (temp_project_index+1) % @projects.size
-            end
-            result[@projects[temp_project_index]].append(x)
-            temp_project_index = (temp_project_index+1) % @projects.size
-            
-        end
-    
-        @matched_groups = result
-    end
+@preferences = [{"student_id"=>1,"first"=>'1',"second"=>'2',"third"=>'3'},{"student_id"=>2,"first"=>'2',"second"=>'1',"third"=>'3'},
+{"student_id"=>3,"first"=>'1',"second"=>'2',"third"=>'3'},{"student_id"=>4,"first"=>'1',"second"=>'2',"third"=>'3'},
+{"student_id"=>5,"first"=>'2',"second"=>'3',"third"=>'1'},{"student_id"=>6,"first"=>'1',"second"=>'2',"third"=>'3'},
+{"student_id"=>7,"first"=>'1',"second"=>'2',"third"=>'3'},{"student_id"=>8,"first"=>'1',"second"=>'2',"third"=>'3'}]
 
 
     # input @projects as an array of Projects IDs 
     # input @Preferences as an array of Hashes. Each hash is of the form {student_id,first,second,third,codingProficiency},
+    # Note: first,second,third are STRINGS, not int
     # For this algorithm, we are only considering the parameters of the first,second, and third options
     # Output: Hash of arrays, with {project_id: [student1,student2,student3]}
-    def matching_with_projects()
+    def self.matching_with_projects()
         grousizemin=0
         groupsizemax=0
         groupsizefloat= @preferences.length.to_f/@projects.length
@@ -149,5 +114,6 @@ class SimpleMatching
 
         return most_popular_project
     end
+    puts matching_with_projects().inspect
 
 end
