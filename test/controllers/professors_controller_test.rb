@@ -15,13 +15,13 @@ class ProfessorsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should create professor" do
-    assert_difference('Professor.count') do
-      post professors_url, params: { professor: { email: @professor.email, firstname: @professor.firstname, lastname: @professor.lastname } }
-    end
+  # test "should create professor" do
+  #   assert_difference('Professor.count') do
+  #     post professors_url, params: { professor: { email: @professor.email, firstname: @professor.firstname, lastname: @professor.lastname } }
+  #   end
 
-    assert_redirected_to professor_url(Professor.last)
-  end
+  #   assert_redirected_to professor_url(Professor.last)
+  # end
 
   test "should show professor" do
     get professor_url(@professor)
@@ -33,10 +33,10 @@ class ProfessorsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should update professor" do
-    patch professor_url(@professor), params: { professor: { email: @professor.email, firstname: @professor.firstname, lastname: @professor.lastname } }
-    assert_redirected_to professor_url(@professor)
-  end
+  # test "should update professor" do
+  #   patch professor_url(@professor), params: { professor: { email: @professor.email, firstname: @professor.firstname, lastname: @professor.lastname } }
+  #   assert_redirected_to professor_url(@professor)
+  # end
 
   test "should destroy professor" do
     assert_difference('Professor.count', -1) do
