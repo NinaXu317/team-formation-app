@@ -1,6 +1,7 @@
 require 'test_helper'
 
 class GroupsControllerTest < ActionDispatch::IntegrationTest
+  
   setup do
     @group = groups(:one)
   end
@@ -15,13 +16,13 @@ class GroupsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should create group" do
-    assert_difference('Group.count') do
-      post groups_url, params: { group: { course_id: @group.course_id, project_name: @group.project_name } }
-    end
+  # test "should create group" do
+  #   assert_difference('Group.count') do
+  #     post groups_url, params: { group: { course_id: @group.course_id, project_name: @group.project_name } }
+  #   end
 
-    assert_redirected_to group_url(Group.last)
-  end
+  #   assert_redirected_to group_url(Group.last)
+  # end
 
   test "should show group" do
     get group_url(@group)
@@ -33,10 +34,10 @@ class GroupsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "should update group" do
-    patch group_url(@group), params: { group: { course_id: @group.course_id, project_name: @group.project_name } }
-    assert_redirected_to group_url(@group)
-  end
+  # test "should update group" do
+  #   patch group_url(@group), params: { group: { course_id: @group.course_id, project_name: @group.project_name } }
+  #   assert_redirected_to group_url(@group)
+  # end
 
   test "should destroy group" do
     assert_difference('Group.count', -1) do

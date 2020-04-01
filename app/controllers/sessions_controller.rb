@@ -21,10 +21,13 @@ class SessionsController < ApplicationController
     elsif type == "professor"
       user = Professor.find_by_email(params[:email])
     end
+    puts "user login params: " + user.inspect
     if user && user.authenticate(params[:password])
+      puts "logging in"
       log_in(user, type)
       redirect_to root_url, notice: "Logged in!"
     else
+      puts "invalid password"
       flash.now[:alert] = "Email or password is invalid"
       render "new"
     end

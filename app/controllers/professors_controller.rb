@@ -26,13 +26,15 @@ class ProfessorsController < ApplicationController
   # POST /professors.json
   def create
     @professor = Professor.new(professor_params)
-
+    puts "Professor create params: " + params[:professor].inspect
     respond_to do |format|
       if @professor.save
+        puts "password_d: " + @professor.password_digest
         log_in(@professor, "professor")
         format.html { redirect_to @professor, notice: 'Professor was successfully created.' }
         format.json { render :show, status: :created, location: @professor }
       else
+        puts "Professor not saved to db"
         format.html { render :new }
         format.json { render json: @professor.errors, status: :unprocessable_entity }
       end
@@ -71,6 +73,6 @@ class ProfessorsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def professor_params
-      params.require(:professor).permit(:firstname, :lastname, :email, :password)
+      params.require(:professor).permit(:firstname, :lastname, :email, :password, :password_confirmation)
     end
 end
