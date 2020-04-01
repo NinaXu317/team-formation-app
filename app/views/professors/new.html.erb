@@ -1,6 +1,8 @@
-<div style='margin-top: 60px' class='container' >
-    <h1>New Professor</h1>
-    <%= render 'form', professor: @professor %>
-
-    <%= link_to 'Back', professors_path %>
+<div class='view3'>
+    <div class='container' style="padding-top: 100px; align-items: center" >
+        <div class= 'form-wrap'>
+            <%= render 'form', professor: @professor %>
+            <%= link_to 'Back', professors_path %>
+        </div>
+    </div> 
 </div>

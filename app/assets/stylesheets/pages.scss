@@ -2,62 +2,8 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
 
+ 
 
-/*header*/ 
-#logo {
-    float: left;
-    margin-top: 5px;
-    font-size: 1.7em;
-    color: #fff;
-    text-transform: uppercase;
-    letter-spacing: -1px;
-    padding-top: 10px;
-    font-weight: bold;
-}
-  
-#logo:hover {
-    color: #fff;
-    text-decoration: none;
-  }
-
-/* body */
-
-#home-container{
-    width: 100%;
-    height: 500px;
-    background-image: linear-gradient(to left, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)),image-url('faculty-students-2.jpg') ;
-    background-color: rgba(255, 255, 255, 0.5);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-    margin-top: 60px;
-    
-
-    .main_text{
-        h1{
-            color: black;
-            font-family: Arial, Helvetica, sans-serif;
-            font-size: 60px;
-            font-weight: bold;
-            line-height: 2;
-            text-align: center;
-            position: relative;
-            margin: 40px;
-            padding-top: 140px;
-        }
-        .row{
-            text-align: center;
-            .custom1{
-                width: 250px !important;
-                margin-right: 50px;
-            }
-            .custom2{
-                width: 250px !important;
-            }
-            
-        }
-    }
-}
 
 
 
