@@ -1,10 +1,15 @@
-
-<div class='container' id='home-container'>
-    <div class='main_text'>
-        <h1>Welcome to Team-Formation</h1>
-        <div class='row'>
-            <%= link_to "Student Sign In", "/student_login", class: 'btn btn-primary btn-lg custom1'%>
-            <%= link_to "Professor Sign In", "/professor_login", class:'btn btn-primary btn-lg custom2'%>
-        </div>
-    </div>   
+<div class='view1'>
+    <div class="mask rgba-black-light align-items-center">
+    <div class='container'>
+        <div class='main_text'>
+            <h1 class='main-title'>Welcome to Team-Formation</h1>
+            <br>
+            <div class='sign-row' style='text-align: center'>
+                <%= link_to "Student Sign In", "/student_login", class: 'btn btn-outline-primary', id:"signin-button" ,style:'margin-right: 150px'%>
+                <%= link_to "Professor Sign In", "/professor_login", class:'btn btn-outline-primary', id:"signin-button"%>
+            </div>
+        </div>   
+    </div>
+    </div>
 </div>
+

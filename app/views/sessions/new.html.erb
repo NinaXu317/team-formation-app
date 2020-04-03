@@ -1,24 +1,29 @@
-
-<div class='container' style="margin-top: 60px">
-  <% provide(:title, "Log in") %>
-  <h1 style='text-align: center'>Log in</h1>
-  <br><br>
-  <div class="row">
-    <div class="col-md-6 col-md-offset-3">
-        <%= form_with(url: login_path, method: "post") do %>
-
-
-          <%= label_tag(:email) %>
-          <%= email_field_tag(:email, "", class: 'form-control') %>
-
-          <%= label_tag(:password) %>
-          <%= password_field_tag(:password, "", class: 'form-control') %>
-          <%= hidden_field(:type, :field, :value => @type)%>
-          <br>
-          <%= submit_tag("Log in", class: "btn btn-primary" )%>
-        <% end %>
-
-      <p>New user? <%= link_to "Sign up now!", root_path %></p>
+<div class='view2'>
+  <div class='container' style="padding-top: 100px">
+    <div class='form-wrap' style="margin-left:20px">
+      <% provide(:title, "Log in") %>
+        <h1 style="margin-top: 30px; margin-left:80px; color: rgb(0,52,120)">Log in</h1>
+        <div class="row" style="margin-left: 50px; margin-right: 50px">
+          <div class="col-md-6 col-md-offset-3">
+            <%= form_with(url: login_path, method: "post") do %>
+              <%= label_tag(:email,"") %>
+              <div class="col-md-6">
+                <i class="fas fa-envelope fa-lg form-icon" ></i>
+                <%= email_field_tag(:email, "", class: 'form-control', style:'width: 350px; padding-left: 40px', placeholder: "Type your email") %>
+              </div>
+              <%= label_tag(:password,"") %>
+              <div class="col-md-6">
+                <i class="fas fa-key fa-lg form-icon" ></i>
+                <%= password_field_tag(:password, "", class: 'form-control', style: 'width: 350px; padding-left: 40px', placeholder: "Type your password") %>
+              </div>
+              <%= hidden_field(:type, :field, :value => @type)%>
+              <br>
+              <%= submit_tag("Log in", class: "btn btn-outline-primary btn-custom", style: 'margin-left:295px' )%>
+              <br><br>
+            <% end %>
+            <p style="padding-left: 200px; width:500px">New user? <%= link_to "Sign up now!", root_path, class:"signup-link" %></p>
+          </div>
+        </div>
     </div>
-  </div>
   <div>
+</div>
