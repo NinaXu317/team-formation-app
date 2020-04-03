@@ -11,18 +11,18 @@ class CoursesControllerTest < ActionDispatch::IntegrationTest
 
   # test "should get new" do
     
-  #   professor_http_code = post professors_path, params:  {professor: {firstname:@user.firstname,
-  #                                 lastname: @user.lastname,
-  #                                 email: @user.email,
-  #                                 password: "123456",
-  #                                 password_confirmation: "123456"}}
-  #   puts "Professor post http code: " + professor_http_code.to_s
-  #   login_http_code = post login_path, params: {email: @user.email,
-  #       password: "123456",
-  #       type: {field: "professor"}}
-  #   puts "Login post http code: " + login_http_code.to_s
-  #   get new_course_url
-  #   assert_response :success
+    # professor_http_code = post professors_path, params:  {professor: {firstname:@user.firstname,
+    #                               lastname: @user.lastname,
+    #                               email: @user.email,
+    #                               password: "123456",
+    #                               password_confirmation: "123456"}}
+    # puts "Professor post http code: " + professor_http_code.to_s
+    # login_http_code = post login_path, params: {email: @user.email,
+    #     password: "123456",
+    #     type: {field: "professor"}}
+    # puts "Login post http code: " + login_http_code.to_s
+    # get new_course_url
+    # assert_response :success
   # end
 
   # test "should get index" do
