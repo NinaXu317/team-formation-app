@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   resources :groups
   resources :courses do 
     member do
-      get 'create_groups'
+      post 'create_groups'
     end
   end
   resources :professors

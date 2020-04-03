@@ -10,6 +10,10 @@ class PreferencesController < ApplicationController
     end
 
     def create
+        course = Course.find(params[:preference][:course_id])
+        params[:preference][:first] = course.groups.find_by_project_name(params[:preference][:first]).id
+        params[:preference][:second] = course.groups.find_by_project_name(params[:preference][:second]).id
+        params[:preference][:third] = course.groups.find_by_project_name(params[:preference][:third]).id
         @preference = Preference.new(preference_params)   
         if @preference.save
           flash[:success] = "Thanks for submitting your preference!"
@@ -22,7 +26,7 @@ class PreferencesController < ApplicationController
     private
     
     def preference_params
-          params.require(:preference).permit(:first, :second, :third)
+          params.require(:preference).permit(:first, :second, :third, :student_id, :course_id)
     end
 end
     

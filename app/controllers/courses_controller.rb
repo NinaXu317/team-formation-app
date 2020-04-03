@@ -26,19 +26,25 @@ class CoursesController < ApplicationController
     else
       @professor_id = nil
     end
-
+    @preferences = @course.preferences
     @groups = @course.groups
   end
 
-  #GET /courses/1/create_groups
+  #POST /courses/1/create_groups
   def create_groups
     @course = Course.find(params[:id])
+    algorithm = params[:algo]
     if @course.students.size > 0 && @course.groups.size > 0
       group_service = GroupCreationService.new
       students, projects = group_service.getStudentsAndProjects(@course)
-
+      preferences = group_service.getPreferences(@course)
+      
       matching_object = SimpleMatching.new
-      matching_object.initAndMatch(students, projects)
+      if algorithm == "random"
+        matching_object.initAndRandomMatch(students, projects)
+      elsif algorithm == "project_only"
+        matching_object.initAndProjectMatch(projects, preferences)
+      end
 
       group_service.assignGroups(matching_object.matched_groups)
     end

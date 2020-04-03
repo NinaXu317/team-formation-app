@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_26_152747) do
+ActiveRecord::Schema.define(version: 2020_04_03_195435) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,11 +34,12 @@ ActiveRecord::Schema.define(version: 2020_03_26_152747) do
     t.bigint "student_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "first"
-    t.string "second"
-    t.string "third"
+    t.integer "first"
+    t.integer "second"
+    t.integer "third"
     t.integer "codingProficiency"
     t.string "dreampartner"
+    t.integer "course_id"
     t.index ["student_id"], name: "index_preferences_on_student_id"
   end
 

@@ -12,13 +12,17 @@ class SimpleMatching
         @projects = projects
     end
 
-    def init(students, projects)
+    def add_preferences(preferences)
+        @preferences = preferences
+    end
+
+    def initRandom(students, projects)
         add_students(students)
         add_projects(projects)
     end
 
-    def initAndMatch(students, projects)
-        init(students,projects)
+    def initAndRandomMatch(students, projects)
+        initRandom(students,projects)
         randomMatching()
     end
 
@@ -43,6 +47,15 @@ class SimpleMatching
         @matched_groups = result
     end
 
+    def initProjects(projects, preferences)
+        add_projects(projects)
+        add_preferences(preferences)
+    end
+
+    def initAndProjectMatch(projects, preferences)
+        initProjects(projects, preferences)
+        matching_with_projects()
+    end
 
     # input @projects as an array of Projects IDs 
     # input @Preferences as an array of Hashes. Each hash is of the form {student_id,first,second,third,codingProficiency},
@@ -70,8 +83,8 @@ class SimpleMatching
        
         #(1)populate the result hash by assigning students's first choice
         @preferences.each do |x|
-            temp_project_choice = x['first'].to_i
-            result[temp_project_choice].append(x['student_id'])
+            temp_project_choice = x[:first]
+            result[temp_project_choice].append(x[:student_id])
         end
 
         j=0
@@ -87,7 +100,7 @@ class SimpleMatching
                 #     if    
                 # end
                 unlucky_student= result[mostpopular_project][i]
-                second_choice= @preferences.find {|project| project['student_id']= unlucky_student} ['second'].to_i
+                second_choice= @preferences.find {|project| project['student_id']= unlucky_student} [:second]
                 if(result[second_choice].length < groupsizemax) then
                     result[mostpopular_project].delete(unlucky_student)
                     result[second_choice] << unlucky_student
@@ -111,7 +124,7 @@ class SimpleMatching
                 #     if    
                 # end
                 unlucky_student= result[mostpopular_project][i]
-                second_choice= @preferences.find {|project| project['student_id']= unlucky_student} ['third'].to_i
+                second_choice= @preferences.find {|project| project['student_id']= unlucky_student} [:third]
                 if(result[second_choice].length < groupsizemax) then
                     result[mostpopular_project].delete(unlucky_student)
                     result[second_choice] << unlucky_student
@@ -135,11 +148,11 @@ class SimpleMatching
         
         j=j+1
         end
-    return result
+    @matched_groups = result
     end
 
 
-    def self.find_mostpopular_project(result)
+    def find_mostpopular_project(result)
         most_popular_project= result.keys.sample
         result.each do |key,value|
             if value.length> result[most_popular_project].length then

@@ -17,14 +17,35 @@ Taking.delete_all
 Taking.reset_pk_sequence
 
 (1..100).each do
-    s = Student.create(firstname: Faker::Name.first_name,
-    lastname: Faker::Name.last_name,
-    email: Faker::Internet.email)
+    first = Faker::Name.first_name
+    last = Faker::Name.last_name
+    s = Student.create(firstname: first,
+                        lastname: last,
+                        email: last + "@brandeis.edu",
+                        password: "admin1")
 end
+
+admin_student = Student.create(firstname: "admin",
+    lastname: "admin",
+    email: "admin@admin.com",
+    password: "admin1")
+
 (1..50).each do
     p = Professor.create(firstname: Faker::Name.first_name,
     lastname: Faker::Name.last_name,
-    email: Faker::Internet.email)
+    email: Faker::Internet.email,
+    password: "admin1")
+end
+
+admin_professor = Professor.create(firstname: "admin",
+    lastname: "admin",
+    email: "admin@admin.com",
+    password: "admin1")
+
+10.times do
+    c = Course.create(name: Faker::Educator.course_name,
+    pin: Faker::Number.number(digits: 4),
+    professor_id: admin_professor.id)
 end
 
 30.times do
@@ -33,9 +54,35 @@ end
     professor_id: Professor.all.sample.id)
 end
 
+5.times do
+    g = Group.create(course_id: admin_professor.courses.all.sample.id,
+    project_name: Faker::Team.name)
+end
+
 60.times do
     g = Group.create(course_id: Course.all.sample.id,
     project_name: Faker::Team.name)
+end
+
+
+30.times do
+    n = admin_professor.courses.all.sample.id
+    s = Student.all.sample.id
+    #t = Taking.create(student_id: s, course_id: n, group_id: Group.where(course_id: n).sample.id)
+    t = Taking.create(student_id: s, course_id: n)
+end
+
+admin_professor.courses.each do |course|
+    groups = course.groups
+    if groups.size > 0
+        course.students.each do |student|
+            p = Preference.create(course_id: course.id, 
+                                    student_id: student.id, 
+                                    first: groups.sample.id, 
+                                    second: groups.sample.id,
+                                    third: groups.sample.id)
+        end
+    end
 end
 
 200.times do

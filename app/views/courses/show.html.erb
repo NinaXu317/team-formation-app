@@ -23,9 +23,15 @@
   <ul> <%= group.project_name%>: <%=showGroups(@groups)[group.project_name]%></ul>
 <% end %>
 
+<p>
+  <strong>Preferences_count:</strong>
+  <%= @preferences.size %>
+</p>
+
 <% if current_user_type == "professor" && @professor_id == current_user.id%>
   <% create_groups_path = @course.id.to_s+ "/create_groups" %>
-  <%= link_to 'Create Groups', create_groups_path%>
+  <%= button_to 'Create Random Groups', {:controller => "courses", :action => "create_groups", :algo => "random"}, :class => "btn_primary", :method=>:post%>
+  <%= button_to 'Create Groups Based on Project Preference', {:controller => "courses", :action => "create_groups", :algo => "project_only"}, :class => "btn_primary", :method=>:post%>
   <br> <br>
 <%end%>
 
