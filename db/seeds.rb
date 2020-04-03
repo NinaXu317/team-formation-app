@@ -25,6 +25,7 @@ Taking.reset_pk_sequence
                         password: "admin1")
 end
 
+
 admin_student = Student.create(firstname: "admin",
     lastname: "admin",
     email: "admin@admin.com",
