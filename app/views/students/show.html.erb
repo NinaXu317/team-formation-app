@@ -1,16 +1,31 @@
-<p id="notice"><%= notice %></p>
-
-<body>
-  <div class='container' id='student_info_container'>
-      <div class='info_container'>
-        <p><strong>Name: </strong><%= @student.firstname%> <%=@student.lastname %></p>
-        <p><strong>Email: </strong><%= @student.email %></p>
+<div class='view4'>
+  <div class='container' style="padding-top: 50px">
+    <div class='page-wrap'>
+      <div class='row profile-row'>
+        <div class='col' style='padding: 40px'>
+          <div class='row'>
+            <div class='column'>
+              <span class="fa-stack fa-2x">
+                <i class="fas fa-circle fa-stack-2x" style="color: #6D7FF7"></i>
+                <i class="fas fa-user-graduate fa-stack-1x fa-inverse"></i>
+              </span>
+            </div>
+            <div class='column'>
+              <p style='text-transform: uppercase; font-size: x-large;font-weight: bold; padding-top:5px'><%= @student.firstname%> <%=@student.lastname %></p>
+              <p style='margin-top: -15px'><%= @student.email %></p>
+            </div>
+          </div>
+        </div>
+        <div class='col' style='padding: 60px'>
+          <% add_course_path = @student.id.to_s+ "/add_course" %>
+          <%= link_to add_course_path do %>
+            <button class="btn btn-outline-primary"><i class="fas fa-plus"></i> Add new course</button>
+          <% end %>
+         
+        </div>
       </div>
-      <% add_course_path = @student.id.to_s+ "/add_course" %>
-      <%= link_to 'Add new course', add_course_path, class: 'btn custom_add_course_button'%>
-  </div>
-  <br><br>
-  <hr/>
+
+    <hr/>
   <div class = "container" id="student-course-info-row">
     <div class="courses-info-row">
       <% @courses.each do |course|%>
@@ -25,7 +40,7 @@
                   <a href="#" class="info-link">Show members</a>
               </div>
               <div class="members-info">
-                  <p></p>
+                  
               </div>
           <% end %>
         </div>
@@ -34,9 +49,13 @@
   </div>
 
 
-</body>
+
 
 <div class='container'>
 <%= link_to 'Edit', edit_student_path(@student) %> |
 <%= link_to 'Back', students_path %>
 </div>
+
+    </div>
+  </div>
+</body>

@@ -1,14 +1,19 @@
+@import '@fullcalendar/core/main.css';
+@import '@fullcalendar/daygrid/main.css';
+@import '@fullcalendar/timegrid/main.css';
 @import './bootstrap_custom.scss';
+@import '@fullcalendar/bootstrap/main.css';
+
 html,
 body,
-.view1, .view2, .view3 {
+.view1, .view2, .view3, .view4 {
   height: 100%;
 }
 
 @media (max-width: 740px) {
   html,
   body,
-  .view1, .view2, .view3 {
+  .view1, .view2, .view3, .view4 {
     height: 100vh;
   }
 }
@@ -122,4 +127,27 @@ body,
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
+}
+
+/* calendar */
+.fc-today{
+  background-color: inherit;
+}
+
+/* Student profile page */
+.view4{
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)),url("https://images.forwardcdn.com/image/center/images/cropped/brandeis-university-admissions-night-1501010031.jpg") ;
+  background-color: rgba(255, 255, 255, 0.5);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.profile-row{
+  background-color: white;
+  height: 100%;
+  min-height: 150px;
+  border-radius: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
 }

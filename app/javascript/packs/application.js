@@ -7,6 +7,8 @@ require("@rails/ujs").start()
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
+require("jquery")
+require("moment")
 
 
 // Uncomment to copy all static images under ../images to the output folder and reference
@@ -17,3 +19,10 @@ require("channels")
 // const imagePath = (name) => images(name, true)
 import '../stylesheets/application'
 import './bootstrap_custom.js'
+
+window.Calendar = require("@fullcalendar/core").Calendar;
+window.dayGridPlugin = require("@fullcalendar/daygrid").default;
+window.timeGridPlugin = require("@fullcalendar/timegrid").default;
+window.momentPlugin = require("@fullcalendar/moment").default;
+window.interactionPlugin = require("@fullcalendar/interaction").default;
+window.bootstrapPlugin = require("@fullcalendar/bootstrap").default;
