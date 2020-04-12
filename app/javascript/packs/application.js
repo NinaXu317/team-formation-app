@@ -26,3 +26,4 @@ window.timeGridPlugin = require("@fullcalendar/timegrid").default;
 window.momentPlugin = require("@fullcalendar/moment").default;
 window.interactionPlugin = require("@fullcalendar/interaction").default;
 window.bootstrapPlugin = require("@fullcalendar/bootstrap").default;
+

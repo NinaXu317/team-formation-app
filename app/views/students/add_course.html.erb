@@ -1,14 +1,6 @@
 <div class ='container' style="margin-top: 120px">
  <h2 style="text-align: center">Enter the course's PIN:</h2>
     <% search_course_path = @student.id.to_s+ "/search_course" %>
+    <%= render 'add_form', search_course_student_path: search_course_path%>
     <br><br>
-        <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-            <%= form_tag(:controller => "students", :action => "search_course")  do %>
-                <%= label_tag(:label, "Course Pin") %>
-                <%= text_field_tag(:pin) %>
-                <%= submit_tag("Add") %>
-            <% end %>
-        </div>
-        </div>
 </div>

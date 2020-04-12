@@ -28,6 +28,7 @@ class TakingsController < ApplicationController
 
     respond_to do |format|
       if @taking.save
+        format.js
         format.html { redirect_to @taking, notice: 'Taking was successfully created.' }
         format.json { render :show, status: :created, location: @taking }
       else

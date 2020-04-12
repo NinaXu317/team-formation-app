@@ -1,0 +1,13 @@
+<div class="course-column-box">
+    <div class='row course-name-row' style='margin-left:0px; margin-right: 0px;'>
+        <div id="course-name"><%= link_to course.name, course, class:'btn course-name-button' %></div>
+    </div>
+    <% project_name = projectName(@student, course) %>
+    <% if project_name.nil? %>
+        <p>Not yet assigned by the professor</p>
+    <% else %>
+        <h5 style="text-align:center"><%= project_name %></h5>
+        <a href="#" class="info-link" style="text-align:right">Show members</a>
+        <div class="members-info"></div>
+    <% end %>
+</div>
