@@ -39,6 +39,13 @@ class StudentsController < ApplicationController
     redirect_to :controller => 'students', :action => 'show', :id => params[:id]
   end
 
+  #POST /students/1/drop_course
+
+
+
+
+
+
   # POST /students
   # POST /students.json
   def create

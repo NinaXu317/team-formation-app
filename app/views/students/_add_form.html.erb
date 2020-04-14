@@ -1,9 +1,10 @@
 <div class="row">
     <div class="col-md-6 col-md-offset-3">
-        <%= form_with(url: search_course_student_path, method: "post") do %>
-             <%= label_tag(:label, "Course Pin") %>
-             <%= text_field_tag(:pin) %>
-             <%= submit_tag("Add") %>
+        <%= form_with(url: search_course_student_path, method: "post", class: "form-inline") do |f|%>
+
+            <%= f.text_field :pin, placeholder: "Enter Course Pin"%>
+            <%= submit_tag("Add", class: "add-course-button") %>
+           
         <% end %>
     </div>
 </div>

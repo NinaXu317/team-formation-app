@@ -49,7 +49,10 @@
     <% end %>
     <div class='row course-drop-row' style='margin-left:0px; margin-right: 0px;'>
         <div id="course-drop-button">
+        <% taking = Taking.where(student_id: @student.id, course_id: course.id)[0] %>
+        <%= link_to taking, method: :delete, data: { confirm: 'Are you sure you want to drop this course?' } do %>
         <button class="btn btn-outline-primary dropButton"><i class="fas fa-minus-circle" style='margin-left: 2px'></i> Drop course</button>
+        <% end %>
         </div>
     </div>
 </div>
