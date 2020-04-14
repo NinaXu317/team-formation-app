@@ -4,6 +4,7 @@
 @import './bootstrap_custom.scss';
 @import '@fullcalendar/bootstrap/main.css';
 
+
 html,
 body,
 .view1, .view2, .view3{
@@ -147,8 +148,8 @@ body,
   height: 100%;
   min-height: 150px;
   border-radius: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 60px;
+  margin-right: 60px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -163,17 +164,18 @@ body,
   background: linear-gradient(to left, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9));
   box-sizing: border-box;
   width: 300px;
-  height: 350px;
+  height: 400px;
   margin:20px;
+  margin-top: 0px;
   > h4 {
       font-size:bold;
   }
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-   
+  border-radius: 5px;
 }
 
 .course-column-box:hover{
-  box-shadow: 0 0 5px rgb(0,52,120);
+  box-shadow: 0px 4px 8px 0 rgb(77, 131, 203), 0px 6px 15px 0 rgb(77, 131, 203);
 }
 
 
@@ -181,13 +183,14 @@ body,
   text-align: center;
   font-family: "Poppins", sans-serif;
   font-size: 30px;
-  text-align: center;
   display:flex;
-  border-bottom: 1px solid   rgb(0,52,120);
+  border-bottom: 1.5px solid   rgb(77, 131, 203);
   
 }
 .course-name-row:hover{
-  background-color: rgb(0,52,120);
+  .course-name-button{
+    color: rgb(0,52,120);
+  }
 }
 #course-name{
   left: 0px;
@@ -196,11 +199,50 @@ body,
 }
 
 .course-name-button{
-  color: rgb(0,52,120);
+  color: rgb(77, 131, 203);
   font-weight: bold;
-  font-size: 21px;
+  font-size: 20px;
 }
 
-.course-name-button:hover{
-  color: white;
+.course-drop-row{
+  font-family: "Poppins", sans-serif;
+  font-size: 30px;
+  display:flex;
+  border-top: 1.5px solid   rgb(77, 131, 203);
+}
+.dropButton{
+  color: rgb(77, 131, 203);
+  border: 1.5px solid rgb(77, 131, 203); 
+  border-radius: 100px;
+  margin-right: 0px; 
+  position: relative;
+  left: 133px;
+}
+
+
+.addButton{
+  color: rgb(77, 131, 203);
+  border: 1.5px solid rgb(77, 131, 203);
+  font-weight: bold;
+}
+.group-container{
+  display: none;
+  height: 200px; 
+}
+
+#member-table{
+  max-width: 280px;
+  font-size: 11px;
+  border-collapse: collapse;
+  td{
+    padding-top: 4px;
+    padding-bottom: 4px;
+  }
+}
+#member-table_info{
+  display:none;
+}
+#member-table_paginate{
+  margin-top: 0px;
+  font-size: 10px;
 }

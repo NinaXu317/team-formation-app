@@ -5,8 +5,8 @@
         <div class='col' style='padding: 40px'>
           <div class='row'>
             <div class='column'>
-              <span class="fa-stack fa-2x">
-                <i class="fas fa-circle fa-stack-2x" style="color: #6D7FF7"></i>
+              <span class="fa-stack fa-3x">
+                <i class="fas fa-circle fa-stack-2x" style="color: rgb(77, 131, 203)"></i>
                 <i class="fas fa-user-graduate fa-stack-1x fa-inverse"></i>
               </span>
             </div>
@@ -20,7 +20,7 @@
           <% add_course_path = @student.id.to_s+ "/add_course" %>
           <div id="add-course-button">
             <%= link_to add_course_path, remote: true do %>
-              <button class="btn btn-outline-primary "><i class="fas fa-plus"></i> Add new course</button>
+              <button class="btn btn-outline-primary addButton"><i class="fas fa-plus"></i> Add new course</button>
             <% end %>
           </div>
         </div>
