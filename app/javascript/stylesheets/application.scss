@@ -189,7 +189,7 @@ body,
 }
 .course-name-row:hover{
   .course-name-button{
-    color: rgb(0,52,120);
+    color: #007bff;
   }
 }
 #course-name{
@@ -203,6 +203,7 @@ body,
   font-weight: bold;
   font-size: 20px;
 }
+
 
 .course-drop-row{
   font-family: "Poppins", sans-serif;
@@ -225,6 +226,15 @@ body,
   border: 1.5px solid rgb(77, 131, 203);
   font-weight: bold;
 }
+
+.group-icon:hover{
+  #circle {
+    color:#007bff !important ;
+  }
+}
+
+
+
 .group-container{
   display: none;
   height: 200px; 
@@ -250,5 +260,48 @@ body,
 .add-course-button{
   position: absolute;
   left: 190px;
+}
+
+#course-info-box{
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9));
+  margin-top: 0px;
+  margin-left: 40px;
+  margin-right: 40px;
+  min-height: 500px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 5px;
   
+}
+
+#course-nav{
+  .nav-link{
+    color: rgb(77, 131, 203);
+  }
+  .nav-link:hover{
+    color: white;
+    background-color: #007bff;
+  }
+  .active{
+    color: black;
+  }
+}
+
+.students-container{
+  display:none;
+  margin-top: 10px;
+}
+
+#students-table{
+  font-size: 14px;
+}
+
+.single-project-container{
+  border: 1px solid darkgrey; 
+  margin:5px;
+}
+
+.projects-box{
+  border: 1px solid rgb(77, 131, 203);
+  margin: 20px;
+  min-height: 300px;
 }
