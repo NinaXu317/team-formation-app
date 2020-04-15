@@ -57,8 +57,17 @@ class SimpleMatching
         matching_with_projects()
     end
 
-    # input @projects as an array of Projects IDs 
-    # input @Preferences as an array of Hashes. Each hash is of the form {student_id,first,second,third,codingProficiency},
+
+    def get_preference
+        return @preferences
+    end
+
+    def get_projects
+        return @projects
+    end
+
+    # input @projects as an array of Projects IDs in INT
+    # input @Preferences as an array of Hashes. Each hash is of the form {student_id,first(in STRING),second,third,codingProficiency},
     # For this algorithm, we are only considering the parameters of the first,second, and third options
     # Output: Hash of arrays, with {project_id: [student1,student2,student3]}
     def matching_with_projects()
@@ -84,7 +93,9 @@ class SimpleMatching
         #(1)populate the result hash by assigning students's first choice
         @preferences.each do |x|
             temp_project_choice = x[:first]
-            result[temp_project_choice].append(x[:student_id])
+            # puts result
+            # puts temp_project_choice.class
+            result[temp_project_choice] << x[:student_id]
         end
 
         j=0
