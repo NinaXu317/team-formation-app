@@ -1,47 +1,152 @@
-<p id="notice"><%= notice %></p>
-<div class='container' id='body-container-course-show'>
-<p>
-  <strong>Name:</strong>
-  <%= @course.name %>
-</p>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
 
-<p>
-  <strong>Pin:</strong>
-  <%= @course.pin %>
-</p>
+<div class='view4'>
+  <div class='container' style="padding-top: 30px">
+    <p id="notice"><%= notice %></p>
+    <div class='container' id='body-container-course-show'>
+    <div class='page-wrap'>
+      <div class='row profile-row'>
+        <div class='col' style='padding: 40px; padding-bottom: 20px; padding-top:35px'>
+          <p>
+            <strong>Name:</strong>
+            <%= @course.name %>
+          </p>
 
-<p>
-  <strong>Professor:</strong>
-  <%= @course.professor_id %>
-</p>
+          <p>
+            <strong>Pin:</strong>
+            <%= @course.pin %>
+          </p>
 
-<p> <strong> Students: </strong> </p>
-<ul> <%=showStudents(@course.students)%></ul>
+          <p>
+            <strong>Professor:</strong>
+            <% professor = @course.professor %>
+            <%= professor.firstname + ' '+ professor.lastname  %>
+          </p>
+        </div>
 
-<p> <strong> Groups: </strong> </p>
-<% @groups.each do |group| %>
-  <ul> <%= group.project_name%>: <%=showGroups(@groups)[group.project_name]%></ul>
-<% end %>
+        <% if current_user_type == "professor" && @professor_id == current_user.id%>
+          <% create_groups_path = @course.id.to_s+ "/create_groups" %>
+          <div class='col' style='padding: 60px'>
+            <%= button_to 'Create Random Groups', {:controller => "courses", :action => "create_groups", :algo => "random"}, :class => "btn btn-outline-primary addButton", :method=>:post%>
+          </div>
 
-<p>
-  <strong>Preferences_count:</strong>
-  <%= @preferences.size %>
-</p>
+          <div class='col' style='padding: 60px'>
+            <%= button_to 'Create Groups Based on Project Preference', {:controller => "courses", :action => "create_groups", :algo => "project_only"}, :class => "btn btn-outline-primary addButton", :method=>:post%>
+          </div>
+        <% elsif current_user_type == "student" %>
+          <div class='col' style='padding: 60px;'>
+            <%= link_to new_preference_path(course: @course) do %>
+              <button class="btn btn-outline-primary addButton"></i> Create Preference</button>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
 
-<% if current_user_type == "professor" && @professor_id == current_user.id%>
-  <% create_groups_path = @course.id.to_s+ "/create_groups" %>
-  <%= button_to 'Create Random Groups', {:controller => "courses", :action => "create_groups", :algo => "random"}, :class => "btn_primary", :method=>:post%>
-  <%= button_to 'Create Groups Based on Project Preference', {:controller => "courses", :action => "create_groups", :algo => "project_only"}, :class => "btn_primary", :method=>:post%>
-  <br> <br>
-<%end%>
+      <hr/>
 
-<%= link_to 'Propose project', new_group_path(course: @course)%>
-<br>
-<% if current_user_type == "student"%>
-  <%= link_to 'Create preference', new_preference_path(course: @course)%>
-<% end %>
-<br> <br>
+      <div class='row' id='course-info-box'>
+        <div class='col' id='course-info-col' style="padding: 40px; padding-top: 20px; ">
+          <ul class="nav nav-tabs" id="course-nav">
+            <li class="nav-item">
+              <a href="#students" class="nav-link tab-students" data-toggle="tab" >Students</a>
+            </li>
+            <li class="nav-item">
+              <a href="#projects" class="nav-link tab-projects" data-toggle="tab" >Projects</a>
+            </li>
+            <li class="nav-item">
+              <a href="#groups" class="nav-link tab-groups" data-toggle="tab" >Groups</a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane fade show active" id="students">
+              <% group_members = @course.students%>
+              <div class = "wrapper overflow students-container">
+                  <table class = "table table-hover table-sm" id="students-table">
+                      <thead>
+                          <tr>
+                              <th style='border-top: 0'>Name</th>
+                              <th style='border-top: 0'>Email</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <% group_members.each do |stu| %>
+                          <tr>
+                              <td><%= stu.firstname + " " + stu.lastname%>
+                              <td><%= stu.email%>
+                          </tr>
+                          <% end %>
+                      </tbody>
+                  </table>
+              </div>
+            </div>
+          
+            <div class="tab-pane fade" id="projects">
+              <div class = "wrapper overflow projects-container">
+                <div class = 'row' style="margin-top: 20px">
+                  <div class = 'col projects-box'>
+                    <div class = 'container' style="min-height: 300px;">
+                      <% candidates = @course.groups.where(hold: false)%>
+                      <% candidates.each do |candidate| %>
+                        <div class = 'row single-project-container' >
+                          <%= candidate.project_name %>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                  <div class = 'col projects-box'>
+                    <div class = 'container' style="min-height: 300px;">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
 
-<%= link_to 'Edit', edit_course_path(@course) %> |
-<%= link_to 'Back', courses_path %>
+            <div class="tab-pane fade" id="groups">
+              <p>Messages tab content ...</p>
+            </div>
+          
+          </div> 
+        </div>       
+      </div>
+
+      <p> <strong> Groups: </strong> </p>
+      <% @groups.each do |group| %>
+        <ul> <%= group.project_name%>: <%=showGroups(@groups)[group.project_name]%></ul>
+      <% end %>
+
+
+
+
+      <%= link_to 'Propose project', new_group_path(course: @course)%>
+      <br>
+
+
+      <%= link_to 'Edit', edit_course_path(@course) %> |
+      <%= link_to 'Back', courses_path %>
+    </div>
+
+
+      
+    
+    </div>
+  </div>
 </div>
+
+<script>
+    $(document).on('click', '.tab-students', function(event){
+            event.preventDefault();
+            event.stopPropagation();
+            event.stopImmediatePropagation();
+            $(this).closest('#course-info-box').find('.students-container').show(); 
+            var table = $(this).closest('#course-info-box').find('#students-table');
+            console.log(table);
+            if(! $.fn.DataTable.isDataTable(table)){
+                table.DataTable({
+                "lengthChange": false, 
+                "pageLength": 10,
+                });
+            }
+    });
+
+</script>
