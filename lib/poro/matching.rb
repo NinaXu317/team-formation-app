@@ -67,7 +67,7 @@ class SimpleMatching
     end
 
     # input @projects as an array of Projects IDs in INT
-    # input @Preferences as an array of Hashes. Each hash is of the form {student_id,first(in STRING),second,third,codingProficiency},
+    # input @Preferences as an array of Hashes. Each hash is of the form {student_id,first(in int),second,third,codingProficiency},
     # For this algorithm, we are only considering the parameters of the first,second, and third options
     # Output: Hash of arrays, with {project_id: [student1,student2,student3]}
     def matching_with_projects()
@@ -88,8 +88,6 @@ class SimpleMatching
             result[x]=[]
         end
 
-        
-       
         #(1)populate the result hash by assigning students's first choice
         @preferences.each do |x|
             temp_project_choice = x[:first]
@@ -173,5 +171,67 @@ class SimpleMatching
 
         return most_popular_project
     end
+
+
+    # input @matched_groups as the result from our algorithm that uses project preferences
+    # input @Preferences as an array of Hashes. Each hash is of the form {student_id,first(in int),second,third,codingProficiency, 
+    # dreampartner(int),schedule},
+    # Output: Hash of arrays, with {project_id: [student1,student2,student3]}
+
+    def holistic_algorithm
+        matching_with_projects()
+        initial_team = @matched_groups
+        result = initial_team
+        #iterate swapping certain number of time
+        highest_score = get_score(result)
+        i=0
+        until i> @preferences.size/2
+            #TODO SWAP
+            #temp_formation = the hash or arrays after a swap 
+            temp_score = get_score(temp_formation)
+            if(temp_score > highest_score) then
+                result = temp_formation
+                highest_score= temp_score
+            end
+            i=i+1
+        end
+
+        @matched_groups = result
+    end
+
+    #input a hash of arrays with the current formation
+    def get_score(formation)
+        lowest_score = Float.MAX
+        formation.each do |proj_id, studentArr|
+            #TODO  multiply each score by the weight from the professor
+            score = get_schedule_score(studentArr) + get_coding_score(studentArr) 
+            + get_partner_score(studentArr) + get_project_score(studentArr)
+            if (score < lowest_score) then
+                lowest_score = score
+            end
+        end
+        return lowest_score
+    end
+
+    
+    #studentARR= form of [student1id,student2id,student3id]
+    def get_schedule_score(studentArr)
+        #TODO
+    end
+
+    #assuming the score range between 1 and 5 
+    #the result would close to 0 if similar, close to 1 if different
+    def get_coding_score(studentArr)
+
+        codingProficiency
+        retun (1-)
+    end
+
+    def get_partner_score(studentArr)
+    end
+
+    def get_project_score(studentArr)
+    end
+
 
 end
