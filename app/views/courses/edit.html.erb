@@ -1,6 +1,10 @@
 <h1>Editing Course</h1>
 
-<%= render 'form', course: @course %>
+<% if logged_in? %>
+    <%= render 'form', course: @course %>
+<% else %>
+    <p> Please log in first <p>
+<% end %>
 
 <%= link_to 'Show', @course %> |
 <%= link_to 'Back', courses_path %>
