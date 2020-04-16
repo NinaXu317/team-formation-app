@@ -2,7 +2,7 @@ require 'test_helper'
 
 class ProfessorsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @professor = professors(:one)
+    @professor = professors(:admin)
   end
 
   test "should get index" do
@@ -15,13 +15,14 @@ class ProfessorsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  # test "should create professor" do
-  #   assert_difference('Professor.count') do
-  #     post professors_url, params: { professor: { email: @professor.email, firstname: @professor.firstname, lastname: @professor.lastname } }
-  #   end
+  test "should create professor" do
+    assert_difference('Professor.count') do
+      post professors_url, params: { professor: { email: "professor@professor.com", firstname: "professor", 
+                                                  lastname: "guy", password: "password", password_confirmation: "password"} }
+    end
 
-  #   assert_redirected_to professor_url(Professor.last)
-  # end
+    assert_redirected_to professor_url(Professor.last)
+  end
 
   test "should show professor" do
     get professor_url(@professor)
@@ -33,10 +34,11 @@ class ProfessorsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  # test "should update professor" do
-  #   patch professor_url(@professor), params: { professor: { email: @professor.email, firstname: @professor.firstname, lastname: @professor.lastname } }
-  #   assert_redirected_to professor_url(@professor)
-  # end
+  test "should update professor" do
+    patch professor_url(@professor), params: { professor: { email: @professor.email, firstname: @professor.firstname, 
+                                                          lastname: @professor.lastname, password: "admin1", password_confirmation: "admin1" } }
+    assert_redirected_to professor_url(@professor)
+  end
 
   test "should destroy professor" do
     assert_difference('Professor.count', -1) do

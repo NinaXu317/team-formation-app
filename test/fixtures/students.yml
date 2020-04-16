@@ -1,6 +1,14 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+admin:
+  id: 1
+  firstname: admin
+  lastname: admin
+  email: admin@admin.com
+  password_digest: <%= Student.digest('admin1') %>
+
 one:
+  id: 2
   firstname: MyString
   lastname: MyString
   email: MyString
