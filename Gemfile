@@ -63,3 +63,5 @@ gem 'bootstrap-sass'
 gem 'bootstrap'
 gem 'simple_form'
 
+gem 'acts_as_list'
+

@@ -3,14 +3,15 @@
 // a relevant structure within app/javascript and only use these pack files to reference
 // that code so it'll be compiled.
 
-require("@rails/ujs").start()
+require("@rails/ujs")
 require("turbolinks").start()
 require("@rails/activestorage").start()
 require("channels")
 
+
+
 require("jquery")
 require("moment")
-
 
 
 
@@ -23,10 +24,21 @@ require("moment")
 import '../stylesheets/application'
 import './bootstrap_custom.js'
 
+import Vue from 'vue/dist/vue.esm'
+import App from '../app.vue'
+
 window.Calendar = require("@fullcalendar/core").Calendar;
 window.dayGridPlugin = require("@fullcalendar/daygrid").default;
 window.timeGridPlugin = require("@fullcalendar/timegrid").default;
 window.momentPlugin = require("@fullcalendar/moment").default;
 window.interactionPlugin = require("@fullcalendar/interaction").default;
 window.bootstrapPlugin = require("@fullcalendar/bootstrap").default;
+
+window.Vue = Vue;
+window.App = App;
+
+
+Rails.start();
+
+
 

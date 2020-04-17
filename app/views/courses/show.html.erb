@@ -49,10 +49,13 @@
         <div class='col' id='course-info-col' style="padding: 40px; padding-top: 20px; ">
           <ul class="nav nav-tabs" id="course-nav">
             <li class="nav-item">
-              <a href="#students" class="nav-link tab-students" data-toggle="tab" >Students</a>
+              <a href="#students" class="nav-link tab-students active" data-toggle="tab" >Students</a>
             </li>
             <li class="nav-item">
               <a href="#projects" class="nav-link tab-projects" data-toggle="tab" >Projects</a>
+            </li>
+            <li class="nav-item">
+              <a href="#vuejs" class="nav-link tab-vuejs" data-toggle="tab" >Vuejs</a>
             </li>
             <li class="nav-item">
               <a href="#groups" class="nav-link tab-groups" data-toggle="tab" >Groups</a>
@@ -86,10 +89,11 @@
                 <div class = 'row' style="margin-top: 20px">
                   <div class = 'col projects-box'>
                     <div class = 'container' style="min-height: 300px;">
-                      <% candidates = @course.groups.where(hold: false)%>
+                      <% candidates = @course.groups%>
                       <% candidates.each do |candidate| %>
                         <div class = 'row single-project-container' >
                           <%= candidate.project_name %>
+
                         </div>
                       <% end %>
                     </div>
@@ -102,8 +106,13 @@
               </div>
             </div>
 
+            <div class="tab-pane fade" id="vuejs">
+              <% @course.groups %>
+              <%= tag.div id: :boards, data:{groups: @course.groups.to_json, holdprojects: @course.holdprojects.to_json, course: @course.to_json } %>
+            </div>
+            
             <div class="tab-pane fade" id="groups">
-              <p>Messages tab content ...</p>
+              <p>Messages tab groups ...</p>
             </div>
           
           </div> 
@@ -125,22 +134,14 @@
       <%= link_to 'Edit', edit_course_path(@course) %> |
       <%= link_to 'Back', courses_path %>
     </div>
-
-
-      
     
     </div>
   </div>
 </div>
 
 <script>
-    $(document).on('click', '.tab-students', function(event){
-            event.preventDefault();
-            event.stopPropagation();
-            event.stopImmediatePropagation();
-            $(this).closest('#course-info-box').find('.students-container').show(); 
-            var table = $(this).closest('#course-info-box').find('#students-table');
-            console.log(table);
+    document.addEventListener("turbolinks:load", function(){
+            var table = $('#students-table');
             if(! $.fn.DataTable.isDataTable(table)){
                 table.DataTable({
                 "lengthChange": false, 
@@ -148,5 +149,25 @@
                 });
             }
     });
+    
+     document.addEventListener("turbolinks:load", function(){
+        
+        var element = document.querySelector('#boards');
+        
+        if(element != undefined){
+          const app = new Vue({
+          el: element,
+          data: {
+              groups: JSON.parse(element.dataset.groups),
+              holdprojects: JSON.parse(element.dataset.holdprojects),
+              course: JSON.parse(element.dataset.course)
+              
+          },
+          template: "<App :group_list='groups' :hold_list='holdprojects' :curr_course='course' />",
+          components: { App }
+          });
+        }
+      
+     });
 
 </script>
