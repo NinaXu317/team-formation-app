@@ -8,6 +8,7 @@ class PreferencesController < ApplicationController
         @course = Course.find(params[:course])
         @projects = @course.groups.all
     end
+    
 
     def create
         course = Course.find(params[:preference][:course_id])
