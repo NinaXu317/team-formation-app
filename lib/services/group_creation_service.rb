@@ -17,9 +17,7 @@ class GroupCreationService
 
     def getPreferences(course)
         preferences = []
-        puts "\n\n\n" + course.inspect + "\n\n\n"
         course.preferences.each do |preference|
-            puts "\n\n\n" + preference.inspect + "\n\n\n"
             preference_hash = {student_id: preference.student_id,
                               first: preference.first,
                               second: preference.second,
