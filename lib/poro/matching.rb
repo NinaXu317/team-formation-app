@@ -224,7 +224,7 @@ class SimpleMatching
     def get_coding_score(studentArr)
 
         codingProficiency
-        retun (1-)
+        retun (1)
     end
 
     def get_partner_score(studentArr)
