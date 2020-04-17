@@ -51,7 +51,7 @@ export default {
   methods: {
     cardMoved: function(event){
       if(event.added== undefined){return}
-      
+  
     },
     submitMessages: function(column_str, course_id){
       var data = new FormData
