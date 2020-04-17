@@ -200,12 +200,13 @@ class SimpleMatching
     end
 
     #input a hash of arrays with the current formation
+    #return the lowest team score 
     def get_score(formation)
         lowest_score = Float.MAX
         formation.each do |proj_id, studentArr|
             #TODO  multiply each score by the weight from the professor
             score = get_schedule_score(studentArr) + get_coding_score(studentArr) 
-            + get_partner_score(studentArr) + get_project_score(studentArr)
+            + get_partner_score(studentArr) + get_project_score(studentArr,proj_id)
             if (score < lowest_score) then
                 lowest_score = score
             end
@@ -222,15 +223,17 @@ class SimpleMatching
     #assuming the score range between 1 and 5 
     #the result would close to 0 if similar, close to 1 if different
     def get_coding_score(studentArr)
-
+        response = []
+        
         codingProficiency
-        retun (1-)
+        # return (1-)
+        return 
     end
 
     def get_partner_score(studentArr)
     end
 
-    def get_project_score(studentArr)
+    def get_project_score(studentArr,proj_id)
     end
 
 
