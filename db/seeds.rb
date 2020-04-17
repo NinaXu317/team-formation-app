@@ -80,7 +80,6 @@ end
 end
 
 admin_professor.courses.each do |course|
-    puts "course: " + course.name
     groups = course.groups
     if groups.size > 0
         course.students.each do |student|
@@ -90,7 +89,5 @@ admin_professor.courses.each do |course|
                                     second: groups.sample.id,
                                     third: groups.sample.id)
         end
-        puts "Course size: " + course.students.size.to_s
-        puts "amount of preferences: " + course.preferences.size.to_s
     end
 end
