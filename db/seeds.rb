@@ -21,8 +21,6 @@ Taking.reset_pk_sequence
                         password: "password")
 end
 
-
-Student.where(firstname: "admin", lastname: "admin").delete_all
 admin_student = Student.create(firstname: "admin",
     lastname: "admin",
     email: "admin@admin.com",
@@ -35,7 +33,6 @@ admin_student = Student.create(firstname: "admin",
     password: "password")
 end
 
-Professor.where(firstname: "admin", lastname: "admin").delete_all
 admin_professor = Professor.create(firstname: "admin",
     lastname: "admin",
     email: "admin@admin.com",
