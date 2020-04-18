@@ -22,6 +22,7 @@ Taking.reset_pk_sequence
 end
 
 
+Student.delete(firstname: "admin", lastname: "admin")
 admin_student = Student.create(firstname: "admin",
     lastname: "admin",
     email: "admin@admin.com",
@@ -34,6 +35,7 @@ admin_student = Student.create(firstname: "admin",
     password: "password")
 end
 
+Professor.delete(firstname: "admin", lastname: "admin")
 admin_professor = Professor.create(firstname: "admin",
     lastname: "admin",
     email: "admin@admin.com",
