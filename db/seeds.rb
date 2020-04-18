@@ -22,7 +22,7 @@ Taking.reset_pk_sequence
 end
 
 
-Student.delete_all(firstname: "admin", lastname: "admin")
+Student.where(firstname: "admin", lastname: "admin").delete_all
 admin_student = Student.create(firstname: "admin",
     lastname: "admin",
     email: "admin@admin.com",
@@ -35,7 +35,7 @@ admin_student = Student.create(firstname: "admin",
     password: "password")
 end
 
-Professor.delete_all(firstname: "admin", lastname: "admin")
+Professor.where(firstname: "admin", lastname: "admin").delete_all
 admin_professor = Professor.create(firstname: "admin",
     lastname: "admin",
     email: "admin@admin.com",
