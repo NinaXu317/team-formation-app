@@ -182,31 +182,92 @@ class SimpleMatching
         matching_with_projects()
         initial_team = @matched_groups
         result = initial_team
+        if (result.keys.size==1) then
+            return result
+        end
+        @preferences_hash = convertAH_toHH()
         #iterate swapping certain number of time
         highest_score = get_score(result)
+        puts  "score before the holistic algorithm is",highest_score
+
+        swap_history = []
+        swap_history << initial_team
         i=0
-        until i> @preferences.size/2
-            #TODO SWAP
+        while i< @preferences.size do
+            temp_formation= swap_member(result)
+            # x= @preferences/@projects # x is the size of students in a team
+            # while (swap_history.includes? temp_formation && x>0) do
+            #     temp_formation= swap_member(result)
+            #     x=x-1
+            # end
+            if (duplicate(temp_formation, swap_history)) then
+                i =i+1
+                next
+            end
             #temp_formation = the hash or arrays after a swap 
+            swap_history << temp_formation
             temp_score = get_score(temp_formation)
+            # puts temp_score
             if(temp_score > highest_score) then
                 result = temp_formation
                 highest_score= temp_score
             end
             i=i+1
         end
-
+        puts "score after the holistic algorithm is",highest_score
         @matched_groups = result
     end
+
+
+    #return true if the team has already existed in history
+    # OPTIONAL TODO: could be implemented to optimize performance
+    def duplicate(team, history)
+        return false
+    end
+
+
+    #team is a hash of arrays
+    def swap_member(team)
+        # puts"before swap is", team.inspect
+        team1= team.keys.sample
+        team2= team.keys.sample
+        while(team2 == team1) do
+            team2= team.keys.sample
+        end
+        student1_index = rand(team[team1].size)
+        student2_index = rand(team[team2].size)
+        temp = team[team1][student1_index]
+        # puts"1st element has index",student1_index,"with value", team[team1][student1_index]
+        # puts"2nd element has index",student2_index,"with value", team[team2][student2_index]
+        team[team1][student1_index]= team[team2][student2_index]
+        
+        team[team2][student2_index]= temp
+        
+        # puts"after swap is", team.inspect
+        return team
+    end
+
+    # This will convert an array of hash of preferences into a hash of hash, 
+    # In the form of {id: {:first, :second, :third }}
+    def convertAH_toHH()
+        h = {}
+        @preferences.each do |x|
+            key= x[:student_id]
+            value = x
+            h[key]=value
+        end
+        return h 
+    end
+
 
     #input a hash of arrays with the current formation
     #return the lowest team score 
     def get_score(formation)
-        lowest_score = Float.MAX
-        formation.each do |proj_id, studentArr|
+        lowest_score = Float::MAX
+        formation.each do |proj_id, teamArr|
             #TODO  multiply each score by the weight from the professor
-            score = get_schedule_score(studentArr) + get_coding_score(studentArr) 
-            + get_partner_score(studentArr) + get_project_score(studentArr,proj_id)
+            score = 10*get_coding_score(teamArr) + 10*get_partner_score(teamArr) + 2*get_project_score(teamArr,proj_id)
+            # puts "each score is",score
             if (score < lowest_score) then
                 lowest_score = score
             end
@@ -215,25 +276,55 @@ class SimpleMatching
     end
 
     
-    #studentARR= form of [student1id,student2id,student3id]
-    def get_schedule_score(studentArr)
+    #teamArr= form of [student1id,student2id,student3id]
+    def get_schedule_score(teamArr)
         #TODO
     end
 
     #assuming the score range between 1 and 5 
     #the result would close to 0 if similar, close to 1 if different
-    def get_coding_score(studentArr)
+    def get_coding_score(teamArr)
         response = []
+        teamArr.each do |x|
+            response << @preferences_hash[x][:codingProficiency]
+        end
+        response.uniq()
         
-        codingProficiency
-        # return (1-)
-        return 
+        return (response.size/5.0)
+        #[0.2 - 1.0]
     end
 
-    def get_partner_score(studentArr)
+    def get_partner_score(teamArr)
+        counter =0
+        teamArr.each do |x|
+            if(@preferences_hash[x][:dreampartner].nil?) then
+                next
+            end
+
+            if (teamArr.include? @preferences_hash[x][:dreampartner]) then
+                counter = counter + 1
+            end
+        end
+        return counter.to_f/teamArr.size
+        #[0-1]
     end
 
-    def get_project_score(studentArr,proj_id)
+    # first choice gets to earn 4 points, 2nd gets to earn 2 points, third earn 1 points, no option gets  -1
+    def get_project_score(teamArr,proj_id)
+        counter=0
+        teamArr.each do |x|
+            if (proj_id == @preferences_hash[x][:first]) then
+                counter = counter+4
+            elsif (proj_id == @preferences_hash[x][:second]) then
+                counter = counter+2
+            elsif (proj_id == @preferences_hash[x][:third]) then
+                counter = counter+1
+            else 
+                counter = counter-1
+            end
+        end
+        return counter.to_f/teamArr.size 
+        #range of [-1, 4]
     end
 
 

@@ -8,11 +8,20 @@ describe SimpleMatching do
         #list of the project ids
         projects = [1,2,3]
         
-        preferences = [{student_id:1,first:1,second:2,third:3},{student_id:2,first:2,second:1,third:3},
-        {student_id:3,first:1,second:2,third:3},{student_id:4,first:1,second:2,third:3},
-        {student_id:5,first:2,second:3,third:1},{student_id:6,first:1,second:2,third:3},
-        {student_id:7,first:1,second:2,third:3},{student_id:8,first:1,second:2,third:3}]
+        # preferences = [{student_id:1,first:1,second:2,third:3},{student_id:2,first:2,second:1,third:3},
+        # {student_id:3,first:1,second:2,third:3},{student_id:4,first:1,second:2,third:3},
+        # {student_id:5,first:2,second:3,third:1},{student_id:6,first:1,second:2,third:3},
+        # {student_id:7,first:1,second:2,third:3},{student_id:8,first:1,second:2,third:3}]
     
+        preferences = [{student_id:1,first:1,second:2,third:3,codingProficiency:3,dreampartner:3},
+        {student_id:2,first:2,second:1,third:3,codingProficiency:2,dreampartner:4},
+        {student_id:3,first:1,second:2,third:3,codingProficiency:3,dreampartner:2},
+        {student_id:4,first:1,second:2,third:3,codingProficiency:4,dreampartner:1},
+        {student_id:5,first:2,second:3,third:1,codingProficiency:5,dreampartner:2},
+        {student_id:6,first:1,second:2,third:3,codingProficiency:1,dreampartner:2},
+        {student_id:7,first:1,second:2,third:3,codingProficiency:2,dreampartner:3},
+        {student_id:8,first:1,second:2,third:3,codingProficiency:3,dreampartner:4}]
+
         @matcher = SimpleMatching.new()
         @matcher.initProjects(projects, preferences)
     end
@@ -36,6 +45,9 @@ describe SimpleMatching do
         end
     end
 
-        
-
+    it "can successfully initialize parameters"do
+        # @matcher.get_preference.wont_be_nil
+        @matcher.holistic_algorithm.wont_be_empty
+    end
 end
+
