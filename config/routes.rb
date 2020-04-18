@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :holdprojects
   get 'student_login', to: 'sessions#new_student'
   get 'professor_login', to: 'sessions#new_professor'
   post 'login', to: 'sessions#create'

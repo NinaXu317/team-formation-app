@@ -2,7 +2,7 @@
 @import '@fullcalendar/daygrid/main.css';
 @import '@fullcalendar/timegrid/main.css';
 @import './bootstrap_custom.scss';
-@import '@fullcalendar/bootstrap/main.css';
+
 
 
 html,
@@ -287,7 +287,6 @@ body,
 }
 
 .students-container{
-  display:none;
   margin-top: 10px;
 }
 

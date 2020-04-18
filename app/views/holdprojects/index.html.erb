@@ -1,0 +1,31 @@
+<p id="notice"><%= notice %></p>
+
+<h1>Holdprojects</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Course</th>
+      <th>Project name</th>
+      <th>Position</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @holdprojects.each do |holdproject| %>
+      <tr>
+        <td><%= holdproject.course_id %></td>
+        <td><%= holdproject.project_name %></td>
+        <td><%= holdproject.position %></td>
+        <td><%= link_to 'Show', holdproject %></td>
+        <td><%= link_to 'Edit', edit_holdproject_path(holdproject) %></td>
+        <td><%= link_to 'Destroy', holdproject, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Holdproject', new_holdproject_path %>
