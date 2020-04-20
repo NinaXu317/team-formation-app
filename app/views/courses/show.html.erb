@@ -37,7 +37,61 @@
             </button>
           </div>
 
+            <div class="modal fade" id="professor-preference-form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" style="padding-left: 30px">
+                  <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title" id="exampleModalLabel">Create Your Preference for: <span style="color:rgb(77, 131, 203)"><%= @course.name %></span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                
+                  <div class="modal-body">
+                      <%= form_with(url: professors_preference_path, local: true) do |f| %>
+                      <div class="alert alert-danger d-none">Please review the problems below:</div>
+                      <label style="margin-right: 50px"><%= f.label 'First Choice: '%> </label>
+                      <%= f.collection_radio_buttons :firstWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
+                      margin-left: 24px; margin-right:5px;"}%>
+                      <br><br>
+                      <label style="margin-right: 28px"><%= f.label 'Second Choice: '%></label>
+                      <%= f.collection_radio_buttons :secondWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
+                      margin-left: 24px; margin-right:5px"}%>
+                      <br><br>
+                       <label style="margin-right: 46px"><%= f.label 'Third Choice: '%></label>
+                      <%= f.collection_radio_buttons :thirdWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
+                      margin-left: 24px; margin-right:5px"}%>
+                      <br><br>
+                      <label style="margin-right: 3px"><%= f.label 'Coding Proficiency:' %></label>
+                      <%= f.collection_radio_buttons :codingWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
+                      margin-left: 24px; margin-right:5px"}%>
+                      <br><br>
+                      <label style="margin-right: 33px"><%= f.label 'Dream Partner:'%></label>
+                      <%= f.collection_radio_buttons :partnerWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
+                      margin-left: 24px; margin-right:5px"}%>
+                      <br><br>
+                      <label style="margin-right: 69px"><%= f.label 'Schedule:'%></label>
+                      <%= f.collection_radio_buttons :scheduleWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
+                      margin-left: 24px; margin-right:5px"}%> 
+                  </div>
+                  <div class="modal-footer border-top-0 d-flex justify-content-center">
+                    <div style="margin-left: 120px; margin-bottom: 50px ">
+                      <%= submit_tag("Submit and Create Group", class: "btn btn-outline-primary addButton") %>
+                      <button class="btn btn-primary resetButton" type="reset">Reset</button>
+                    </div>
+                    <%end%>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+
           
+
 
         <% elsif current_user_type == "student" %>
           <div class='col' style='padding: 60px;'>
@@ -110,53 +164,7 @@
   </div>
 </div>
 
-            <div class="modal fade" id="professor-preference-form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-              <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content" style="padding-left: 30px">
-                  <div class="modal-header border-bottom-0">
-                    <h5 class="modal-title" id="exampleModalLabel">Create Your Preference for: <span style="color:rgb(77, 131, 203)"><%= @course.name %></span></h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
-                  </div>
-                
-                  <div class="modal-body">
-                      <%= form_with(url: professors_preference_path, local: true) do |f| %>
-                      <div class="alert alert-danger d-none">Please review the problems below:</div>
-                      <label style="margin-right: 50px"><%= f.label 'First Choice: '%> </label>
-                      <%= f.collection_radio_buttons :firstWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
-                      margin-left: 24px; margin-right:5px;"}%>
-                      <br><br>
-                      <label style="margin-right: 28px"><%= f.label 'Second Choice: '%></label>
-                      <%= f.collection_radio_buttons :secondWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
-                      margin-left: 24px; margin-right:5px"}%>
-                      <br><br>
-                       <label style="margin-right: 46px"><%= f.label 'Third Choice: '%></label>
-                      <%= f.collection_radio_buttons :thirdWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
-                      margin-left: 24px; margin-right:5px"}%>
-                      <br><br>
-                      <label style="margin-right: 3px"><%= f.label 'Coding Proficiency:' %></label>
-                      <%= f.collection_radio_buttons :codingWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
-                      margin-left: 24px; margin-right:5px"}%>
-                      <br><br>
-                      <label style="margin-right: 35px"><%= f.label 'Dream Partner:'%></label>
-                      <%= f.collection_radio_buttons :partnerWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
-                      margin-left: 24px; margin-right:5px"}%>
-                      <br><br>
-                      <label style="margin-right: 46px"><%= f.label 'Schedule:'%></label>
-                      <%= f.collection_radio_buttons :scheduleWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
-                      margin-left: 24px; margin-right:5px"}%> 
-                  </div>
-                  <div class="modal-footer border-top-0 d-flex justify-content-center">
-                    <div style="margin-left: 120px; margin-bottom: 50px ">
-                      <%= submit_tag("Submit and Create Group", class: "btn btn-outline-primary addButton") %>
-                      <button class="btn btn-primary resetButton" type="reset">Reset</button>
-                    </div>
-                    <%end%>
-                  </div>
-                </div>
-              </div>
-            </div>
+
 
 <script>
     document.addEventListener("turbolinks:load", function(){

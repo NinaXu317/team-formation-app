@@ -7,14 +7,12 @@ class PreferencesController < ApplicationController
         @preference = Preference.new
         @course = Course.find(params[:course])
         @projects = @course.groups.all
+        @students = @course.students.all
     end
 
 
     def create
         course = Course.find(params[:preference][:course_id])
-        params[:preference][:first] = course.groups.find_by_project_name(params[:preference][:first]).id
-        params[:preference][:second] = course.groups.find_by_project_name(params[:preference][:second]).id
-        params[:preference][:third] = course.groups.find_by_project_name(params[:preference][:third]).id
         @preference = Preference.new(preference_params) 
         Preference.where(student_id: params[:preference][:student_id], course_id: params[:preference][:course_id]).destroy_all
         if (@preference.save)
@@ -28,7 +26,8 @@ class PreferencesController < ApplicationController
     private
     
     def preference_params
-          params.require(:preference).permit(:first, :second, :third, :student_id, :course_id)
+          params.require(:preference).permit(:first, :second, :third, :codingProficiency, 
+                                            :dreampartner, :schedule, :student_id, :course_id)
     end
 end
     

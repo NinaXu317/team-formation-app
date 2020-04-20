@@ -22,7 +22,9 @@ class GroupCreationService
                               first: preference.first,
                               second: preference.second,
                               third: preference.third,
-                              codingProficiency: preference.codingProficiency}
+                              codingProficiency: preference.codingProficiency,
+                              dreampartner: preference.dreampartner,
+                              schedule: preference.schedule}
             preferences << preference_hash
         end
         return preferences
