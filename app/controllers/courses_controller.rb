@@ -38,12 +38,13 @@ class CoursesController < ApplicationController
       group_service = GroupCreationService.new
       students, projects = group_service.getStudentsAndProjects(@course)
       preferences = group_service.getPreferences(@course)
-      
-      matching_object = SimpleMatching.new
+      matching_object = Matching.new
       if algorithm == "random"
         matching_object.initAndRandomMatch(students, projects)
       elsif algorithm == "project_only"
         matching_object.initAndProjectMatch(projects, preferences)
+      elsif algorithm == "holistic"
+        matching_object.initAndHolisticMatch(projects, preferences)
       end
 
       group_service.assignGroups(matching_object.matched_groups)

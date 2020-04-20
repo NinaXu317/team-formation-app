@@ -81,12 +81,21 @@ end
 admin_professor.courses.each do |course|
     groups = course.groups
     if groups.size > 0
-        course.students.each do |student|
+        students = course.students
+        students.each do |student|
             p = Preference.create(course_id: course.id, 
                                     student_id: student.id, 
                                     first: groups.sample.id, 
                                     second: groups.sample.id,
-                                    third: groups.sample.id)
+                                    third: groups.sample.id,
+                                    codingProficiency: 5,
+                                    dreampartner: students.sample.id,
+                                    schedule: '[{"weekday":"Sunday","start":"08:00:00",
+                                    "end":"10:00:00"},{"weekday":"Monday","start":"
+                                    10:00:00","end":"12:00:00"},{"weekday":"Wednesday",
+                                    "start":"12:00:00","end":"13:00:00"},{"weekday":
+                                    "Thursday","start":"09:00:00","end":"10:00:00"},
+                                    {"weekday":"Friday","start":"10:00:00","end":"11:00:00"}]')
         end
     end
 end

@@ -1,6 +1,6 @@
 require 'json'
 require 'cmath'
-class SimpleMatching
+class Matching
 
     def matched_groups
         @matched_groups
@@ -57,6 +57,11 @@ class SimpleMatching
     def initAndProjectMatch(projects, preferences)
         initProjects(projects, preferences)
         matching_with_projects()
+    end
+
+    def initAndHolisticMatch(projects, preferences)
+        initProjects(projects, preferences)
+        holistic_algorithm()
     end
 
 
@@ -187,6 +192,7 @@ class SimpleMatching
         if (result.keys.size==1) then
             return result
         end
+        puts "result: " + result.inspect
         @preferences_hash = convertAH_toHH()
         #iterate swapping certain number of time
         highest_score = get_score(result)
@@ -208,6 +214,7 @@ class SimpleMatching
             end
             #temp_formation = the hash or arrays after a swap 
             swap_history << temp_formation
+            puts "temp_formation: " + temp_formation.inspect
             temp_score = get_score(temp_formation)
             if(temp_score<0) then next end
             # puts temp_score
@@ -228,24 +235,61 @@ class SimpleMatching
         return false
     end
 
+    #Returns nil if there is nobody on the team to avoid errors
+    #following the rand function being called on 0, giving a decimal index
+    def check_for_empty_teams(teams, team)
+        if teams[team].size == 0
+            return student1_index = nil
+        else
+            return student1_index = rand(teams[team].size)
+        end
+    end
+
 
     #team is a hash of arrays
     def swap_member(team)
-        # puts"before swap is", team.inspect
+        puts"before swap is", team.inspect
         team1= team.keys.sample
+        puts "nil check1: " + team1.inspect
         team2= team.keys.sample
+        puts "nil check2: " + team2.inspect
         while(team2 == team1) do
             team2= team.keys.sample
+            puts "nil check3: " + team2.inspect
         end
-        student1_index = rand(team[team1].size)
-        student2_index = rand(team[team2].size)
-        temp = team[team1][student1_index]
+        student1_index = check_for_empty_teams(team, team1)
+        puts "nil check4: " + team[team1].inspect
+        student2_index = check_for_empty_teams(team, team2)
+        puts "nil check5: " + student2_index.inspect
+        if student1_index.nil?
+            temp = nil
+        else
+            temp = team[team1][student1_index]
+        end
+        puts "nil check6: " + temp.inspect
         # puts"1st element has index",student1_index,"with value", team[team1][student1_index]
         # puts"2nd element has index",student2_index,"with value", team[team2][student2_index]
-        team[team1][student1_index]= team[team2][student2_index]
-        
-        team[team2][student2_index]= temp
-        
+        puts "team check: " + team.inspect
+        if student2_index.nil?
+            team[team1] = []
+        else
+            if student1_index.nil?
+                team[team1] << team[team2][student2_index]
+            else
+                team[team1][student1_index]= team[team2][student2_index]
+            end
+        end
+        puts "nil check7: " + team.inspect
+        if temp.nil?
+            team[team2] = []
+        else
+            if student2_index.nil?
+                team[team2] << temp
+            else
+                team[team2][student2_index]= temp
+            end
+        end
+        puts "nil check8: " + team.inspect
         # puts"after swap is", team.inspect
         return team
     end
@@ -281,16 +325,22 @@ class SimpleMatching
     
 
     #teamArr= form of [student1id,student2id,student3id]
-    #string schedule is in the form of [{"weekday":"Sunday","start":"09:00:00","end":"11:30:00"},
+    # # string schedule is in the form of [{"weekday":"Sunday","start":"09:00:00","end":"11:30:00"},
     # {"weekday":"Tuesday","start":"09:00:00","end":"11:30:00"},
     # {"weekday":"Wednesday","start":"09:30:00","end":"10:30:00"},
     # {"weekday":"Wednesday","start":"11:00:00","end":"12:00:00"}]
     def get_schedule_score(teamArr)
         team_calendar= {"Sunday"=>Array.new(28,0),"Monday"=>Array.new(28,0),"Tuesday"=>Array.new(28,0),"Wednesday"=>Array.new(28,0),"Thursday"=>Array.new(28,0),"Friday"=>Array.new(28,0),"Saturday"=>Array.new(28,0)}
-        
+        puts "teamArr: " + teamArr.inspect
         teamArr.each do |student|
+
+            puts "INSPECTING HASH: " + @preferences_hash.inspect
+            puts "INSPECTING STUDENT " + student.to_s + ": " + @preferences_hash[student].inspect
             schedule = @preferences_hash[student][:schedule]
+            schedule.delete!("\n")
+            puts "before: " + schedule.inspect
             schedule_J = JSON.parse(schedule)
+            puts "after: " + schedule_J.inspect
             schedule_J.each do |x|
                 day=x["weekday"]
                 start_arr= x["start"].split(":")

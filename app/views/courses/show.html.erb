@@ -34,6 +34,10 @@
           <div class='col' style='padding: 60px'>
             <%= button_to 'Create Groups Based on Project Preference', {:controller => "courses", :action => "create_groups", :algo => "project_only"}, :class => "btn btn-outline-primary addButton", :method=>:post%>
           </div>
+
+          <div class='col' style='padding: 60px'>
+            <%= button_to 'Create Groups Based on All Preferences', {:controller => "courses", :action => "create_groups", :algo => "holistic"}, :class => "btn btn-outline-primary addButton", :method=>:post%>
+          </div>
         <% elsif current_user_type == "student" %>
           <div class='col' style='padding: 60px;'>
             <%= link_to new_preference_path(course: @course) do %>
