@@ -8,11 +8,9 @@ describe SimpleMatching do
         #list of the project ids
         projects = [1,2,3]
         
-        # preferences = [{student_id:1,first:1,second:2,third:3},{student_id:2,first:2,second:1,third:3},
-        # {student_id:3,first:1,second:2,third:3},{student_id:4,first:1,second:2,third:3},
-        # {student_id:5,first:2,second:3,third:1},{student_id:6,first:1,second:2,third:3},
-        # {student_id:7,first:1,second:2,third:3},{student_id:8,first:1,second:2,third:3}]
-    
+        
+        #codingProficiency 1 to 5
+        #TODO Professor's weight not yet Assigned(ez fix once we have that page)
         preferences = [{student_id:1,first:1,second:2,third:3,codingProficiency:3,dreampartner:3,schedule:"[{\"weekday\":\"Sunday\",\"start\":\"09:00:00\",\"end\":\"11:30:00\"},{\"weekday\":\"Tuesday\",\"start\":\"09:00:00\",\"end\":\"11:30:00\"},{\"weekday\":\"Wednesday\",\"start\":\"09:30:00\",\"end\":\"10:30:00\"},{\"weekday\":\"Wednesday\",\"start\":\"11:00:00\",\"end\":\"12:00:00\"}]"},
         {student_id:2,first:2,second:1,third:3,codingProficiency:2,dreampartner:4,schedule:"[{\"weekday\":\"Monday\",\"start\":\"09:00:00\",\"end\":\"12:00:00\"},{\"weekday\":\"Friday\",\"start\":\"09:00:00\",\"end\":\"14:30:00\"},{\"weekday\":\"Wednesday\",\"start\":\"09:30:00\",\"end\":\"14:30:00\"}]"},
         {student_id:3,first:1,second:2,third:3,codingProficiency:3,dreampartner:2,schedule:"[{\"weekday\":\"Saturday\",\"start\":\"09:00:00\",\"end\":\"14:00:00\"},{\"weekday\":\"Wednesday\",\"start\":\"09:00:00\",\"end\":\"15:00:00\"},{\"weekday\":\"Monday\",\"start\":\"09:00:00\",\"end\":\"14:30:00\"},{\"weekday\":\"Tuesday\",\"start\":\"09:00:00\",\"end\":\"14:30:00\"},{\"weekday\":\"Sunday\",\"start\":\"09:00:00\",\"end\":\"14:00:00\"},{\"weekday\":\"Thursday\",\"start\":\"09:30:00\",\"end\":\"14:00:00\"},{\"weekday\":\"Friday\",\"start\":\"09:00:00\",\"end\":\"14:30:00\"}]"},
