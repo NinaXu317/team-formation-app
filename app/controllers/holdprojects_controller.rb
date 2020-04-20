@@ -1,5 +1,5 @@
 class HoldprojectsController < ApplicationController
-  before_action :set_holdproject, only: [:show, :edit, :update, :destroy]
+  before_action :set_holdproject, only: [:show, :edit, :update, :destroy, :move]
 
   # GET /holdprojects
   # GET /holdprojects.json
@@ -51,13 +51,19 @@ class HoldprojectsController < ApplicationController
     end
   end
 
+
+  def move
+    @holdproject.insert_at(holdproject_params[:position].to_i)
+    render action: :show
+  end
+    
   # DELETE /holdprojects/1
   # DELETE /holdprojects/1.json
   def destroy
     @holdproject.destroy
     respond_to do |format|
       format.html { redirect_to holdprojects_url, notice: 'Holdproject was successfully destroyed.' }
-      format.json { head :no_content }
+      format.json { render :show }
     end
   end
 

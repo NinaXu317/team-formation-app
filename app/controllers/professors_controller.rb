@@ -38,6 +38,22 @@ class ProfessorsController < ApplicationController
     end
   end
 
+  #GET /professors/1/add_course
+  def add_course
+    @professor = Professor.find(params[:id])
+    @professor_id = params[:id]
+  end
+
+  #POST /professors/1/create_course
+  def create_course
+    @course = Course.create(name: params[:name], pin: params[:name], professor_id: params[:professor_id])
+    redirect_to :controller => 'professors', :action => 'show', :id => params[:id]
+  end
+
+
+
+
+
   # PATCH/PUT /professors/1
   # PATCH/PUT /professors/1.json
   def update
@@ -60,6 +76,10 @@ class ProfessorsController < ApplicationController
       format.html { redirect_to professors_url, notice: 'Professor was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  # POST /professors/createPreference
+  def createPreference
   end
 
   private

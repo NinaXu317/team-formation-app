@@ -1,0 +1,41 @@
+// Place all the styles related to the Preferences controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+#new-preference-container-1 { 
+    margin-top: 20px;
+    padding-top: 30px;
+}
+#fullcalendar{
+    width: 300px;
+    height:25px; 
+    border-radius: 5px; 
+    background-color: rgb(248, 248, 248);
+    border-color: darkgray;
+}
+
+#calendar{
+    background-color: white;
+}
+
+.submitCalendar{
+    display: flex;
+    text-align: center;
+    background-color: white;
+    border: solid rgb(141, 180, 252);
+    color: rgb(141, 180, 252);
+    font-weight: bold;
+    padding-left: 125px;
+}
+.submitCalendar:hover{
+    background-color: #007bff;
+    border: solid rgb(141, 180, 252);
+    color: white;
+}
+.resetButton{
+    color: white;
+    border: 1.5px solid rgb(77, 131, 203);
+    font-weight: bold;
+    width: 80px;
+  }
+  

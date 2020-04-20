@@ -1,0 +1,129 @@
+// Place all the styles related to the sessions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+.view4{
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)),url("https://images.forwardcdn.com/image/center/images/cropped/brandeis-university-admissions-night-1501010031.jpg") ;
+    background-color: rgba(255, 255, 255, 0.5);
+    background-size: cover;
+    min-height: 1000px;
+  }
+  
+  .profile-row{
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8));
+    height: 100%;
+    min-height: 150px;
+    border-radius: 10px;
+    margin-left: 60px;
+    margin-right: 60px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  }
+  
+  .courses-info-row{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  
+  .course-column-box{
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9));
+    box-sizing: border-box;
+    width: 300px;
+    height: 400px;
+    margin:20px;
+    margin-top: 0px;
+    > h4 {
+        font-size:bold;
+    }
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+  }
+  
+  .course-column-box:hover{
+    box-shadow: 0px 4px 8px 0 rgb(77, 131, 203), 0px 6px 15px 0 rgb(77, 131, 203);
+  }
+  
+  
+  .course-name-row{
+    text-align: center;
+    font-family: "Poppins", sans-serif;
+    font-size: 30px;
+    display:flex;
+    border-bottom: 1.5px solid   rgb(77, 131, 203);
+    
+  }
+  .course-name-row:hover{
+    .course-name-button{
+      color: #007bff;
+    }
+  }
+  #course-name{
+    left: 0px;
+    right: 0px;
+    width: 100%;
+  }
+  
+  .course-name-button{
+    color: rgb(77, 131, 203);
+    font-weight: bold;
+    font-size: 20px;
+  }
+  
+  
+  .course-drop-row{
+    font-family: "Poppins", sans-serif;
+    font-size: 30px;
+    display:flex;
+    border-top: 1.5px solid   rgb(77, 131, 203);
+  }
+  .dropButton{
+    color: rgb(77, 131, 203);
+    border: 1.5px solid rgb(77, 131, 203); 
+    border-radius: 100px;
+    margin-right: 0px; 
+    position: relative;
+    left: 133px;
+  }
+  
+  
+  .addButton{
+    color: rgb(77, 131, 203);
+    border: 1.5px solid rgb(77, 131, 203);
+    font-weight: bold;
+  }
+  
+  .group-icon:hover{
+    #circle {
+      color:#007bff !important ;
+    }
+  }
+  
+  
+  
+  .group-container{
+    display: none;
+    height: 200px; 
+  }
+  
+  #member-table{
+    max-width: 280px;
+    font-size: 11px;
+    border-collapse: collapse;
+    td{
+      padding-top: 4px;
+      padding-bottom: 4px;
+    }
+  }
+  #member-table_info{
+    display:none;
+  }
+  #member-table_paginate{
+    margin-top: 0px;
+    font-size: 10px;
+  }
+  
+  .add-course-button{
+    position: absolute;
+    left: 190px;
+  }
+  

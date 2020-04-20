@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   get 'professor_login', to: 'sessions#new_professor'
   post 'login', to: 'sessions#create'
   get 'logout', to: 'sessions#logout'
-  resources :preferences
+  
+  post 'professors_preference', to: 'professors#createPreference'
+
   get 'pages/home'
   resources :takings
   resources :groups
@@ -20,5 +22,28 @@ Rails.application.routes.draw do
       post 'search_course'
     end
   end
+
+
+  resources :professors do
+    member do
+      get 'add_course'
+      post 'create_course'
+    end
+  end
+  resources :preferences
+
+  resources :groups do
+    member do
+      patch :move
+    end 
+  end 
+
+  resources :holdprojects do
+    member do
+      patch :move
+    end 
+  end 
+
+
   root 'pages#home'
 end

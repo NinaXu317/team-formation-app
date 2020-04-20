@@ -1,6 +1,10 @@
-<div class='container' style='margin-top: 60px'>
-    <h1>New Student</h1>
-    <%= render 'form', student: @student %>
-    
-    <%= link_to 'Back', students_path %>
+<div class='view3'>
+    <div class='container' style="padding-top: 50px;" >
+            <div class= 'signup-form' style="margin: auto; ">
+                <%= render 'form', student: @student %>
+                <%= link_to 'Back to Home', root_path , style:"float: right; margin-right: 20px"%>
+            </div>
+        </div>
+        
+    </div> 
 </div>

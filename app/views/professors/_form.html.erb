@@ -1,11 +1,10 @@
-<h1 style="margin-top: 30px; margin-left:80px; color: rgb(0,52,120)">New Professor</h1>
-<div class="row" >
-<div class="col-md-6 col-md-offset-3">
+<h1 style="margin-top: 30px; color: rgb(0,52,120); margin-left: 120px">New Professor</h1>
+<div class="row" style="margin: 0px; margin-bottom: 10px">
+<div style="padding-left: 100px; width: 600px">
 <%= form_with(model: professor, local: true) do |form| %>
   <% if professor.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(professor.errors.count, "error") %> prohibited this professor from being saved:</h2>
-
+      <p><%= pluralize(professor.errors.count, "error") %> prohibited this professor from being saved:</p>
       <ul>
         <% professor.errors.full_messages.each do |message| %>
           <li><%= message %></li>
@@ -13,22 +12,23 @@
       </ul>
     </div>
   <% end %>
-
-  <%= form.label :First_name %>
-  <%= form.text_field :firstname, class: 'form-control' %>
-
-  <%= form.label :Last_name %>
-  <%= form.text_field :lastname, class: 'form-control' %>
-
-  <%= form.label :email %>
-  <%= form.email_field :email, class: 'form-control' %>
   
-  <%= form.label :password %>
-  <%= form.password_field :password, class: 'form-control' %>
-  <%= form.label :password_confirmation, "Confirmation" %>
-  <%= form.password_field :password_confirmation, class: 'form-control' %>
+  <%= form.label :First_name , style:"margin-bottom: 0px"%>
+  <%= form.text_field :firstname, class: 'form-control' , style:"width:300px; margin-bottom: 10px"%>
+  
+  <%= form.label :Last_name , style:"margin-bottom: 0px"%>
+  <%= form.text_field :lastname, class: 'form-control', style:"width:300px; margin-bottom: 10px" %>
+
+  <%= form.label :email, style:"margin-bottom: 0px" %>
+  <%= form.email_field :email, class: 'form-control' , style:"width:300px; margin-bottom: 10px"%>
+  
+  <%= form.label :password, style:"margin-bottom: 0px" %>
+  <%= form.password_field :password, class: 'form-control', style:"width:300px; margin-bottom: 10px" %>
+  <%= form.label :password_confirmation, "Confirmation" , style:"margin-bottom: 0px"%>
+  <%= form.password_field :password_confirmation, class: 'form-control', style:"width:300px; margin-bottom: 10px" %>
   <br>
-  <%= form.submit "Create Professor Account", class: "btn btn-primary" %>
+  <%= form.submit "Create Professor Account", class: "btn btn-outline-primary signup-Button", style: "width:300px"%>
+
 <% end %>
 </div>
 </div>

@@ -1,0 +1,44 @@
+// Place all the styles related to the Courses controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+#course-info-box{
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9));
+    margin-top: 0px;
+    margin-left: 40px;
+    margin-right: 40px;
+    min-height: 500px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+    
+  }
+  
+  #course-nav{
+    .nav-link{
+      color: rgb(77, 131, 203);
+    }
+    .nav-link:hover{
+      color: white;
+      background-color: #007bff;
+    }
+    .active{
+      color: black;
+    }
+  }
+  
+  .students-container{
+    margin-top: 10px;
+  }
+  
+  #students-table{
+    font-size: 14px;
+  }
+
+  .single-project-container:hover{
+    .project-name{
+      color: black;
+    }
+    text-decoration: none ;
+  }
+  
+

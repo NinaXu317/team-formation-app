@@ -1,0 +1,43 @@
+// Place all the styles related to the sessions controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+/* login page */
+.view2{
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)),url('https://www.brandeis.edu/admissions/images/images-dec-2017/2.linderpix-brandeis-4897.jpg') ;
+    background-color: rgba(255, 255, 255, 0.5);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  
+  .form-wrap{
+    width: 500px;
+    height: 500px;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5));
+    border-radius: 10px;
+    overflow: hidden;
+    
+  }
+  
+  .form-icon{
+    color: darkgrey; 
+    position: absolute; 
+    z-index: 1; 
+    padding: 10px; 
+    padding-top:12px;
+    float: right;
+  }
+  
+  .btn-custom{
+    border: 1.5px solid    rgb(0,52,120);
+    font-weight: bold;
+    color: rgb(0,52,120);
+  }
+  .btn-custom:hover{
+    color: #fff;
+    border: 1.5px solid    rgb(0,52,120);
+    background-color:    rgb(0,52,120);
+    transition-delay: 0.1s;
+  }
+  

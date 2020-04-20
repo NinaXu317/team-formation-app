@@ -1,31 +1,29 @@
-<%= form_with(model: course, local: true) do |form| %>
-  <% if course.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(course.errors.count, "error") %> prohibited this course from being saved:</h2>
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
 
-      <ul>
-        <% course.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+        <%= form_with(model: course) do |form| %>
+            <% if course.errors.any? %>
+                <div id="error_explanation">
+                    <h2><%= pluralize(course.errors.count, "error") %> prohibited this course from being saved:</h2>
+
+                    <ul>
+                         <% course.errors.full_messages.each do |message| %>
+                            <li><%= message %></li>
+                    <% end %>
+                    </ul>
+                </div>
+            <% end %>
+
+            
+            <%= form.text_field :name, placeholder: "Enter Course Name" , style:"width:260px; margin-bottom: 5px"%>
+        
+            <%= form.number_field :pin, placeholder: "Enter Course Pin", style:"width: 260px"%>
+        
+            <%= form.hidden_field :professor_id, :value => current_user.id%>
+
+            <%= submit_tag("Add", class: "add-course-button-p") %>
+            
         <% end %>
-      </ul>
+
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
-
-  <div class="field">
-    <%= form.label :pin %>
-    <%= form.number_field :pin %>
-  </div>
-
-  <div class="field">
-    <%= form.hidden_field :professor_id, :value => current_user.id%>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

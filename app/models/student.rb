@@ -19,4 +19,8 @@ class Student < ApplicationRecord
                                                       BCrypt::Engine.cost
         BCrypt::Password.create(string, cost: cost)
     end
+
+    def full_name
+        firstname.to_s + " " + lastname.to_s
+    end
 end

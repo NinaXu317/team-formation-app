@@ -1,7 +1,8 @@
 module TakingsHelper
     def group(student, course)
-        takings = student.takings
         group = nil
+        takings = student.takings
+        
         if !takings.nil?
             courses = student.takings.where(course_id: course['id'])
             if !courses.nil?

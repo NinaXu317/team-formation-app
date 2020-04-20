@@ -1,8 +1,10 @@
 <div class='view3'>
-    <div class='container' style="padding-top: 100px; align-items: center" >
-        <div class= 'form-wrap'>
-            <%= render 'form', professor: @professor %>
-            <%= link_to 'Back', professors_path %>
+    <div class='container' style="padding-top: 50px;" >
+            <div class= 'signup-form' style="margin: auto; ">
+                <%= render 'form', professor: @professor %>
+                <%= link_to 'Back to Home', root_path , style:"float: right; margin-right: 20px"%>
+            </div>
         </div>
+        
     </div> 
 </div>

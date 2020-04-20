@@ -7,7 +7,7 @@
     <div class='container' id='body-container-course-show'>
     <div class='page-wrap'>
       <div class='row profile-row'>
-        <div class='col' style='padding: 40px; padding-bottom: 20px; padding-top:35px'>
+        <div class='col' style='padding: 40px; padding-bottom: 20px; padding-top:40px'>
           <p>
             <strong>Name:</strong>
             <%= @course.name %>
@@ -27,13 +27,18 @@
 
         <% if current_user_type == "professor" && @professor_id == current_user.id%>
           <% create_groups_path = @course.id.to_s+ "/create_groups" %>
-          <div class='col' style='padding: 60px'>
+          <div class='col' style='padding: 40px'>
             <%= button_to 'Create Random Groups', {:controller => "courses", :action => "create_groups", :algo => "random"}, :class => "btn btn-outline-primary addButton", :method=>:post%>
+            <br>
+            <%= button_to 'Create Groups Based on Project Preference', {:controller => "courses", :action => "create_groups", :algo => "project_only"}, :class => "btn btn-outline-primary addButton", :method=>:post%>
+            <br>
+            <button class="btn btn-outline-primary addButton" data-toggle="modal" data-target="#professor-preference-form">
+              Create Groups Based on All Preference
+            </button>
           </div>
 
-          <div class='col' style='padding: 60px'>
-            <%= button_to 'Create Groups Based on Project Preference', {:controller => "courses", :action => "create_groups", :algo => "project_only"}, :class => "btn btn-outline-primary addButton", :method=>:post%>
-          </div>
+          
+
         <% elsif current_user_type == "student" %>
           <div class='col' style='padding: 60px;'>
             <%= link_to new_preference_path(course: @course) do %>
@@ -54,9 +59,7 @@
             <li class="nav-item">
               <a href="#projects" class="nav-link tab-projects" data-toggle="tab" >Projects</a>
             </li>
-            <li class="nav-item">
-              <a href="#vuejs" class="nav-link tab-vuejs" data-toggle="tab" >Vuejs</a>
-            </li>
+
             <li class="nav-item">
               <a href="#groups" class="nav-link tab-groups" data-toggle="tab" >Groups</a>
             </li>
@@ -83,30 +86,8 @@
                   </table>
               </div>
             </div>
-          
+
             <div class="tab-pane fade" id="projects">
-              <div class = "wrapper overflow projects-container">
-                <div class = 'row' style="margin-top: 20px">
-                  <div class = 'col projects-box'>
-                    <div class = 'container' style="min-height: 300px;">
-                      <% candidates = @course.groups%>
-                      <% candidates.each do |candidate| %>
-                        <div class = 'row single-project-container' >
-                          <%= candidate.project_name %>
-
-                        </div>
-                      <% end %>
-                    </div>
-                  </div>
-                  <div class = 'col projects-box'>
-                    <div class = 'container' style="min-height: 300px;">
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="tab-pane fade" id="vuejs">
               <% @course.groups %>
               <%= tag.div id: :boards, data:{groups: @course.groups.to_json, holdprojects: @course.holdprojects.to_json, course: @course.to_json } %>
             </div>
@@ -116,28 +97,66 @@
             </div>
           
           </div> 
-        </div>       
+          <%= link_to 'Back to Profile Page', courses_path, style: "float: right; margin:right: 5px; margin-top: 10px" %> 
+        </div>
+              
       </div>
 
-      <p> <strong> Groups: </strong> </p>
-      <% @groups.each do |group| %>
-        <ul> <%= group.project_name%>: <%=showGroups(@groups)[group.project_name]%></ul>
-      <% end %>
-
-
-
-
-      <%= link_to 'Propose project', new_group_path(course: @course)%>
-      <br>
-
-
       <%= link_to 'Edit', edit_course_path(@course) %> |
-      <%= link_to 'Back', courses_path %>
+      
     </div>
-    
+
     </div>
   </div>
 </div>
+
+            <div class="modal fade" id="professor-preference-form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content" style="padding-left: 30px">
+                  <div class="modal-header border-bottom-0">
+                    <h5 class="modal-title" id="exampleModalLabel">Create Your Preference for: <span style="color:rgb(77, 131, 203)"><%= @course.name %></span></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                
+                  <div class="modal-body">
+                      <%= form_with(url: professors_preference_path, local: true) do |f| %>
+                      <div class="alert alert-danger d-none">Please review the problems below:</div>
+                      <label style="margin-right: 50px"><%= f.label 'First Choice: '%> </label>
+                      <%= f.collection_radio_buttons :firstWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
+                      margin-left: 24px; margin-right:5px;"}%>
+                      <br><br>
+                      <label style="margin-right: 28px"><%= f.label 'Second Choice: '%></label>
+                      <%= f.collection_radio_buttons :secondWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
+                      margin-left: 24px; margin-right:5px"}%>
+                      <br><br>
+                       <label style="margin-right: 46px"><%= f.label 'Third Choice: '%></label>
+                      <%= f.collection_radio_buttons :thirdWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
+                      margin-left: 24px; margin-right:5px"}%>
+                      <br><br>
+                      <label style="margin-right: 3px"><%= f.label 'Coding Proficiency:' %></label>
+                      <%= f.collection_radio_buttons :codingWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
+                      margin-left: 24px; margin-right:5px"}%>
+                      <br><br>
+                      <label style="margin-right: 35px"><%= f.label 'Dream Partner:'%></label>
+                      <%= f.collection_radio_buttons :partnerWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
+                      margin-left: 24px; margin-right:5px"}%>
+                      <br><br>
+                      <label style="margin-right: 46px"><%= f.label 'Schedule:'%></label>
+                      <%= f.collection_radio_buttons :scheduleWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
+                      margin-left: 24px; margin-right:5px"}%> 
+                  </div>
+                  <div class="modal-footer border-top-0 d-flex justify-content-center">
+                    <div style="margin-left: 120px; margin-bottom: 50px ">
+                      <%= submit_tag("Submit and Create Group", class: "btn btn-outline-primary addButton") %>
+                      <button class="btn btn-primary resetButton" type="reset">Reset</button>
+                    </div>
+                    <%end%>
+                  </div>
+                </div>
+              </div>
+            </div>
 
 <script>
     document.addEventListener("turbolinks:load", function(){

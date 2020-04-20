@@ -1,0 +1,51 @@
+// Place all the styles related to the Professors controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+.view3{
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)),url("https://scontent-lga3-1.xx.fbcdn.net/v/t1.0-9/91626288_10157197866536167_2554622963995377664_o.jpg?_nc_cat=111&_nc_sid=8024bb&_nc_ohc=I3DW9yTOpOsAX9Pjd7F&_nc_ht=scontent-lga3-1.xx&oh=e8f038c73d2dbd399205c0814ed8884d&oe=5EA8C6A9") ;
+    background-color: rgba(255, 255, 255, 0.5);
+    background-size: cover;
+  }
+  
+  #signin-button{
+    border: 1.5px solid    rgb(0,52,120);
+    font-weight: bold;
+    font-size: 20px;
+    color: rgb(0,52,120);
+    width: 250px;
+}
+
+#signin-button:hover{
+    //background-color:  #1fc2d9;
+    color: #fff;
+    background-color:    rgb(0,52,120);
+    transition-delay: 0.1s;
+}
+
+
+
+.signup-form{
+    width: 500px;
+    min-height: 580px;
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5));
+    border-radius: 10px;
+    overflow: hidden;  
+}
+
+.signup-Button{
+    color: rgb(0,52,120);
+    border: 1.5px solid rgb(0,52,120);
+    font-weight: bold;
+}
+
+.signup-Button:hover{
+    color: white;
+    font-weight: bold;
+    background-color: rgb(0,52,120);
+}
+
+.add-course-button-p{
+    position: absolute;
+    left: 230px;
+  }
