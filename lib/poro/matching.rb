@@ -1,3 +1,5 @@
+require 'json'
+require 'cmath'
 class SimpleMatching
 
     def matched_groups
@@ -207,6 +209,7 @@ class SimpleMatching
             #temp_formation = the hash or arrays after a swap 
             swap_history << temp_formation
             temp_score = get_score(temp_formation)
+            if(temp_score<0) then next end
             # puts temp_score
             if(temp_score > highest_score) then
                 result = temp_formation
@@ -214,7 +217,7 @@ class SimpleMatching
             end
             i=i+1
         end
-        puts "score after the holistic algorithm is",highest_score
+        puts "score after the holistic algorithm is",highest_score, result.inspect
         @matched_groups = result
     end
 
@@ -266,7 +269,7 @@ class SimpleMatching
         lowest_score = Float::MAX
         formation.each do |proj_id, teamArr|
             #TODO  multiply each score by the weight from the professor
-            score = 10*get_coding_score(teamArr) + 10*get_partner_score(teamArr) + 2*get_project_score(teamArr,proj_id)
+            score = 10*get_schedule_score(teamArr)+ 10*get_coding_score(teamArr) + 10*get_partner_score(teamArr) + 2*get_project_score(teamArr,proj_id)
             # puts "each score is",score
             if (score < lowest_score) then
                 lowest_score = score
@@ -276,9 +279,50 @@ class SimpleMatching
     end
 
     
+
     #teamArr= form of [student1id,student2id,student3id]
+    #string schedule is in the form of [{"weekday":"Sunday","start":"09:00:00","end":"11:30:00"},
+    # {"weekday":"Tuesday","start":"09:00:00","end":"11:30:00"},
+    # {"weekday":"Wednesday","start":"09:30:00","end":"10:30:00"},
+    # {"weekday":"Wednesday","start":"11:00:00","end":"12:00:00"}]
     def get_schedule_score(teamArr)
-        #TODO
+        team_calendar= {"Sunday"=>Array.new(28,0),"Monday"=>Array.new(28,0),"Tuesday"=>Array.new(28,0),"Wednesday"=>Array.new(28,0),"Thursday"=>Array.new(28,0),"Friday"=>Array.new(28,0),"Saturday"=>Array.new(28,0)}
+        
+        teamArr.each do |student|
+            schedule = @preferences_hash[student][:schedule]
+            schedule_J = JSON.parse(schedule)
+            schedule_J.each do |x|
+                day=x["weekday"]
+                start_arr= x["start"].split(":")
+                start_i= (start_arr[0].to_i-8)*2
+                if(start_arr[1].to_i==30) then start_i+= 1 end
+
+                end_arr= x["end"].split(":")
+                end_i= (end_arr[0].to_i-8)*2
+                if(end_arr[1].to_i==30) then end_i+= 1 end
+                
+                i = start_i
+                until i>=end_i
+                    team_calendar[day][i]+=1
+                    i+=1
+                end
+            end
+
+        end
+        
+        availability_counter=0
+        team_calendar.each do |day,arr|
+            arr.each do |slot|
+                if(slot==teamArr.size) then availability_counter+=1 end
+            end 
+        end
+
+        # puts "the common available slots for this team is", availability_counter
+        if(availability_counter<4) then return -9999999
+            elsif availability_counter>14 then return 1
+            else return Math.log(availability_counter-3)
+        end
+        #[0,1] with log behavior
     end
 
     #assuming the score range between 1 and 5 
