@@ -18,6 +18,10 @@ class Matching
         @preferences = preferences
     end
 
+    def add_professor_preferences(professor_preferences)
+        @professor_preferences = professor_preferences
+    end
+
     def initRandom(students, projects)
         add_students(students)
         add_projects(projects)
@@ -59,8 +63,9 @@ class Matching
         matching_with_projects()
     end
 
-    def initAndHolisticMatch(projects, preferences)
+    def initAndHolisticMatch(projects, preferences, professor_preferences)
         initProjects(projects, preferences)
+        add_professor_preferences(professor_preferences)
         holistic_algorithm()
     end
 
@@ -313,7 +318,10 @@ class Matching
         lowest_score = Float::MAX
         formation.each do |proj_id, teamArr|
             #TODO  multiply each score by the weight from the professor
-            score = 10*get_schedule_score(teamArr)+ 10*get_coding_score(teamArr) + 10*get_partner_score(teamArr) + 2*get_project_score(teamArr,proj_id)
+            score = @professor_preferences[:scheduleWeight]*get_schedule_score(teamArr) + 
+            @professor_preferences[:codingWeight]*get_coding_score(teamArr) + 
+            @professor_preferences[:partnerWeight]*get_partner_score(teamArr) + 
+            @professor_preferences[:projectWeight]*get_project_score(teamArr,proj_id)
             # puts "each score is",score
             if (score < lowest_score) then
                 lowest_score = score

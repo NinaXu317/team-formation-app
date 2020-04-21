@@ -30,6 +30,14 @@ class GroupCreationService
         return preferences
     end
 
+    def getProfessorPreferences(params)
+        return ({projectWeight: params[:projectWeight].to_i,
+            codingWeight: params[:codingWeight].to_i,
+            partnerWeight: params[:partnerWeight].to_i,
+            scheduleWeight: params[:scheduleWeight].to_i
+        })
+    end
+
     def getStudentsAndProjects(course) 
         students = getStudents(course)
         projects = getProjects(course)
