@@ -51,7 +51,7 @@
                       <%= form_with(url: create_groups_course_path, local: true) do |f| %>
                         <%= hidden_field_tag :algo, 'holistic'%>
                         <div class="alert alert-danger d-none">Please review the problems below:</div>
-                        <label style="margin-right: 50px"><%= f.label 'Project Choice: '%> </label>
+                        <label style="margin-right: 35px"><%= f.label 'Project Choice: '%> </label>
                         <%= f.collection_radio_buttons :projectWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
                         margin-left: 24px; margin-right:5px;"}%>
                         <br><br>
@@ -63,11 +63,11 @@
                         <%= f.collection_radio_buttons :partnerWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
                         margin-left: 24px; margin-right:5px"}%>
                         <br><br>
-                        <label style="margin-right: 69px"><%= f.label 'Schedule:'%></label>
+                        <label style="margin-right: 68px"><%= f.label 'Schedule:'%></label>
                         <%= f.collection_radio_buttons :scheduleWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
                         margin-left: 24px; margin-right:5px"}%> 
                         <div class="modal-footer border-top-0 d-flex justify-content-center">
-                          <div style="margin-left: 120px; margin-bottom: 50px ">
+                          <div style="margin-left: 80px; margin-bottom: 50px ">
                             <%= f.submit("Submit and Create Group", class: "btn btn-outline-primary addButton") %>
                             <button class="btn btn-primary resetButton" type="reset">Reset</button>
                           </div>
@@ -78,13 +78,6 @@
                 </div>
               </div>
             </div>
-
-
-
-
-
-
-          
 
 
         <% elsif current_user_type == "student" %>

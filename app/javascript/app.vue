@@ -28,14 +28,20 @@
       </div>
 
       <div class="col projects-box"> 
-        <div class = 'container' style="min-height: 300px;"> Hold Projects
+        <div class = 'container' style="min-height: 300px; padding-top: 10px;">
+          <h5 style='text-align: center; margin: 0px'> 
+            Hold Projects
+          </h5>
+          <hr>
           <draggable v-model="holdprojects" :options="{group: 'projects'}" @change="cardMoved">
-          <div v-for="(holdproject, index) in holdprojects" class = 'row single-project-container'>
-            {{ holdproject.project_name }}
-          </div>
+          <a v-for="(holdproject, index) in holdprojects" class = 'row single-project-container'>
+            <p class='project-name'>
+              {{ holdproject.project_name }}
+            </p>
+          </a>
           </draggable>
           <div class = 'row single-project-container'>
-            <textarea v-model="messages['holdprojects']" class="form-control"  ></textarea>
+            <textarea v-model="messages['holdprojects']" class="form-control editbox"  ></textarea>
             <button v-on:click = "submitMessages('holdprojects', course.id)" class="btn btn-outline-primary addButton addProjectBtn">Add</button>
           </div>
         </div>
