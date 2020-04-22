@@ -127,21 +127,69 @@
                   </table>
               </div>
             </div>
-
+ 
             <div class="tab-pane fade" id="projects">
-              <% @course.groups %>
-              <%= tag.div id: :boards, data:{groups: @course.groups.to_json, holdprojects: @course.holdprojects.to_json, course: @course.to_json } %>
+              <% if current_user_type == "professor" && @professor_id == current_user.id%>
+                <%= tag.div id: :boards, data:{groups: @course.groups.to_json, holdprojects: @course.holdprojects.to_json, course: @course.to_json } %>
+              <% else %>
+                <div class="container projects-box"> 
+                  <div class = 'container' style="min-height: 300px; padding-top: 10px;">
+                    <h5 style='text-align: center; margin: 0px'>
+                      Projects
+                    </h5>
+                    <hr>
+                    <% @groups = @course.groups%>
+                    <div id="student-projects-container">    
+                      <%= render partial: 'group', collection: @groups %>
+                    </div>
+                    <% @group = Group.new%>
+                    
+                      <div class = 'row single-project-container-stu' style='margin:auto'>
+                        <%= render 'groups/form', group: @group, course: @course %>
+                      </div>
+                    
+                  </div>
+                </div>
+              <%end%>
             </div>
             
             <div class="tab-pane fade" id="groups">
-              <% @course.groups.each do |group| %>
-                <p> <%= group.project_name %> </p>
-                <% group.students.each do |student| %>
-                  <ul> <%= student.firstname + " " + student.lastname%> </ul>
-                <% end %>
-              <% end %>
+              <div class = "row" id="course-group-info-row" >   
+                <% if @course.students.size==0 %>
+                  <h6>No Student Enrolled</h6>
+                <% elsif findGroup(@course.students[0], @course).nil? %>
+                  <h6>Not Yet Created Group</h6>
+                <% else %>
+                  <% @course.groups.each do |group| %>
+                    <div class="container course-group-box">
+                    <p style="margin-top: 20px; margin-left: 6px"> <%= group.project_name %> </p>                  
+                      <div>
+                        <% group_members = group.students%>
+                        <div class = "wrapper overflow course-group-container">
+                            <table class = "table table-hover table-sm" id="member-table">
+                                <thead>
+                                    <tr>
+                                        <th style='border-top: 0'>Name</th>
+                                        <th style='border-top: 0'>Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% group_members.each do |stu| %>
+                                    <tr>
+                                        <td><%= stu.firstname + " " + stu.lastname%>
+                                        <td><%= stu.email%>
+                                    </tr>
+                                    <% end %>
+                                </tbody>
+                            </table>
+                        </div>
+                      </div>
+                    </div>
+                  <%end%>
+                <%end%>
+              </div>
             </div>
-          
+         
           </div> 
           <%= link_to 'Back to Profile Page', courses_path, style: "float: right; margin:right: 5px; margin-top: 10px" %> 
         </div>
@@ -188,5 +236,7 @@
         }
       
      });
+
+
 
 </script>

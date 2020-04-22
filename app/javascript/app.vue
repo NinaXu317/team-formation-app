@@ -194,7 +194,6 @@ export default {
     align-items: center;
     text-decoration: none;
     cursor: pointer;
-
   }
   .project-name{
     margin: 0px;

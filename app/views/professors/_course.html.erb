@@ -11,7 +11,7 @@
         <div style='height: 50px; display: flex; align-items: center; margin-left: 35px; color:grey'>
             <h6>No Student Enrolled</h6>
         </div>
-    <% elsif  group(course.students[0], course).nil?%>
+    <% elsif  findGroup(course.students[0], course).nil?%>
         <div style='height: 50px; display: flex; align-items: center; margin-left: 35px; color:grey'>
             <h6>Not yet Created Group</h6>
         </div>        

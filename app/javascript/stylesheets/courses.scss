@@ -41,4 +41,83 @@
     text-decoration: none ;
   }
   
+  #course-group-info-row{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    margin: auto;
+  }
+  .course-group-box{
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9));
+    box-sizing: border-box;
+    width: 300px;
+    height: 200px;
+    margin:20px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+    
+    > h4 {
+        font-size:bold;
+    }
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 5px;
+
+  }
+
+  .projects-row{
+    margin: 20px;
+  }
+  .projects-box{
+    background: rgb(193, 213, 250);
+    border-radius: 3px;
+    min-height: 300px;
+    white-space: normal;
+    padding-bottom: 15px;
+    display: flex;
+
+  }
+  #student-projects-container{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+  }
+  .single-project-container-stu{
+    background: white; 
+    border-radius: 3px;
+    margin:5px;
+    min-height: 30px;
+    align-items: center;
+    text-decoration: none;
+    width: 350px;
+    
+  }
+
+  .project-name{
+    margin: 0px;
+    padding-left: 15px;
+  }
+
+  .editbox-stu{
+    padding: 0px;
+    margin: 12px;
+    margin-bottom: 0px;
+    width: 170%;
+    height: 50px;
+  }
+  .addProjectBtn-stu{
+    margin-left: 12px;
+    margin-right: 12px;
+    margin-bottom: 12px;
+    width: 170%;
+    border: 1.5px solid rgb(193, 213, 250);
+    font-weight: bold;
+    color: rgb(141, 180, 252);
+    
+  }
+  .addProjectBtn:hover{
+    background-color:rgb(193, 213, 250) ;
+    color: white;
+  }
 

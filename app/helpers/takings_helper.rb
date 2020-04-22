@@ -1,5 +1,5 @@
 module TakingsHelper
-    def group(student, course)
+    def findGroup(student, course)
         group = nil
         takings = student.takings
         
