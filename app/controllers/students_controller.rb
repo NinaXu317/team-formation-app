@@ -32,11 +32,19 @@ class StudentsController < ApplicationController
 
   #POST /students/1/search_course
   def search_course
+    @student = Student.find(params[:id])
     course = Course.where(pin: params[:pin]).take
+    if course.nil?
+      redirect_to @student, notice: "There is no course with that pin" and return
+    end
+
     if Taking.where(student_id: params[:id], course_id: course.id).size == 0
       @taking = Taking.create(student_id: params[:id], course_id: course.id)
+    else
+      redirect_to @student, notice: "You are already registered for this course" and return
     end
-    redirect_to :controller => 'students', :action => 'show', :id => params[:id]
+
+    redirect_to @student, notice: "Course added!"
   end
 
   #POST /students/1/drop_course

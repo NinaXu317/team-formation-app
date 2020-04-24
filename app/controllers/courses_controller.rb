@@ -38,6 +38,22 @@ class CoursesController < ApplicationController
   def create_groups
     @course = Course.find(params[:id])
     algorithm = params[:algo]
+    project_students_difference = @course.groups.size - @course.students.size
+    if project_students_difference > 0
+      redirect_to @course, notice: "There are currently more available projects than students, please make sure you have enough students to 
+                                    be placed into all available projects or put at least #{project_students_difference} on hold." and return
+    end
+
+    if @course.preferences.size < @course.students.size
+      students_without_preference = []
+      @course.students.each do |student|
+        if student.preferences.where(course_id: @course.id).size == 0
+          students_without_preference << student.full_name
+        end
+      end
+      redirect_to @course, notice: "These students need to add their preferences: #{students_without_preference}" and return
+    end
+
     if @course.students.size > 0 && @course.groups.size > 0
       group_service = GroupCreationService.new
       students, projects = group_service.getStudentsAndProjects(@course)
@@ -53,10 +69,12 @@ class CoursesController < ApplicationController
         matching_object = HolisticMatching.new
         matching_object.initAndHolisticMatch(projects, preferences, professor_preferences)
       end
-
       group_service.assignGroups(matching_object.matched_groups)
+      notice = "Groups created!"
+    else
+      notice = "There needs to be at least 1 student and 1 group for matching"
     end
-    redirect_to :controller => 'courses', :action => 'show', :id => params[:id]
+    redirect_to @course, notice: notice
   end
 
   # GET /courses/new
