@@ -15,8 +15,8 @@
         <%= link_to "TeamFormation", root_path, id: "logo", class: "navbar-brand"%>
         <nav>
           <ul class="nav navbar-nav navbar-right">
-            <li><%= link_to "Home",   root_path, class: "nav-link" %></li>
             <% if !logged_in? %>
+              <li><%= link_to "Home",   root_path, class: "nav-link" %></li>
               <li><%= link_to "Student Login", '/student_login', class: "nav-link" %></li>
               <li><%= link_to "Professor Login", '/professor_login' , class: "nav-link"%></li>
               <li><%= link_to "Student Sign Up", new_student_path, class: "nav-link" %></li>
