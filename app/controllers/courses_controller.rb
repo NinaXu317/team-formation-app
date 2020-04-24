@@ -44,7 +44,8 @@ class CoursesController < ApplicationController
     errors = error_service.handle_group_creation_errors(@course)
 
     if errors.size > 0
-      redirect_to @course, notice: "Group Creation had the following errors: #{error_service.to_string(errors)}" and return
+      flash[:notice] = "Group Creation had the following errors: #{error_service.to_string(errors)}"
+      redirect_to @course and return
     end
 
     group_service.determineAlgorithmAndMatch(@course, params)
