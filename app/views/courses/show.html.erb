@@ -51,21 +51,23 @@
                       <%= form_with(url: create_groups_course_path, local: true) do |f| %>
                         <%= hidden_field_tag :algo, 'holistic'%>
                         <div class="alert alert-danger d-none">Please review the problems below:</div>
-                        <label style="margin-right: 35px"><%= f.label 'Project Choice: '%> </label>
+                       
+                        <label style="margin-right: 35px;font-size:22px;"><%= f.label 'How important are student\'s preference on project choices? '%> </label>
                         <%= f.collection_radio_buttons :projectWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
                         margin-left: 24px; margin-right:5px;"}%>
-                        <br><br>
-                        <label style="margin-right: 3px"><%= f.label 'Coding Proficiency:' %></label>
+                        very important<br>
+                        <hr size="10">
+                        <label style="margin-right: 3px;font-size:22px;"><%= f.label 'Do you want each team to have various level of coding proficiencies?' %></label>
                         <%= f.collection_radio_buttons :codingWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
                         margin-left: 24px; margin-right:5px"}%>
-                        <br><br>
-                        <label style="margin-right: 33px"><%= f.label 'Dream Partner:'%></label>
+                        As diverse as possible<br><hr size="10">
+                        <label style="margin-right: 33px;font-size:22px;"><%= f.label 'How important are student\'s preference on their partner choice?'%></label>
                         <%= f.collection_radio_buttons :partnerWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
                         margin-left: 24px; margin-right:5px"}%>
-                        <br><br>
-                        <label style="margin-right: 68px"><%= f.label 'Schedule:'%></label>
+                        very important<br><hr size="10">
+                        <label style="margin-right: 68px;font-size:22px;"><%= f.label 'How important that the team members will have more than 2 hours/week avaiable meeting-time?'%></label>
                         <%= f.collection_radio_buttons :scheduleWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
-                        margin-left: 24px; margin-right:5px"}%> 
+                        margin-left: 24px; margin-right:5px"}%> very important
                         <div class="modal-footer border-top-0 d-flex justify-content-center">
                           <div style="margin-left: 80px; margin-bottom: 50px ">
                             <%= f.submit("Submit and Create Group", class: "btn btn-outline-primary addButton") %>
