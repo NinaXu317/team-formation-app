@@ -1,4 +1,8 @@
-require 'poro/matching'
+require 'poro/Matching'
+require 'poro/RandomMatching'
+require 'poro/ProjectMatching'
+require 'poro/HolisticMatching'
+
 require 'services/group_creation_service'
 
 class CoursesController < ApplicationController
@@ -39,12 +43,14 @@ class CoursesController < ApplicationController
       students, projects = group_service.getStudentsAndProjects(@course)
       preferences = group_service.getPreferences(@course)
       professor_preferences = group_service.getProfessorPreferences(params)
-      matching_object = Matching.new
       if algorithm == "random"
+        matching_object = RandomMatching.new
         matching_object.initAndRandomMatch(students, projects)
       elsif algorithm == "project_only"
+        matching_object = ProjectMatching.new
         matching_object.initAndProjectMatch(projects, preferences)
       elsif algorithm == "holistic"
+        matching_object = HolisticMatching.new
         matching_object.initAndHolisticMatch(projects, preferences, professor_preferences)
       end
 
