@@ -15,22 +15,6 @@ ActiveRecord::Schema.define(version: 2020_04_24_212818) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "chatroom_users", force: :cascade do |t|
-    t.bigint "chatroom_id", null: false
-    t.bigint "student_id", null: false
-    t.bigint "professor_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["chatroom_id"], name: "index_chatroom_users_on_chatroom_id"
-    t.index ["professor_id"], name: "index_chatroom_users_on_professor_id"
-    t.index ["student_id"], name: "index_chatroom_users_on_student_id"
-  end
-
-  create_table "chatrooms", force: :cascade do |t|
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "courses", force: :cascade do |t|
     t.string "name"
     t.integer "pin"
@@ -44,6 +28,7 @@ ActiveRecord::Schema.define(version: 2020_04_24_212818) do
     t.string "project_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "hold", default: false
     t.integer "position"
     t.text "description"
   end
@@ -54,14 +39,6 @@ ActiveRecord::Schema.define(version: 2020_04_24_212818) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "course_id"
-  end
-
-  create_table "messages", force: :cascade do |t|
-    t.string "type_name"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.integer "room_id"
-    t.text "content"
   end
 
   create_table "preferences", force: :cascade do |t|
@@ -104,8 +81,5 @@ ActiveRecord::Schema.define(version: 2020_04_24_212818) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  add_foreign_key "chatroom_users", "chatrooms"
-  add_foreign_key "chatroom_users", "professors"
-  add_foreign_key "chatroom_users", "students"
   add_foreign_key "preferences", "students"
 end
