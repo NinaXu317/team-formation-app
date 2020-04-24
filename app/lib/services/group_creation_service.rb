@@ -30,6 +30,27 @@ class GroupCreationService
         return preferences
     end
 
+
+    def determineAlgorithmAndMatch(course, params)
+        students, projects = getStudentsAndProjects(course)
+        preferences = getPreferences(course)
+        professor_preferences = getProfessorPreferences(params)
+
+        algorithm = params[:algo]
+        if algorithm == "random"
+            matching_object = RandomMatching.new
+            matching_object.initAndRandomMatch(students, projects)
+        elsif algorithm == "project_only"
+            matching_object = ProjectMatching.new
+            matching_object.initAndProjectMatch(projects, preferences)
+        elsif algorithm == "holistic"
+            matching_object = HolisticMatching.new
+            matching_object.initAndHolisticMatch(projects, preferences, professor_preferences)
+        end
+        assignGroups(matching_object.matched_groups)
+    end
+
+
     def getProfessorPreferences(params)
         return ({projectWeight: params[:projectWeight].to_i,
             codingWeight: params[:codingWeight].to_i,
