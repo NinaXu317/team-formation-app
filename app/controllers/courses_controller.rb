@@ -4,6 +4,7 @@ require 'poro/ProjectMatching'
 require 'poro/HolisticMatching'
 
 require 'services/group_creation_service'
+require 'services/error_service'
 
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
@@ -36,45 +37,19 @@ class CoursesController < ApplicationController
 
   #POST /courses/1/create_groups
   def create_groups
+    group_service = GroupCreationService.new
+    error_service = ErrorService.new
     @course = Course.find(params[:id])
-    algorithm = params[:algo]
-    project_students_difference = @course.groups.size - @course.students.size
-    if project_students_difference > 0
-      redirect_to @course, notice: "There are currently more available projects than students, please make sure you have enough students to 
-                                    be placed into all available projects or put at least #{project_students_difference} on hold." and return
+
+    errors = error_service.handle_group_creation_errors(@course)
+
+    if errors.size > 0
+      flash[:notice] = "Group Creation had the following errors: #{error_service.to_string(errors)}"
+      redirect_to @course and return
     end
 
-    if @course.preferences.size < @course.students.size
-      students_without_preference = []
-      @course.students.each do |student|
-        if student.preferences.where(course_id: @course.id).size == 0
-          students_without_preference << student.full_name
-        end
-      end
-      redirect_to @course, notice: "These students need to add their preferences: #{students_without_preference}" and return
-    end
-
-    if @course.students.size > 0 && @course.groups.size > 0
-      group_service = GroupCreationService.new
-      students, projects = group_service.getStudentsAndProjects(@course)
-      preferences = group_service.getPreferences(@course)
-      professor_preferences = group_service.getProfessorPreferences(params)
-      if algorithm == "random"
-        matching_object = RandomMatching.new
-        matching_object.initAndRandomMatch(students, projects)
-      elsif algorithm == "project_only"
-        matching_object = ProjectMatching.new
-        matching_object.initAndProjectMatch(projects, preferences)
-      elsif algorithm == "holistic"
-        matching_object = HolisticMatching.new
-        matching_object.initAndHolisticMatch(projects, preferences, professor_preferences)
-      end
-      group_service.assignGroups(matching_object.matched_groups)
-      notice = "Groups created!"
-    else
-      notice = "There needs to be at least 1 student and 1 group for matching"
-    end
-    redirect_to @course, notice: notice
+    group_service.determineAlgorithmAndMatch(@course, params)
+    redirect_to @course, notice: "Groups created!"
   end
 
   # GET /courses/new

@@ -3,7 +3,11 @@
 
 <div class='view4'>
   <div class='container' style="padding-top: 30px">
-    <p id="notice"><%= notice %></p>
+  <% flash.each do |type, msg| %>
+    <div class="alert alert-info">
+      <%= msg %>
+    </div>
+  <% end %>
     <div class='container' id='body-container-course-show'>
     <div class='page-wrap'>
       <div class='row profile-row'>
