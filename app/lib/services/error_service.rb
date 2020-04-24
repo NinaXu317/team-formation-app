@@ -25,7 +25,7 @@ class ErrorService
     def to_string(errors)
         errors_string = ""
         errors.each do |error_hash|
-            errors_string += error_hash[:type] + ": " + error_hash[:message] + "\n"
+            errors_string += "\n" + error_hash[:type] + ": " + error_hash[:message] + "\n"
         end
         return errors_string
     end
