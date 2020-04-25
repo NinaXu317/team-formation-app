@@ -50,7 +50,7 @@ class ErrorService
         return students_with_invalid_preferences
     end
 
-    def handle_group_creation_errors(course)
+    def handle_group_creation_errors(course, algo)
         errors = []
         if course.students.size == 0
             errors << no_students()
@@ -65,7 +65,7 @@ class ErrorService
             errors << more_projects_than_students(project_students_difference)
         end
     
-        if course.preferences.size < course.students.size
+        if (algo != "random" && course.preferences.size < course.students.size)
         students_without_preference = getStudentsWithoutPreference(course)
             errors << missing_preferences(students_without_preference)
         end

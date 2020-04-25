@@ -40,8 +40,8 @@ class CoursesController < ApplicationController
     group_service = GroupCreationService.new
     error_service = ErrorService.new
     @course = Course.find(params[:id])
-
-    errors = error_service.handle_group_creation_errors(@course)
+    algorithm = params[:algo]
+    errors = error_service.handle_group_creation_errors(@course, algorithm)
 
     if errors.size > 0
       flash[:notice] = "Group Creation had the following errors: #{error_service.to_string(errors)}"
