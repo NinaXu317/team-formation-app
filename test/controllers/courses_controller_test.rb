@@ -48,6 +48,6 @@ class CoursesControllerTest < ActionDispatch::IntegrationTest
       delete course_url(@course)
     end
 
-    assert_redirected_to courses_url
+    assert_redirected_to @course.professor
   end
 end

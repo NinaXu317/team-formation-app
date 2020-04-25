@@ -4,6 +4,7 @@ one:
   id: 1
   course_id: 1
   project_name: MyString
+  description: Cats on ice
 
 two:
   course_id: 1
