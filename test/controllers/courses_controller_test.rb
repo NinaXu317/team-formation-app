@@ -4,7 +4,6 @@ class CoursesControllerTest < ActionDispatch::IntegrationTest
 
   include SessionsHelper
   
-  
   setup do
     @course = courses(:one)
     @user = professors(:admin)
