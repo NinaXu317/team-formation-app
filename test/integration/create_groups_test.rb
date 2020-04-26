@@ -8,10 +8,4 @@ class CreateGroupsTest < ActionDispatch::IntegrationTest
     end
 
 
-
-
-    test "can create all preference groups" do
-
-    end
-
 end

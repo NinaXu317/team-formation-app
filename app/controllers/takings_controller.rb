@@ -71,6 +71,6 @@ class TakingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def taking_params
-      params.require(:taking).permit(:student_id, :course_id, :group_id)
+      params.require(:taking).permit(:student_id, :course_id, :group_id, :voted)
     end
 end

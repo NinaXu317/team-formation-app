@@ -53,6 +53,7 @@ class CoursesControllerTest < ActionDispatch::IntegrationTest
 
   test "can create random groups" do
     log_in_as(@user)
+    puts @course.id.inspect
     post create_groups_course_path(@course.id), params: {algo: "random"}
     assert_response :redirect
     follow_redirect!

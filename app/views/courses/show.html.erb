@@ -203,6 +203,9 @@
       </div>
 
       <%= link_to 'Edit', edit_course_path(@course) %> |
+      <% if current_user_type == "student"%>
+        <%= button_to 'vote', vote_group_path(69), params: {course_id: @course.id, student_id: current_user.id}%>
+      <% end %>
       
     </div>
 
