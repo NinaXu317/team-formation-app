@@ -41,7 +41,6 @@ class GroupCreationService
     def determineAlgorithmAndMatch(course, params)
         students, projects = getStudentsAndProjects(course)
         preferences = getPreferences(course)
-        professor_preferences = getProfessorPreferences(params)
 
         algorithm = params[:algo]
         if algorithm == "random"
@@ -51,6 +50,7 @@ class GroupCreationService
             matching_object = ProjectMatching.new
             matching_object.initAndProjectMatch(projects, preferences)
         elsif algorithm == "holistic"
+            professor_preferences = getProfessorPreferences(params)
             matching_object = HolisticMatching.new
             matching_object.initAndHolisticMatch(projects, preferences, professor_preferences)
         end

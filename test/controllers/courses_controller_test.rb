@@ -50,4 +50,28 @@ class CoursesControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to @course.professor
   end
+
+  test "can create random groups" do
+    log_in_as(@user)
+    post create_groups_course_path(@course.id), params: {id: @course.id, algo: "random"}
+    assert_response :redirect
+    follow_redirect!
+    assert_response :success
+    @course.groups.each do |group|
+        puts group.students.size
+        assert(group.students.size == 2, msg = "Groups are not of size 2")
+    end
+  end
+
+test "can create project preference groups" do
+    log_in_as(@user)
+    post create_groups_course_path(@course.id), params: {id: @user.id, algo: "project_only"}
+    assert_response :redirect
+    follow_redirect!
+    assert_response :success
+    @course.groups.each do |group|
+        assert(group.students.size == 2, msg = "Groups are not of size 2")
+    end
+  end
+
 end

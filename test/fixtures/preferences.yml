@@ -1,7 +1,93 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  student: one
+  student_id: 2
+  first: 1
+  second: 2
+  third: 3
+  codingProficiency: 3
+  dreampartner: 3
+  course_id: 1
+  schedule: [{"weekday":"Sunday","start":"08:00:00",
+                                    "end":"10:00:00"},{"weekday":"Monday","start":"
+                                    10:00:00","end":"12:00:00"},{"weekday":"Wednesday",
+                                    "start":"12:00:00","end":"13:00:00"},{"weekday":
+                                    "Thursday","start":"09:00:00","end":"10:00:00"},
+                                    {"weekday":"Friday","start":"10:00:00","end":"11:00:00"}]
 
+                                    
 two:
-  student: two
+  student_id: 3
+  first: 2
+  second: 3
+  third: 1
+  codingProficiency: 3
+  dreampartner: 2
+  course_id: 1
+  schedule: [{"weekday":"Sunday","start":"08:00:00",
+                                    "end":"10:00:00"},{"weekday":"Monday","start":"
+                                    10:00:00","end":"12:00:00"},{"weekday":"Wednesday",
+                                    "start":"12:00:00","end":"13:00:00"},{"weekday":
+                                    "Thursday","start":"09:00:00","end":"10:00:00"},
+                                    {"weekday":"Friday","start":"10:00:00","end":"11:00:00"}]
+
+three:
+  student_id: 4
+  first: 3
+  second: 2
+  third: 1
+  codingProficiency: 3
+  dreampartner: 4
+  course_id: 1
+  schedule: [{"weekday":"Sunday","start":"08:00:00",
+                                    "end":"10:00:00"},{"weekday":"Monday","start":"
+                                    10:00:00","end":"12:00:00"},{"weekday":"Wednesday",
+                                    "start":"12:00:00","end":"13:00:00"},{"weekday":
+                                    "Thursday","start":"09:00:00","end":"10:00:00"},
+                                    {"weekday":"Friday","start":"10:00:00","end":"11:00:00"}]
+
+
+four:
+  student_id: 5
+  first: 1
+  second: 2
+  third: 3
+  codingProficiency: 3
+  dreampartner: 3
+  course_id: 1
+  schedule: [{"weekday":"Sunday","start":"08:00:00",
+                                    "end":"10:00:00"},{"weekday":"Monday","start":"
+                                    10:00:00","end":"12:00:00"},{"weekday":"Wednesday",
+                                    "start":"12:00:00","end":"13:00:00"},{"weekday":
+                                    "Thursday","start":"09:00:00","end":"10:00:00"},
+                                    {"weekday":"Friday","start":"10:00:00","end":"11:00:00"}]
+
+five:
+  student_id: 6
+  first: 2
+  second: 1
+  third: 3
+  codingProficiency: 3
+  dreampartner: 5
+  course_id: 1
+  schedule: [{"weekday":"Sunday","start":"08:00:00",
+                                    "end":"10:00:00"},{"weekday":"Monday","start":"
+                                    10:00:00","end":"12:00:00"},{"weekday":"Wednesday",
+                                    "start":"12:00:00","end":"13:00:00"},{"weekday":
+                                    "Thursday","start":"09:00:00","end":"10:00:00"},
+                                    {"weekday":"Friday","start":"10:00:00","end":"11:00:00"}]
+
+six:
+  student_id: 7
+  first: 1
+  second: 2
+  third: 3
+  codingProficiency: 3
+  dreampartner: 6
+  course_id: 1
+  schedule: [{"weekday":"Sunday","start":"08:00:00",
+                                    "end":"10:00:00"},{"weekday":"Monday","start":"
+                                    10:00:00","end":"12:00:00"},{"weekday":"Wednesday",
+                                    "start":"12:00:00","end":"13:00:00"},{"weekday":
+                                    "Thursday","start":"09:00:00","end":"10:00:00"},
+                                    {"weekday":"Friday","start":"10:00:00","end":"11:00:00"}]

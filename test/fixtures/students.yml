@@ -7,13 +7,38 @@ admin:
   email: admin@admin.com
   password_digest: <%= Student.digest('password') %>
 
-one:
+jeremy:
   id: 2
-  firstname: MyString
-  lastname: MyString
-  email: MyString
+  firstname: Jeremy
+  lastname: Bearimy
+  email: bearimy@brandeis.edu
 
-two:
-  firstname: MyString
-  lastname: MyString
-  email: MyString
+derek:
+  id: 3
+  firstname: Derek
+  lastname: Derek
+  email: derek@multiverse.com
+
+eleanor:
+  id: 4
+  firstname: Eleanor
+  lastname: Shellstrop
+  email: shellstrop@margarita.com
+
+chidi:
+  id: 5
+  firstname: Chidi
+  lastname: Anagognye
+  email: ethics@philosophy.com
+
+tahani:
+  id: 6
+  firstname: Tahani
+  lastname: Al-Jamil
+  email: fuck@sister.com
+
+chidi:
+  id: 7
+  firstname: Jason
+  lastname: Mendoza
+  email: bortles@molotov.com

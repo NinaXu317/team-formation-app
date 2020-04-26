@@ -3,10 +3,10 @@
 one:
   id: 1
   name: FakeCourse
-  pin: 1119
+  pin: 1112
   professor_id: 1
 
 two:
   name: MyString
-  pin: 1
+  pin: 1113
   professor_id: 1

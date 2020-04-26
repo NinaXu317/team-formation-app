@@ -3,9 +3,17 @@
 one:
   id: 1
   course_id: 1
-  project_name: MyString
+  project_name: Kitties
   description: Cats on ice
 
 two:
+  id: 2
   course_id: 1
-  project_name: MyString
+  project_name: Doggies
+  description: Doggos gogo
+
+two:
+  id: 3
+  course_id: 1
+  project_name: Panda
+  description: Very Stressed
