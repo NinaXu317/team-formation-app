@@ -1,5 +1,5 @@
 class GroupsController < ApplicationController
-  before_action :set_group, only: [:show, :edit, :update, :destroy, :move]
+  before_action :set_group, only: [:show, :edit, :update, :destroy, :move, :vote]
 
   # GET /groups
   # GET /groups.json
@@ -22,10 +22,23 @@ class GroupsController < ApplicationController
   def edit
   end
 
+  #POST /groups/1/vote
+  def vote
+    #params: {course_id, student_id}
+    enrollment = Taking.where(course_id: params[:course_id], student_id: params[:student_id]).first
+    if !enrollment.voted.nil?
+      voted_group = Group.find(enrollment.voted)
+      voted_group.update(vote: voted_group.vote - 1)
+    end
+    @group.update(vote: @group.vote + 1)
+    enrollment.update(voted: @group.id)
+  end
+
   # POST /groups
   # POST /groups.json
   def create
     @group = Group.new(group_params)
+    @group.vote = 0
     respond_to do |format|
       if @group.save
         course = Course.find(params[:group][:course_id].to_i)
@@ -87,6 +100,6 @@ class GroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.require(:group).permit(:course_id, :project_name, :description)
+      params.require(:group).permit(:course_id, :project_name, :description, :vote)
     end
 end
