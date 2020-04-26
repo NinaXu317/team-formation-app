@@ -1,3 +1,4 @@
+require_relative 'Matching'
 class ProjectMatching < Matching
     # def initProjects(projects, preferences)
     #     super
@@ -90,15 +91,16 @@ class ProjectMatching < Matching
         end
 
         #(5) check for group that has too little students
-        puts "current form:", result.inspect
+        # puts "current form:", result.inspect
         unfilled = result.find{|key,value| value.length<@grousizemin}
-        puts unfilled.inspect
+        # puts unfilled.inspect
         while(!unfilled.nil?) do
             most_p= find_mostpopular_project(result)
             poor_student = result[most_p].delete(result[most_p].size-1)
             result[unfilled[0]] << poor_student
             unfilled = result.find{|key,value| value.length<@grousizemin}
         end
+        puts "current form after project Assign:", result.inspect
         return result
     end
 

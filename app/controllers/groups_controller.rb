@@ -39,6 +39,12 @@ class GroupsController < ApplicationController
     end
   end
 
+  def vote
+    # parse the vote structurem
+    # update the database
+  end
+
+  
   # PATCH/PUT /groups/1
   # PATCH/PUT /groups/1.json
   def update

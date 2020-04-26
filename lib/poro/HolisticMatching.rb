@@ -1,3 +1,4 @@
+require_relative 'ProjectMatching'
 class HolisticMatching < ProjectMatching
     # input @matched_groups as the result from our algorithm that uses project preferences
     # input @Preferences as an array of Hashes. Each hash is of the form {student_id,first(in int),second,third,codingProficiency, 
