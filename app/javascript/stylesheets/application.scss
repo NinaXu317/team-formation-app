@@ -7,14 +7,17 @@
 
 html,
 body,
-.view1, .view2, .view3{
+.view1, .view2, .view3, .view4{
   height: 100%;
+}
+.view4{
+  height: 200%;
 }
 
 @media (max-width: 740px) {
   html,
   body,
-  .view1, .view2, .view3{
+  .view1, .view2, .view3, view4{
     height: 100vh;
   }
 }

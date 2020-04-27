@@ -1,30 +1,41 @@
 <template>
     <div class="container projects-box"> 
-        <div class = 'container' style="min-height: 300px; padding-top: 10px;">
-          <h5 style='text-align: center; margin: 0px'>
+        <div class = 'container student-projects-container'>
+          <h5 class='project-title'>
             Projects
           </h5>
           <hr>
 
-          <a v-for="(group, index) in groups" class='row single-project-container-stu' >            
-                <div class='project-name-text'>
+          <a v-for="(group, index) in groups" class='row single-project-container-stu' >
+            <div class='container project-container'>           
+                <h5 class='project-name-text'>
                     {{ group.project_name }}
-                </div>
+                </h5>
                 <div class='form-control editbox-stu'>
                     <p class="project-description-text">{{ group.description }}</p>
                 </div>
-                <div class='vote-buttons'>              
-                    <button v-on:click = "voteUpdate(group,'first')" class='btn btn-outline-danger' :id="'f'+group.id" >First ({{group.vfirst}})</button>      
-                    <button v-on:click = "voteUpdate(group,'second')" class='btn btn-outline-warning' :id="'s'+group.id">Second ({{group.vsecond}})</button>        
-                    <button v-on:click = "voteUpdate(group,'third')" class='btn btn-outline-info' :id="'t'+group.id">Thrid ({{group.vthird}})</button>
+                
+                <div class='vote-buttons'>
+                    <button v-if="taking.votethird==group.id" class='btn btn-info voteBtn' :id="'t'+group.id">Thrid ({{group.vthird}})</button>              
+                    <button v-else v-on:click = "voteUpdate(group,'third')" class='btn btn-outline-info voteBtn' :id="'t'+group.id">Thrid ({{group.vthird}})</button>
+                    <button v-if="taking.votesecond==group.id" class='btn btn-warning voteBtn' :id="'s'+group.id">Second ({{group.vsecond}})</button>  
+                    <button v-else v-on:click = "voteUpdate(group,'second')" class='btn btn-outline-warning voteBtn' :id="'s'+group.id">Second ({{group.vsecond}})</button>
+                    <button v-if="taking.votefirst==group.id" class='btn btn-danger voteBtn' :id="'f'+group.id">First ({{group.vfirst}})</button>  
+                    <button v-else v-on:click = "voteUpdate(group,'first')" class='btn btn-outline-danger voteBtn' :id="'f'+group.id" >First ({{group.vfirst}})</button>
                 </div>
-
+            </div>
           </a>
 
           <div class = 'single-project-container-stu'>
-            <textarea v-model="messages['group']" class="form-control editbox" placeholder="Project Name"></textarea>
-            <textarea v-model="description['group']" class="form-control editbox" placeholder="Description"></textarea>
-            <button v-on:click = "submitMessages(course.id)" class="btn btn-outline-primary addProjectBtn">Add</button>
+            <div class= 'container project-container project-container-input'>
+                <textarea v-model="messages['group']" class="form-control editbox-stu editbox-name" placeholder="Project Name"></textarea>
+                <textarea v-model="description['group']" class="form-control editbox-stu editbox-description" placeholder="Description"></textarea>
+                <div class="row">
+                    <div class="container">
+                    <button v-on:click = "submitMessages(course.id)" class="btn btn-outline-primary addProjectBtn">Add</button>
+                    </div>
+                </div>
+            </div>
           </div>
           
         </div>
@@ -33,9 +44,7 @@
 </template>
 
 <script>
-import draggable from 'vuedraggable'
 export default {
-  components: {draggable},
   props: ["group_list", "curr_course", "curr_student", "curr_taking"],
   data: function(){
     return {

@@ -2,21 +2,38 @@
   <div class = "wrapper overflow projects-container">
     <div id="app" class="row projects-row" >
       <div class="col projects-box"> 
-        <div class = 'container' style="min-height: 300px; padding-top: 10px;">
-          <h5 style='text-align: center; margin: 0px'>
+        <div class = 'container student-projects-container'>
+          <h5 class='project-title'>
            Projects
           </h5>
           <hr>
           <draggable v-model="groups" :options="{group: 'projects'}" @change="cardMoved">
-          <a v-for="(group, index) in groups" class = 'row single-project-container' >
-            <p class='project-name'>
-            {{ group.project_name }}
-            </p>
+          <a v-for="(group, index) in groups" class = 'row single-project-container-stu' >
+            <div class='container project-container'>
+              <p class='project-name-text'>
+              {{ group.project_name }}
+              </p>
+              <div class='form-control editbox-stu'>
+                <p class="project-description-text">{{ group.description }}</p>
+              </div>
+              <div class='vote-buttons'>
+                <button class='btn btn-info voteBtn' :id="'t'+group.id">Thrid ({{group.vthird}})</button>              
+                <button class='btn btn-warning voteBtn' :id="'s'+group.id">Second ({{group.vsecond}})</button>    
+                <button class='btn btn-danger voteBtn' :id="'f'+group.id">First ({{group.vfirst}})</button>  
+              </div>
+            </div>
           </a>
           </draggable>
-          <div class = 'row single-project-container'>
-            <textarea v-model="messages['groups']" class="form-control editbox"></textarea>
-            <button v-on:click = "submitMessages('groups', course.id)" class="btn btn-outline-primary addProjectBtn">Add</button>
+          <div class = 'single-project-container-stu'>
+            <div class= 'container project-container project-container-input'>
+              <textarea v-model="messages['groups']" class="form-control editbox-stu editbox-name" placeholder="Project Name"></textarea>
+              <textarea v-model="description['groups']" class="form-control editbox-stu editbox-description" placeholder="Description"></textarea>
+              <div class="row">
+                <div class="container">
+                <button v-on:click = "submitMessages('groups', course.id)" class="btn btn-outline-primary addProjectBtn">Add</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -28,21 +45,40 @@
       </div>
 
       <div class="col projects-box"> 
-        <div class = 'container' style="min-height: 300px; padding-top: 10px;">
-          <h5 style='text-align: center; margin: 0px'> 
+        <div class = 'container student-projects-container'>
+          <h5 class='project-title'>
             Hold Projects
           </h5>
           <hr>
           <draggable v-model="holdprojects" :options="{group: 'projects'}" @change="cardMoved">
-          <a v-for="(holdproject, index) in holdprojects" class = 'row single-project-container'>
-            <p class='project-name'>
-              {{ holdproject.project_name }}
-            </p>
+          <a v-for="(holdproject, index) in holdprojects" class = 'row single-project-container-stu'>
+            <div class='container project-container'>
+              <p class='project-name-text'>
+                {{ holdproject.project_name }}
+              </p>
+              <div class='form-control editbox-stu'>
+                <p class="project-description-text">{{ holdproject.description }}</p>
+              </div>
+              <div class='vote-buttons'>
+                <button class='btn btn-info voteBtn' >Thrid ()</button>              
+                <button class='btn btn-warning voteBtn' >Second ()</button>    
+                <button class='btn btn-danger voteBtn' >First ()</button>  
+              </div>
+
+            </div>
+          
           </a>
           </draggable>
-          <div class = 'row single-project-container'>
-            <textarea v-model="messages['holdprojects']" class="form-control editbox"  ></textarea>
-            <button v-on:click = "submitMessages('holdprojects', course.id)" class="btn btn-outline-primary addButton addProjectBtn">Add</button>
+          <div class = 'single-project-container-stu'>
+            <div class= 'container project-container project-container-input'>
+              <textarea v-model="messages['holdprojects']" class="form-control editbox-stu editbox-name" placeholder="Project Name"></textarea>
+              <textarea v-model="description['holdprojects']" class="form-control editbox-stu editbox-description" placeholder="Description"></textarea>
+              <div class="row">
+                <div class="container">
+                  <button v-on:click = "submitMessages('holdprojects', course.id)" class="btn btn-outline-primary addButton addProjectBtn">Add</button>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -59,6 +95,7 @@ export default {
   data: function(){
     return {
       messages: {},
+      description: {},
       groups: this.group_list,
       holdprojects: this.hold_list,
       course: this.curr_course
@@ -74,15 +111,23 @@ export default {
         var data = new FormData
         if(this.groups.find((project)=>project.project_name===moved_project_name)){
           console.log("move from holds to groups")
+          var group = this.groups.find((project)=>project.project_name===moved_project_name)
           data.append("group[course_id]", this.course.id)
           data.append("group[project_name]", moved_project_name)
           data.append("group[position]", event.added.newIndex)
+          data.append("group[description]",group.description)
           Rails.ajax({
             url:"/groups",
             type: "POST",
             data: data,
             dataType: "json",
             success: (data) => {
+              group.vfirst = 0
+              group.vsecond = 0
+              group.vthird = 0
+              document.getElementById(`f${group.id}`).innerHTML= `First (${group.vfirst})`
+              document.getElementById(`s${group.id}`).innerHTML= `Second (${group.vsecond})`
+              document.getElementById(`t${group.id}`).innerHTML= `Third (${group.vthird})`
               Rails.ajax({
                 url: `/holdprojects/${event.added.element.id}`,
                 type: "DELETE",
@@ -109,7 +154,7 @@ export default {
             }
           })         
         }
-      } else if (event.moved != undefined){
+      }else if (event.moved != undefined){
         var moved_project_name = event.moved.element.project_name
         var moved_project_id = event.moved.element.id
         if(this.groups.find((project)=>project.project_name===moved_project_name)){
@@ -138,8 +183,10 @@ export default {
     submitMessages: function(column_str, course_id){
       var data = new FormData
       if(column_str=='groups'){
+        
         data.append("group[course_id]", course_id)
         data.append("group[project_name]", this.messages[column_str])
+        data.append("group[description]", this.description[column_str])
         Rails.ajax({
           url: "/groups",
           type: "POST",
@@ -148,11 +195,14 @@ export default {
           success: (data) => {
             this.groups.push(data)
             this.messages[column_str] = undefined
+            this.description[column_str]= undefined
           }
         })
       }else{
+        console.log(this.description[column_str])
         data.append("holdproject[course_id]", course_id)
         data.append("holdproject[project_name]", this.messages[column_str]) 
+        data.append("holdproject[description]", this.description[column_str])
         
         Rails.ajax({
           url: "/holdprojects",
@@ -162,6 +212,7 @@ export default {
           success: (data) => {
             this.holdprojects.push(data)
             this.messages[column_str] = undefined
+            this.description[column_str]=undefined
           }
         })
       } 
@@ -173,7 +224,8 @@ export default {
 
 <style scoped>
   .projects-row{
-    margin: 20px;
+    margin-left: 0px;
+    margin-right: 0px;
   }
   .projects-box{
     background: rgb(193, 213, 250);
@@ -202,9 +254,6 @@ export default {
     margin-bottom: 0px;
   }
   .addProjectBtn{
-    margin-left: 12px;
-    margin-right: 12px;
-    margin-bottom: 12px;
     width: 100%;
     border: 1.5px solid rgb(193, 213, 250);
     font-weight: bold;
@@ -212,7 +261,7 @@ export default {
   }
   .addProjectBtn:hover{
     background-color:rgb(193, 213, 250) ;
-    color: white;
+    color: black;
   }
   #middle-col{
     min-width: 100px;
@@ -222,5 +271,12 @@ export default {
   #change-icon{
     color: rgb(141, 180, 252);
     margin-left: 32px;
+  }
+  .voteBtn{
+    width: 110px;
+  }
+  .vote-buttons{
+    position: relative;
+    right: 5px;
   }
 </style>
