@@ -22,10 +22,23 @@ class GroupsController < ApplicationController
   def edit
   end
 
+  #POST /groups/1/vote
+  def vote
+    #params: {course_id, student_id}
+    enrollment = Taking.where(course_id: params[:course_id], student_id: params[:student_id]).first
+    if !enrollment.voted.nil?
+      voted_group = Group.find(enrollment.voted)
+      voted_group.update(vote: voted_group.vote - 1)
+    end
+    @group.update(vote: @group.vote + 1)
+    enrollment.update(voted: @group.id)
+  end
+
   # POST /groups
   # POST /groups.json
   def create
     @group = Group.new(group_params)
+    @group.vote = 0
     respond_to do |format|
       if @group.save
         course = Course.find(params[:group][:course_id].to_i)
@@ -38,6 +51,12 @@ class GroupsController < ApplicationController
     end
   end
 
+  def vote
+    # parse the vote structurem
+    # update the database
+  end
+
+  
   # PATCH/PUT /groups/1
   # PATCH/PUT /groups/1.json
   def update

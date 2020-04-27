@@ -37,11 +37,11 @@ class CoursesController < ApplicationController
 
   #POST /courses/1/create_groups
   def create_groups
-    group_service = GroupCreationService.new
-    error_service = ErrorService.new
+    group_service = GroupCreationService.new #contains group creation functions
+    error_service = ErrorService.new # Contains error detection and generation functions
     @course = Course.find(params[:id])
-
-    errors = error_service.handle_group_creation_errors(@course)
+    algorithm = params[:algo]
+    errors = error_service.handle_group_creation_errors(@course, algorithm)
 
     if errors.size > 0
       flash[:notice] = "Group Creation had the following errors: #{error_service.to_string(errors)}"

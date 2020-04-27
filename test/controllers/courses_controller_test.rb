@@ -5,7 +5,7 @@ class CoursesControllerTest < ActionDispatch::IntegrationTest
   include SessionsHelper
   
   setup do
-    @course = courses(:one)
+    @course = courses(:two)
     @user = professors(:admin)
   end
 
@@ -48,6 +48,43 @@ class CoursesControllerTest < ActionDispatch::IntegrationTest
       delete course_url(@course)
     end
 
-    assert_redirected_to courses_url
+    assert_redirected_to @course.professor
   end
+
+  test "can create random groups" do
+    log_in_as(@user)
+    puts @course.id.inspect
+    post create_groups_course_path(@course.id), params: {algo: "random"}
+    assert_response :redirect
+    follow_redirect!
+    assert_response :success
+    @course.groups.each do |group|
+        assert(group.students.size == 2, msg = "Groups are not of size 2")
+    end
+  end
+
+  test "can create project preference groups" do
+    log_in_as(@user)
+    post create_groups_course_path(@course.id), params: {id: @course.id, algo: "project_only"}
+    assert_response :redirect
+    follow_redirect!
+    assert_response :success
+    @course.groups.each do |group|
+        assert(group.students.size == 2, msg = "Groups are not of size 2")
+    end
+  end
+
+  test "can create groups based on all preferences" do
+    log_in_as(@user)
+    post create_groups_course_path(@course.id), params: {id: @course.id, algo: "holistic",
+                                                        projectWeight: 3, codingWeight: 5,
+                                                        partnerWeight: 2, scheduleWeight: 1}
+    assert_response :redirect
+    follow_redirect!
+    assert_response :success
+    @course.groups.each do |group|
+        assert(group.students.size == 2, msg = "Groups are not of size 2")
+    end
+  end
+
 end

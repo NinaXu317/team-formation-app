@@ -11,9 +11,15 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= form.hidden_field :course_id, :value => course.id %>
-  </div>
+  <% if @course.nil?%>
+    <div class="field">
+      <%= form.number_field :course_id, class: "form-control textarea editbox-stu" %>
+    </div>
+  <% else %>
+    <div class="field">
+      <%= form.hidden_field :course_id, :value => @course.id %>
+    </div>
+  <% end %>
 
   <div class="field">
     <%= form.text_field :project_name, class: "form-control textarea editbox-stu", placeholder: "Project name"%>

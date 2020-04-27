@@ -1,4 +1,8 @@
+#Class meant to hold all service functions for creating groups
+#in order to thin controller code
 class GroupCreationService
+    
+    #Returns an array of projects from given course
     def getProjects(course)
         projects = []
         course.groups.each do |group|
@@ -7,6 +11,7 @@ class GroupCreationService
         return projects
     end
 
+    #returns an array of students from given course
     def getStudents(course)
         students = []
         course.students.each do |student| 
@@ -15,6 +20,7 @@ class GroupCreationService
         return students
     end
 
+    #Returns an array of preferences from given course
     def getPreferences(course)
         preferences = []
         course.preferences.each do |preference|
@@ -30,11 +36,11 @@ class GroupCreationService
         return preferences
     end
 
-
+    #Determines the desired algorithm from the params
+    #and creates groups with that algorithm
     def determineAlgorithmAndMatch(course, params)
         students, projects = getStudentsAndProjects(course)
         preferences = getPreferences(course)
-        professor_preferences = getProfessorPreferences(params)
 
         algorithm = params[:algo]
         if algorithm == "random"
@@ -44,13 +50,14 @@ class GroupCreationService
             matching_object = ProjectMatching.new
             matching_object.initAndProjectMatch(projects, preferences)
         elsif algorithm == "holistic"
+            professor_preferences = getProfessorPreferences(params)
             matching_object = HolisticMatching.new
             matching_object.initAndHolisticMatch(projects, preferences, professor_preferences)
         end
         assignGroups(matching_object.matched_groups)
     end
 
-
+    #Returns a hash of professor preferences from given params
     def getProfessorPreferences(params)
         return ({projectWeight: params[:projectWeight].to_i,
             codingWeight: params[:codingWeight].to_i,
@@ -59,12 +66,14 @@ class GroupCreationService
         })
     end
 
+    #Returns the students and projects array in one function call
     def getStudentsAndProjects(course) 
         students = getStudents(course)
         projects = getProjects(course)
         return students, projects
     end
 
+    #Updates database to assign students to groups
     def assignGroups(groups_hash)
         groups_hash.each do |group, students|
             students.each do |student|

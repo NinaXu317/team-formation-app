@@ -1,8 +1,11 @@
 require 'minitest/spec'
 require 'minitest/autorun'
-require_relative 'matching'
+require_relative 'Matching'
+require_relative 'ProjectMatching'
+require_relative 'HolisticMatching'
+# require_relative 'ProjectMatching'
 
-describe SimpleMatching do
+describe HolisticMatching do
     
     before do 
         #list of the project ids
@@ -20,7 +23,7 @@ describe SimpleMatching do
         {student_id:7,first:1,second:2,third:3,codingProficiency:2,dreampartner:3,schedule:"[{\"weekday\":\"Sunday\",\"start\":\"17:30:00\",\"end\":\"19:00:00\"},{\"weekday\":\"Tuesday\",\"start\":\"18:00:00\",\"end\":\"19:00:00\"},{\"weekday\":\"Wednesday\",\"start\":\"08:00:00\",\"end\":\"13:00:00\"},{\"weekday\":\"Tuesday\",\"start\":\"13:30:00\",\"end\":\"18:00:00\"},{\"weekday\":\"Thursday\",\"start\":\"15:00:00\",\"end\":\"19:00:00\"},{\"weekday\":\"Friday\",\"start\":\"08:00:00\",\"end\":\"19:00:00\"},{\"weekday\":\"Saturday\",\"start\":\"15:30:00\",\"end\":\"18:00:00\"}]"},
         {student_id:8,first:1,second:2,third:3,codingProficiency:3,dreampartner:4,schedule:"[{\"weekday\":\"Sunday\",\"start\":\"16:30:00\",\"end\":\"19:00:00\"},{\"weekday\":\"Thursday\",\"start\":\"17:00:00\",\"end\":\"19:00:00\"},{\"weekday\":\"Saturday\",\"start\":\"17:00:00\",\"end\":\"19:00:00\"},{\"weekday\":\"Tuesday\",\"start\":\"13:00:00\",\"end\":\"16:00:00\"},{\"weekday\":\"Saturday\",\"start\":\"13:00:00\",\"end\":\"16:30:00\"},{\"weekday\":\"Friday\",\"start\":\"12:30:00\",\"end\":\"17:00:00\"},{\"weekday\":\"Sunday\",\"start\":\"12:00:00\",\"end\":\"14:00:00\"},{\"weekday\":\"Wednesday\",\"start\":\"14:00:00\",\"end\":\"18:00:00\"}]"}]
 
-        @matcher = SimpleMatching.new()
+        @matcher = HolisticMatching.new()
         @matcher.initProjects(projects, preferences)
     end
 

@@ -135,6 +135,7 @@
             </div>
  
             <div class="tab-pane fade" id="projects">
+              <%= @groups.inspect%>
               <% if current_user_type == "professor" && @professor_id == current_user.id%>
                 <%= tag.div id: :boards, data:{groups: @course.groups.to_json, holdprojects: @course.holdprojects.to_json, course: @course.to_json } %>
               <% else %>
@@ -188,6 +189,9 @@
       </div>
 
       <%= link_to 'Edit', edit_course_path(@course) %> |
+      <% if current_user_type == "student"%>
+        <%= button_to 'vote', vote_group_path(69), params: {course_id: @course.id, student_id: current_user.id}%>
+      <% end %>
       
     </div>
 
