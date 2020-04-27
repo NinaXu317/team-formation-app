@@ -77,12 +77,7 @@ class GroupsController < ApplicationController
     render :show
   end
 
-  def vote
-    puts group_params[:vfirst]
-    @group.update(vfirst: group_params[:vfirst])
-    @students = @group.students
-    render :show
-  end
+
 
   # DELETE /groups/1
   # DELETE /groups/1.json

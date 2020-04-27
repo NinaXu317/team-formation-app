@@ -84,10 +84,6 @@ class StudentsController < ApplicationController
     end
   end
 
-  def vote
-    @student.update(Vfirst: student_params[:Vfirst])
-    render :show
-  end
 
   # DELETE /students/1
   # DELETE /students/1.json
