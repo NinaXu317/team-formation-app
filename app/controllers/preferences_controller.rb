@@ -1,6 +1,7 @@
 class PreferencesController < ApplicationController
     def index
         @preferences = Preference.all
+        redirect_to :root
     end
     
     def new 
@@ -10,7 +11,7 @@ class PreferencesController < ApplicationController
         @students = @course.students.all
     end
 
-
+ 
     def create
         course = Course.find(params[:preference][:course_id])
         @preference = Preference.new(preference_params) 

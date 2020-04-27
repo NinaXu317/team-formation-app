@@ -8,4 +8,7 @@ class CreateGroupsTest < ActionDispatch::IntegrationTest
     end
 
 
+    test "" do
+    end
+
 end
