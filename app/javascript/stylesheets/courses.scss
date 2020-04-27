@@ -109,9 +109,16 @@
     margin-bottom: 10px;
   }
   .addProjectBtn{
-    float: right;
-    width: 120px;
+    width: 100%;
+    border: 1.5px solid rgb(193, 213, 250);
+    font-weight: bold;
+    color: rgb(141, 180, 252);
   }
+  .addProjectBtn:hover{
+    background-color:rgb(193, 213, 250) ;
+    color: black;
+  }
+ 
 
   .project-title{
       text-align: center; 
@@ -120,8 +127,13 @@
   .voteBtn{
       float:right;
       margin-left: 5px;
-      width: 120px;
+      width: 110px;
   } 
+
+  .vote-buttons{
+    position: relative;
+    right: 5px;
+  }
   .editbox-input{
     padding-top: 15px;
   }
@@ -139,3 +151,8 @@
     margin-bottom: 5px;
   }
 
+  #middle-col{
+    min-width: 100px;
+    display: flex;
+    align-items: center;
+  }

@@ -137,14 +137,11 @@
             </div>
  
             <div class="tab-pane fade show active" id="projects">
-              
               <% if current_user_type == "professor" && @professor_id == current_user.id%>
-                <%= tag.div id: :boards, data:{groups: @course.groups.to_json, holdprojects: @course.holdprojects.to_json, course: @course.to_json } %>
+                <%= tag.div id: :boards, data:{groups: @course.groups.to_json, course: @course.to_json, takings: Taking.where(course_id:@course.id).to_json} %>
                 <button class='btn btn-primary'> Stop Voting </button>
               <% else %>    
-
-                <%= tag.div id: :stuboards, data:{groups: @course.groups.to_json, course:@course.to_json, student: Student.find(current_user.id).to_json, taking: Taking.find_by(student_id:current_user.id, course_id:@course.id).to_json}%>
-                
+                <%= tag.div id: :stuboards, data:{groups: @course.groups.to_json,course:@course.to_json, student: Student.find(current_user.id).to_json, taking: Taking.find_by(student_id:current_user.id, course_id:@course.id).to_json}%>              
               <%end%>
             </div>
             
@@ -214,11 +211,12 @@
           el: element,
           data: {
               groups: JSON.parse(element.dataset.groups),
-              holdprojects: JSON.parse(element.dataset.holdprojects),
-              course: JSON.parse(element.dataset.course)
+              
+              course: JSON.parse(element.dataset.course),
+              takings: JSON.parse(element.dataset.takings),
               
           },
-          template: "<App :group_list='groups' :hold_list='holdprojects' :curr_course='course' />",
+          template: "<App :group_list='groups' :curr_course='course' :taking_list='takings'/>",
           components: { App }
           });
         }
@@ -234,6 +232,7 @@
           el: element,
           data: {
               groups: JSON.parse(element.dataset.groups),
+              
               course: JSON.parse(element.dataset.course),
               student: JSON.parse(element.dataset.student), 
               taking: JSON.parse(element.dataset.taking),

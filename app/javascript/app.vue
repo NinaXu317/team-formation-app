@@ -17,9 +17,11 @@
                 <p class="project-description-text">{{ group.description }}</p>
               </div>
               <div class='vote-buttons'>
-                <button class='btn btn-info voteBtn' :id="'t'+group.id">Thrid ({{group.vthird}})</button>              
-                <button class='btn btn-warning voteBtn' :id="'s'+group.id">Second ({{group.vsecond}})</button>    
-                <button class='btn btn-danger voteBtn' :id="'f'+group.id">First ({{group.vfirst}})</button>  
+                <button class='btn btn-info voteBtn' :id="'t'+group.id">Thrid ({{group.vthird}})</button>
+                <button class='btn btn-warning voteBtn' :id="'s'+group.id">Second ({{group.vsecond}})</button> 
+                <button class='btn btn-danger voteBtn' :id="'f'+group.id">First ({{group.vfirst}})</button>               
+                   
+                 
               </div>
             </div>
           </a>
@@ -40,6 +42,7 @@
       
       <div id="middle-col">
         
+        <div>drag</div>
         <i class="fas fa-exchange-alt fa-2x" id="change-icon"></i>
         
       </div>
@@ -60,9 +63,9 @@
                 <p class="project-description-text">{{ holdproject.description }}</p>
               </div>
               <div class='vote-buttons'>
-                <button class='btn btn-info voteBtn' >Thrid ()</button>              
-                <button class='btn btn-warning voteBtn' >Second ()</button>    
-                <button class='btn btn-danger voteBtn' >First ()</button>  
+                <button class='btn btn-danger voteBtn' :id="'f'+holdproject.id">First ({{holdproject.vfirst}})</button>             
+                <button class='btn btn-warning voteBtn' :id="'s'+holdproject.id">Second ({{holdproject.vsecond}})</button>    
+                <button class='btn btn-info voteBtn' :id="'t'+holdproject.id">Thrid ({{holdproject.vthird}})</button>     
               </div>
 
             </div>
@@ -91,132 +94,88 @@
 import draggable from 'vuedraggable'
 export default {
   components: {draggable},
-  props: ["group_list", "hold_list", "curr_course"],
+  props: ["group_list", "curr_course", "taking_list"],
   data: function(){
     return {
       messages: {},
       description: {},
-      groups: this.group_list,
-      holdprojects: this.hold_list,
-      course: this.curr_course
+      groups: this.group_list.filter(group=>group.active==true),
+      holdprojects: this.group_list.filter(group=>group.active==false),
+      course: this.curr_course,
+      takings: this.taking_list,
+      allprojects: this.group_list,
     }
   },
   methods: {
     cardMoved: function(event){
       if(event.added != undefined){
         console.log(event)
-        console.log(this.course.id)
         var moved_project_name = event.added.element.project_name
         console.log(moved_project_name)
-        var data = new FormData
+        console.log(event.added.element.id)
+        
         if(this.groups.find((project)=>project.project_name===moved_project_name)){
           console.log("move from holds to groups")
-          var group = this.groups.find((project)=>project.project_name===moved_project_name)
-          data.append("group[course_id]", this.course.id)
-          data.append("group[project_name]", moved_project_name)
-          data.append("group[position]", event.added.newIndex)
-          data.append("group[description]",group.description)
+          var data = new FormData
+          data.append("group[active]", true)  
+          data.append("group[position]", event.added.newIndex+1)      
           Rails.ajax({
-            url:"/groups",
-            type: "POST",
+            url:`/groups/${event.added.element.id}`,
+            type: "PATCH",
             data: data,
-            dataType: "json",
-            success: (data) => {
-              group.vfirst = 0
-              group.vsecond = 0
-              group.vthird = 0
-              document.getElementById(`f${group.id}`).innerHTML= `First (${group.vfirst})`
-              document.getElementById(`s${group.id}`).innerHTML= `Second (${group.vsecond})`
-              document.getElementById(`t${group.id}`).innerHTML= `Third (${group.vthird})`
-              Rails.ajax({
-                url: `/holdprojects/${event.added.element.id}`,
-                type: "DELETE",
-                dataType: "json",
-              })
-            }
+            dataType: "json"
           })
         }else{
           console.log("move from groups to holds")
-          data.append("holdproject[course_id]", this.course.id)
-          data.append("holdproject[project_name]", moved_project_name)
-          data.append("holdproject[position]", event.added.newIndex)
+          var data = new FormData
+          data.append("group[position]", event.added.newIndex+1)
+          data.append("group[active]", false)
           Rails.ajax({
-            url:"/holdprojects",
-            type: "POST",
+            url:`/groups/${event.added.element.id}`,
+            type: "PATCH",
             data: data,
-            dataType: "json",
-            success: (data) => {
-              Rails.ajax({
-                url:`/groups/${event.added.element.id}`,
-                type: "DELETE",
-                dataType: "json",
-              })
-            }
-          })         
+            dataType: "json"
+          })   
         }
       }else if (event.moved != undefined){
         var moved_project_name = event.moved.element.project_name
         var moved_project_id = event.moved.element.id
-        if(this.groups.find((project)=>project.project_name===moved_project_name)){
-          var data  = new FormData
-          data.append("group[position]", event.moved.newIndex+1)
-          Rails.ajax({
+        var data  = new FormData
+        data.append("group[position]", event.moved.newIndex+1)
+        Rails.ajax({
             url:`/groups/${moved_project_id}/move`,
             type: "PATCH",
             data: data,
             dataType: "json",
-          })
-        }else if(this.holdprojects.find((project)=>project.project_name===moved_project_name)){
-          var data  = new FormData
-          data.append("holdproject[position]", event.moved.newIndex + 1)
-          console.log(event.moved.newIndex)
-          Rails.ajax({
-            url:`/holdprojects/${moved_project_id}/move`,
-            type: "PATCH",
-            data: data,
-            dataType: "json",
-          })
-        }
+        })
       }
  
     },
     submitMessages: function(column_str, course_id){
       var data = new FormData
       if(column_str=='groups'){
-        
-        data.append("group[course_id]", course_id)
-        data.append("group[project_name]", this.messages[column_str])
-        data.append("group[description]", this.description[column_str])
-        Rails.ajax({
+        data.append("group[active]", true)
+      }else{
+        data.append("group[active]", false)
+      }
+      data.append("group[course_id]", course_id)
+      data.append("group[project_name]", this.messages[column_str])
+      data.append("group[description]", this.description[column_str])
+      Rails.ajax({
           url: "/groups",
           type: "POST",
           data: data,
           dataType: "json",
           success: (data) => {
-            this.groups.push(data)
+            if(column_str=='groups'){
+              this.groups.push(data)
+            }else{
+              this.holdprojects.push(data)
+            }        
             this.messages[column_str] = undefined
             this.description[column_str]= undefined
           }
-        })
-      }else{
-        console.log(this.description[column_str])
-        data.append("holdproject[course_id]", course_id)
-        data.append("holdproject[project_name]", this.messages[column_str]) 
-        data.append("holdproject[description]", this.description[column_str])
-        
-        Rails.ajax({
-          url: "/holdprojects",
-          type: "POST",
-          data: data,
-          dataType: "json",
-          success: (data) => {
-            this.holdprojects.push(data)
-            this.messages[column_str] = undefined
-            this.description[column_str]=undefined
-          }
-        })
-      } 
-      
+      })  
     }
   }
 }
@@ -234,49 +193,11 @@ export default {
     white-space: normal;
     padding-bottom: 15px;
   }
-  .single-project-container{
-    background: white; 
-    border-radius: 3px;
-    margin-bottom:5px;
-    min-height: 30px;
-    align-items: center;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  .project-name{
-    margin: 0px;
-    padding-left: 15px;
-    color: rgb(100, 99, 99);
-  }
-  .editbox{
-    padding: 0px;
-    margin: 12px;
-    margin-bottom: 0px;
-  }
-  .addProjectBtn{
-    width: 100%;
-    border: 1.5px solid rgb(193, 213, 250);
-    font-weight: bold;
-    color: rgb(141, 180, 252);
-  }
-  .addProjectBtn:hover{
-    background-color:rgb(193, 213, 250) ;
-    color: black;
-  }
-  #middle-col{
-    min-width: 100px;
-    display: flex;
-    align-items: center;
-  }
+
+
   #change-icon{
     color: rgb(141, 180, 252);
     margin-left: 32px;
   }
-  .voteBtn{
-    width: 110px;
-  }
-  .vote-buttons{
-    position: relative;
-    right: 5px;
-  }
+
 </style>
