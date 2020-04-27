@@ -82,8 +82,6 @@ ActiveRecord::Schema.define(version: 2020_04_26_235946) do
     t.integer "group_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "voted"
-    t.integer "voted2"
     t.integer "votefirst", default: -1
     t.integer "votesecond", default: -1
     t.integer "votethird", default: -1
