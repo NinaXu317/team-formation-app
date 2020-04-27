@@ -87,12 +87,12 @@ class ErrorService
         end
     
         if (algo != "random" && course.preferences.size < course.students.size)
-        students_without_preference = getStudentsWithoutPreference(course)
+            students_without_preference = getStudentsWithoutPreference(course)
             errors << missing_preferences(students_without_preference)
         end
     
         invalidStudents = validatePreferences(course.preferences)
-        if !invalidStudents.empty?
+        if (algo != "random" && !invalidStudents.empty?)
             errors << invalid_preferences(invalidStudents)
         end
         return errors
