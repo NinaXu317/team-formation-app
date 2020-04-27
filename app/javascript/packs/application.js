@@ -26,6 +26,7 @@ import './bootstrap_custom.js'
 
 import Vue from 'vue/dist/vue.esm'
 import App from '../app.vue'
+import stuApp from '../stuApp.vue'
 
 window.Calendar = require("@fullcalendar/core").Calendar;
 window.dayGridPlugin = require("@fullcalendar/daygrid").default;
@@ -36,6 +37,7 @@ window.bootstrapPlugin = require("@fullcalendar/bootstrap").default;
 
 window.Vue = Vue;
 window.App = App;
+window.stuApp = stuApp;
 
 
 Rails.start();

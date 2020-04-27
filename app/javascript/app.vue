@@ -13,7 +13,7 @@
             {{ group.project_name }}
             </p>
           </a>
-        </draggable>
+          </draggable>
           <div class = 'row single-project-container'>
             <textarea v-model="messages['groups']" class="form-control editbox"></textarea>
             <button v-on:click = "submitMessages('groups', course.id)" class="btn btn-outline-primary addProjectBtn">Add</button>
@@ -140,7 +140,6 @@ export default {
       if(column_str=='groups'){
         data.append("group[course_id]", course_id)
         data.append("group[project_name]", this.messages[column_str])
-
         Rails.ajax({
           url: "/groups",
           type: "POST",
@@ -151,7 +150,6 @@ export default {
             this.messages[column_str] = undefined
           }
         })
-
       }else{
         data.append("holdproject[course_id]", course_id)
         data.append("holdproject[project_name]", this.messages[column_str]) 
@@ -174,8 +172,6 @@ export default {
 </script>
 
 <style scoped>
-
-
   .projects-row{
     margin: 20px;
   }
@@ -200,7 +196,6 @@ export default {
     padding-left: 15px;
     color: rgb(100, 99, 99);
   }
-
   .editbox{
     padding: 0px;
     margin: 12px;
@@ -219,14 +214,11 @@ export default {
     background-color:rgb(193, 213, 250) ;
     color: white;
   }
-
   #middle-col{
     min-width: 100px;
     display: flex;
     align-items: center;
-
   }
-
   #change-icon{
     color: rgb(141, 180, 252);
     margin-left: 32px;

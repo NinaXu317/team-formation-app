@@ -52,12 +52,12 @@ end
 
 5.times do
     g = Group.create(course_id: admin_professor.courses.all.sample.id,
-    project_name: Faker::Team.name, description: Faker::Game.genre, vote:0)
+    project_name: Faker::Team.name, description: Faker::Game.genre)
 end
 
 60.times do
     g = Group.create(course_id: Course.all.sample.id,
-    project_name: Faker::Team.name, description: Faker::Game.genre, vote:0)
+    project_name: Faker::Team.name, description: Faker::Game.genre)
 end
 
 100.times do 

@@ -75,6 +75,6 @@ class HoldprojectsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def holdproject_params
-      params.require(:holdproject).permit(:course_id, :project_name, :position)
+      params.require(:holdproject).permit(:course_id, :project_name, :position, :description)
     end
 end

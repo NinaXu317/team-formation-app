@@ -8,7 +8,13 @@
 <p>
   <strong>Project name:</strong>
   <%= @group.project_name %>
+</p>  
+<p>
+  <% description = @group.description %>
 </p>
+<% vfirst = @group.vfirst %>
+<% vsecond = @group.vsecond%>
+<% vthird = @group.vthird%>
 
 <p>
   <strong>Teammates:</strong>
@@ -16,6 +22,8 @@
     <td> <%=student.firstname + " " + student.lastname%> </td>
   <% end %>
 </p>
+
+
 
 <%= link_to 'Edit', edit_group_path(@group) %> |
 <%= link_to 'Back', groups_path %>

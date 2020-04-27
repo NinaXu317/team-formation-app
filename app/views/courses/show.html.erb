@@ -138,24 +138,11 @@
               <%= @groups.inspect%>
               <% if current_user_type == "professor" && @professor_id == current_user.id%>
                 <%= tag.div id: :boards, data:{groups: @course.groups.to_json, holdprojects: @course.holdprojects.to_json, course: @course.to_json } %>
-              <% else %>
-                <div class="container projects-box"> 
-                  <div class = 'container' style="min-height: 300px; padding-top: 10px;">
-                    <h5 style='text-align: center; margin: 0px'>
-                      Projects
-                    </h5>
-                    <hr>
-                    <% @groups = @course.groups%>
-                    <div id="student-projects-container">    
-                      <%= render partial: 'group', collection: @groups %>
-                    </div>
-                    <% @group = Group.new%>
-                      <div class = 'row single-project-container-stu' style='margin:auto'>
-                        <%= render 'groups/form', group: @group, course: @course %>
-                      </div>
-                    
-                  </div>
-                </div>
+                <button class='btn btn-primary'> Stop Voting </button>
+              <% else %>    
+
+                <%= tag.div id: :stuboards, data:{groups: @course.groups.to_json, course:@course.to_json, student: Student.find(current_user.id).to_json, taking: Taking.find_by(student_id:current_user.id, course_id:@course.id).to_json}%>
+                
               <%end%>
             </div>
             
@@ -202,10 +189,7 @@
               
       </div>
 
-      <%= link_to 'Edit', edit_course_path(@course) %> |
-      <% if current_user_type == "student"%>
-        <%= button_to 'vote', vote_group_path(69), params: {course_id: @course.id, student_id: current_user.id}%>
-      <% end %>
+      <%= link_to 'Edit', edit_course_path(@course) %> 
       
     </div>
 
@@ -242,6 +226,28 @@
           template: "<App :group_list='groups' :hold_list='holdprojects' :curr_course='course' />",
           components: { App }
           });
+        }
+      
+     });
+
+    document.addEventListener("turbolinks:load", function(){
+        
+        var element = document.querySelector('#stuboards');
+        console.log(element.dataset.taking)
+        if(element != undefined){
+          const stuapp = new Vue({
+          el: element,
+          data: {
+              groups: JSON.parse(element.dataset.groups),
+              course: JSON.parse(element.dataset.course),
+              student: JSON.parse(element.dataset.student), 
+              taking: JSON.parse(element.dataset.taking),
+
+          },
+          template: "<stuApp :group_list='groups' :curr_course='course' :curr_student='student' :curr_taking='taking' />",
+          components: { stuApp }
+          });
+          
         }
       
      });

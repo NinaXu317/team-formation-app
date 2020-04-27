@@ -42,7 +42,6 @@ class GroupsController < ApplicationController
     respond_to do |format|
       if @group.save
         course = Course.find(params[:group][:course_id].to_i)
-        format.js
         format.html { redirect_to course, notice: 'Group was successfully created.' }
         format.json { render :show, status: :created, location: @group }
       else
@@ -77,7 +76,7 @@ class GroupsController < ApplicationController
     @students = @group.students
     render :show
   end
-    
+
 
 
   # DELETE /groups/1
@@ -100,6 +99,6 @@ class GroupsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def group_params
-      params.require(:group).permit(:course_id, :project_name, :description, :vote)
+      params.require(:group).permit(:course_id, :project_name, :description, :position, :vfirst, :vsecond, :vthird)
     end
 end
