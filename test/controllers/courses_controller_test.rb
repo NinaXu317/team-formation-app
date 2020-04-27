@@ -29,6 +29,7 @@ class CoursesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show course" do
+    log_in_as(@user)
     get course_url(@course)
     assert_response :success
   end

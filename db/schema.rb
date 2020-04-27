@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_26_235946) do
+ActiveRecord::Schema.define(version: 2020_04_25_195625) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -28,7 +28,6 @@ ActiveRecord::Schema.define(version: 2020_04_26_235946) do
     t.string "project_name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.boolean "hold", default: false
     t.integer "position"
     t.text "description"
     t.integer "vfirst", default: 0
@@ -82,8 +81,6 @@ ActiveRecord::Schema.define(version: 2020_04_26_235946) do
     t.integer "group_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.integer "voted"
-    t.integer "voted2"
     t.integer "votefirst", default: -1
     t.integer "votesecond", default: -1
     t.integer "votethird", default: -1
