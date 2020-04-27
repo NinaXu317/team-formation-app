@@ -101,18 +101,18 @@
         <div class='col' id='course-info-col' style="padding: 40px; padding-top: 20px; ">
           <ul class="nav nav-tabs" id="course-nav">
             <li class="nav-item">
-              <a href="#students" class="nav-link tab-students active" data-toggle="tab" >Students</a>
+              <a href="#projects" class="nav-link tab-projects active" data-toggle="tab" >Projects</a>
             </li>
             <li class="nav-item">
-              <a href="#projects" class="nav-link tab-projects" data-toggle="tab" >Projects</a>
+              <a href="#students" class="nav-link tab-students" data-toggle="tab" >Students</a>
             </li>
-
+            
             <li class="nav-item">
               <a href="#groups" class="nav-link tab-groups" data-toggle="tab" >Groups</a>
             </li>
           </ul>
           <div class="tab-content">
-            <div class="tab-pane fade show active" id="students">
+            <div class="tab-pane fade " id="students">
               <% group_members = @course.students%>
               <div class = "wrapper overflow students-container">
                   <table class = "table table-hover table-sm" id="students-table">
@@ -134,7 +134,7 @@
               </div>
             </div>
  
-            <div class="tab-pane fade" id="projects">
+            <div class="tab-pane fade show active" id="projects">
               <% if current_user_type == "professor" && @professor_id == current_user.id%>
                 <%= tag.div id: :boards, data:{groups: @course.groups.to_json, holdprojects: @course.holdprojects.to_json, course: @course.to_json } %>
                 <button class='btn btn-primary'> Stop Voting </button>
@@ -199,16 +199,7 @@
 
 
 <script>
-    document.addEventListener("turbolinks:load", function(){
-            var table = $('#students-table');
-            if(! $.fn.DataTable.isDataTable(table)){
-                table.DataTable({
-                "lengthChange": false, 
-                "pageLength": 10,
-                });
-            }
-    });
-    
+
      document.addEventListener("turbolinks:load", function(){
         
         var element = document.querySelector('#boards');
@@ -251,6 +242,15 @@
       
      });
 
-
+    document.addEventListener("turbolinks:load", function(){
+            var table = $('#students-table');
+            if(! $.fn.DataTable.isDataTable(table)){
+                table.DataTable({
+                "lengthChange": false, 
+                "pageLength": 10,
+                });
+            }
+    });
+    
 
 </script>

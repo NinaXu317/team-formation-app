@@ -18,7 +18,7 @@ class GroupsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create group" do
     assert_difference('Group.count') do
-      post groups_url, params: { group: { course_id: @group.course_id, project_name: @group.project_name } }
+      post groups_url, params: { group: { course_id: @group.course_id, project_name: @group.project_name, description: @group.description, position: 1 } }
     end
 
     assert_redirected_to course_url(@group.course)
@@ -39,10 +39,10 @@ class GroupsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to group_url(@group)
   end
 
-  # test "should destroy group" do
-  #   assert_difference('Group.count', -1) do
-  #     delete group_url(@group)
-  #   end
-  #   assert_redirected_to groups_url
-  # end
+  test "should destroy group" do
+    assert_difference('Group.count', -1) do
+      delete group_url(@group)
+    end
+    assert_redirected_to groups_url
+  end
 end
