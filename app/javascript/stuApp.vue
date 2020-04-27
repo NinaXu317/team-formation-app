@@ -18,13 +18,15 @@
                             </div>
                             
                             <div class='vote-buttons'>
+                                <button v-if="taking.votethird==group.id" class='btn btn-info voteBtn' :id="'t'+group.id">Thrid ({{group.vthird}})</button>              
+                                <button v-else v-on:click = "voteUpdate(group,'third')" class='btn btn-outline-info voteBtn' :id="'t'+group.id">Thrid ({{group.vthird}})</button>
+                                <button v-if="taking.votesecond==group.id" class='btn btn-warning voteBtn' :id="'s'+group.id">Second ({{group.vsecond}})</button>  
+                                <button v-else v-on:click = "voteUpdate(group,'second')" class='btn btn-outline-warning voteBtn' :id="'s'+group.id">Second ({{group.vsecond}})</button>
                                 <button v-if="taking.votefirst==group.id" class='btn btn-danger voteBtn' :id="'f'+group.id">First ({{group.vfirst}})</button>  
                                 <button v-else v-on:click = "voteUpdate(group,'first')" class='btn btn-outline-danger voteBtn' :id="'f'+group.id" >First ({{group.vfirst}})</button>
                                 
-                                <button v-if="taking.votesecond==group.id" class='btn btn-warning voteBtn' :id="'s'+group.id">Second ({{group.vsecond}})</button>  
-                                <button v-else v-on:click = "voteUpdate(group,'second')" class='btn btn-outline-warning voteBtn' :id="'s'+group.id">Second ({{group.vsecond}})</button>
-                                <button v-if="taking.votethird==group.id" class='btn btn-info voteBtn' :id="'t'+group.id">Thrid ({{group.vthird}})</button>              
-                                <button v-else v-on:click = "voteUpdate(group,'third')" class='btn btn-outline-info voteBtn' :id="'t'+group.id">Thrid ({{group.vthird}})</button>
+                                
+                                
                             </div>
                         </div>
                     </a>
@@ -61,12 +63,14 @@
                                 <p class="project-description-text">{{ holdproject.description }}</p>
                             </div>
                             <div class='vote-buttons'>
-                                <button v-if="taking.votefirst==holdproject.id" class='btn btn-danger voteBtn' :id="'f'+holdproject.id">First ({{holdproject.vfirst}})</button>  
-                                <button v-else v-on:click = "voteUpdate(holdproject,'first')" class='btn btn-outline-danger voteBtn' :id="'f'+holdproject.id" >First ({{holdproject.vfirst}})</button>
-                                <button v-if="taking.votesecond==holdproject.id" class='btn btn-warning voteBtn' :id="'s'+holdproject.id">Second ({{holdproject.vsecond}})</button>  
-                                <button v-else v-on:click = "voteUpdate(holdproject,'second')" class='btn btn-outline-warning voteBtn' :id="'s'+holdproject.id">Second ({{holdproject.vsecond}})</button>  
                                 <button v-if="taking.votethird==holdproject.id" class='btn btn-info voteBtn' :id="'t'+holdproject.id">Thrid ({{holdproject.vthird}})</button>              
                                 <button v-else v-on:click = "voteUpdate(holdproject,'third')" class='btn btn-outline-info voteBtn' :id="'t'+holdproject.id">Thrid ({{holdproject.vthird}})</button>
+                                
+                                <button v-if="taking.votesecond==holdproject.id" class='btn btn-warning voteBtn' :id="'s'+holdproject.id">Second ({{holdproject.vsecond}})</button>  
+                                <button v-else v-on:click = "voteUpdate(holdproject,'second')" class='btn btn-outline-warning voteBtn' :id="'s'+holdproject.id">Second ({{holdproject.vsecond}})</button>
+                                <button v-if="taking.votefirst==holdproject.id" class='btn btn-danger voteBtn' :id="'f'+holdproject.id">First ({{holdproject.vfirst}})</button>  
+                                <button v-else v-on:click = "voteUpdate(holdproject,'first')" class='btn btn-outline-danger voteBtn' :id="'f'+holdproject.id" >First ({{holdproject.vfirst}})</button>  
+                                
                             </div>
                         </div>
                     </a>
@@ -143,6 +147,7 @@ export default {
                                 return element
                             }
                         })
+                        console.log(`previous choice is ${prevgroup.project_name}`)
                         var prevdata = new FormData
                         prevdata.append(`group[v${choice_str}]`, prevgroup.vfirst-1)
                         Rails.ajax({
