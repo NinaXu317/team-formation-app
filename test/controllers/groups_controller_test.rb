@@ -3,7 +3,7 @@ require 'test_helper'
 class GroupsControllerTest < ActionDispatch::IntegrationTest
   
   setup do
-    @group = groups(:one)
+    @group = groups(:Kitties)
   end
 
   test "should get index" do
@@ -18,7 +18,7 @@ class GroupsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create group" do
     assert_difference('Group.count') do
-      post groups_url, params: { group: { course_id: @group.course_id, project_name: @group.project_name } }
+      post groups_url, params: { group: { course_id: @group.course_id, project_name: @group.project_name, description: @group.description, position: 1 } }
     end
 
     assert_redirected_to course_url(@group.course)
@@ -43,7 +43,6 @@ class GroupsControllerTest < ActionDispatch::IntegrationTest
     assert_difference('Group.count', -1) do
       delete group_url(@group)
     end
-
     assert_redirected_to groups_url
   end
 end

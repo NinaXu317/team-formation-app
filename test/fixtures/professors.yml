@@ -2,7 +2,6 @@
 
 
 admin:
-  id: 1
   firstname: admin
   lastname: admin
   email: admin@admin.com

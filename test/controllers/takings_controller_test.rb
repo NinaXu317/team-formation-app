@@ -18,7 +18,7 @@ class TakingsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create taking" do
     assert_difference('Taking.count') do
-      post takings_url, params: { taking: { course_id: @taking.course_id, group_id: @taking.group_id, student_id: @taking.student_id } }
+      post takings_url, params: { taking: { course_id: @taking.course.id,  student_id: @taking.student_id } }
     end
 
     assert_redirected_to taking_url(Taking.last)

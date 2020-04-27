@@ -38,7 +38,6 @@ class GroupsController < ApplicationController
   # POST /groups.json
   def create
     @group = Group.new(group_params)
-    @group.vote = 0
     respond_to do |format|
       if @group.save
         course = Course.find(params[:group][:course_id].to_i)
