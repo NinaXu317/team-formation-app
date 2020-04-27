@@ -1,25 +1,25 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  student_id: 2
-  course_id: 1
+  student: jeremy
+  course: FakeCourse
 
 two:
-  student_id: 3
-  course_id: 1
+  student: derek
+  course: FakeCourse
 
 three:
-  student_id: 4
-  course_id: 1
+  student: eleanor
+  course: FakeCourse
 
 four:
-  student_id: 5
-  course_id: 1
+  student: chidi
+  course: FakeCourse
 
 five:
-  student_id: 6
-  course_id: 1
+  student: tahani
+  course: FakeCourse
 
 six:
-  student_id: 7
-  course_id: 1
+  student: jason
+  course: FakeCourse

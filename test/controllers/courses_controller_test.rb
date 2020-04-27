@@ -5,7 +5,7 @@ class CoursesControllerTest < ActionDispatch::IntegrationTest
   include SessionsHelper
   
   setup do
-    @course = courses(:two)
+    @course = courses(:FakeCourse)
     @user = professors(:admin)
   end
 
@@ -22,13 +22,14 @@ class CoursesControllerTest < ActionDispatch::IntegrationTest
 
   test "should create course" do
     assert_difference('Course.count') do
-      post courses_url, params: { course: { name: "Fakology", pin: "1122", professor_id: 1 } }
+      post courses_url, params: { course: { name: "Fakology", pin: "1122", professor_id: @user.id } }
     end
 
     assert_redirected_to course_url(Course.last)
   end
 
   test "should show course" do
+    log_in_as(@user)
     get course_url(@course)
     assert_response :success
   end
@@ -53,7 +54,6 @@ class CoursesControllerTest < ActionDispatch::IntegrationTest
 
   test "can create random groups" do
     log_in_as(@user)
-    puts @course.id.inspect
     post create_groups_course_path(@course.id), params: {algo: "random"}
     assert_response :redirect
     follow_redirect!
