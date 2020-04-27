@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  before_action :set_student, only: [:show, :edit, :update, :destroy]
+  before_action :set_student, only: [:show, :edit, :update, :destroy, :vote]
 
   # GET /students
   # GET /students.json
@@ -84,6 +84,11 @@ class StudentsController < ApplicationController
     end
   end
 
+  def vote
+    @student.update(Vfirst: student_params[:Vfirst])
+    render :show
+  end
+
   # DELETE /students/1
   # DELETE /students/1.json
   def destroy
@@ -102,6 +107,6 @@ class StudentsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def student_params
-      params.require(:student).permit(:firstname, :password, :password_confirmation, :lastname, :email, courses_attributes: [:id, :name, :_destroy])
+      params.require(:student).permit(:firstname, :password, :password_confirmation, :lastname, :email, :Vfirst, :Vsecond, :Vthird, courses_attributes: [:id, :name, :_destroy])
     end
 end

@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     member do
       get 'add_course'
       post 'search_course'
+      patch 'vote'
     end
   end
 
@@ -33,12 +34,14 @@ Rails.application.routes.draw do
   resources :groups do
     member do
       patch :move
+      patch :vote
     end 
   end 
 
   resources :holdprojects do
     member do
       patch :move
+
     end 
   end 
 
