@@ -6,12 +6,12 @@
           </h5>
           <hr>
 
-          <a v-for="(group, index) in groups" class = 'single-project-container-stu' >            
-                <div class='project-name'>
+          <a v-for="(group, index) in groups" class='row single-project-container-stu' >            
+                <div class='project-name-text'>
                     {{ group.project_name }}
                 </div>
-                <div class='description'>
-                    {{ group.description }}
+                <div class='form-control editbox-stu'>
+                    <p class="project-description-text">{{ group.description }}</p>
                 </div>
                 <div class='vote-buttons'>              
                     <button v-on:click = "voteUpdate(group,'first')" class='btn btn-outline-danger' :id="'f'+group.id" >First ({{group.vfirst}})</button>      

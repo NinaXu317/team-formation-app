@@ -83,6 +83,7 @@
     flex-direction: row;
     justify-content: space-around;
   }
+
   .single-project-container-stu{
     background: white; 
     border-radius: 3px;
@@ -90,21 +91,25 @@
     min-height: 30px;
     align-items: center;
     text-decoration: none;
-    width: 350px;
-    
+    width: 100%
   }
-
-  .project-name{
-    margin: 0px;
-    padding-left: 15px;
-  }
-
   .editbox-stu{
     padding: 0px;
     margin: 12px;
     margin-bottom: 0px;
-    width: 170%;
     height: 50px;
+  }
+  .project-name-text{
+    padding-left: 15px;
+    padding-top: 10px; 
+  }
+  .project-description-text{
+    padding-left: 5px;
+  }
+
+  .vote-buttons{
+    position: relative;
+    left: 100px;  
   }
   .addProjectBtn-stu{
     margin-left: 12px;
@@ -114,17 +119,9 @@
     border: 1.5px solid rgb(193, 213, 250);
     font-weight: bold;
     color: rgb(141, 180, 252);
-    
   }
   .addProjectBtn:hover{
     background-color:rgb(193, 213, 250) ;
     color: white;
   }
 
-  .project-description{
-    color: darkgray;
-    border: 1px solid darkgray;
-    margin: 10px;
-    margin-top: 0px;
-    border-radius: 3px;
-  }
