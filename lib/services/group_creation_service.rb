@@ -6,7 +6,9 @@ class GroupCreationService
     def getProjects(course)
         projects = []
         course.groups.each do |group|
-            projects << group.id
+            if group.active
+                projects << group.id
+            end
         end
         return projects
     end
