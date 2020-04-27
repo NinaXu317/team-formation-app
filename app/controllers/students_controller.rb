@@ -34,6 +34,8 @@ class StudentsController < ApplicationController
   def search_course
     @student = Student.find(params[:id])
     course = Course.where(pin: params[:pin]).take
+    puts "Student: " + @student.inspect
+    puts "Course: " + course.inspect
     if course.nil?
       redirect_to @student, notice: "There is no course with that pin" and return
     end
