@@ -153,7 +153,7 @@
                 <% elsif findGroup(@course.students[0], @course).nil? %>
                   <h6>Not Yet Created Group</h6>
                 <% else %>
-                  <% @course.groups.each do |group| %>
+                  <% @course.groups.where(active: true).each do |group| %>
                     <div class="container course-group-box">
                     <p style="margin-top: 20px; margin-left: 6px"> <%= group.project_name %> </p>                  
                       <div>
