@@ -1,14 +1,5 @@
-require 'poro/Matching'
-require 'poro/RandomMatching'
-require 'poro/ProjectMatching'
-require 'poro/HolisticMatching'
-
-require 'services/group_creation_service'
-require 'services/error_service'
-
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
-  include CoursesHelper
   
   # GET /courses
   # GET /courses.json
@@ -37,8 +28,8 @@ class CoursesController < ApplicationController
 
   #POST /courses/1/create_groups
   def create_groups
-    group_service = GroupCreationService.new #contains group creation functions
-    error_service = ErrorService.new # Contains error detection and generation functions
+    group_service = GroupCreationManager::GroupMatcher.new #contains group creation functions
+    error_service = GroupCreationManager::MatchingErrorGenerator.new # Contains error detection and generation functions
     @course = Course.find(params[:id])
     algorithm = params[:algo]
     errors = error_service.handle_group_creation_errors(@course, algorithm)
