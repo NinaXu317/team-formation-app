@@ -25,8 +25,10 @@ import '../stylesheets/application'
 import './bootstrap_custom.js'
 
 import Vue from 'vue/dist/vue.esm'
+import Vuex from 'vuex'
 import App from '../app.vue'
 import stuApp from '../stuApp.vue'
+import TurbolinksAdapter from 'vue-turbolinks'
 
 window.Calendar = require("@fullcalendar/core").Calendar;
 window.dayGridPlugin = require("@fullcalendar/daygrid").default;
@@ -35,10 +37,14 @@ window.momentPlugin = require("@fullcalendar/moment").default;
 window.interactionPlugin = require("@fullcalendar/interaction").default;
 window.bootstrapPlugin = require("@fullcalendar/bootstrap").default;
 
+Vue.use(Vuex)
+Vue.use(TurbolinksAdapter)
+
 window.Vue = Vue;
 window.App = App;
 window.stuApp = stuApp;
 
+window.Vuex = Vuex;
 
 Rails.start();
 
