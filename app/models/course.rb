@@ -6,4 +6,15 @@ class Course < ApplicationRecord
     has_many :holdprojects, -> { order(position: :asc)}, dependent: :destroy
     belongs_to :professor
     validates :pin, uniqueness: true
+
+    def has_enough_projects
+        groups = Group.where(course_id: id).all
+        active_groups = 0
+        groups.each do |group|
+            if group.active
+                active_groups += 1
+            end
+        end
+        return active_groups >= 3
+    end
 end

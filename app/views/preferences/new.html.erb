@@ -1,5 +1,28 @@
+
+
 <div class='view4'>
   <div class='container' style="padding-top: 30px;" >
+
+    <% if !flash[:alert].nil? %>
+    
+      <div class="alert alert-info">     
+        <% errors = flash[:alert] %>
+        <p><%= pluralize(errors.count, "error") %> prohibited this preference from being saved:</p>
+        <ul>
+          <% errors.each do |type, message| %>
+            <% if type == "first" || type == "second" || type == "third"%>
+              <% type = type + " choice"%>
+            <% end %>
+            <% message.each do |error|%>
+              <li> <%= type + " " + error %> </li>
+            <% end %>
+          <% end %>
+        </ul>
+      </div>
+      
+    <% end %>
+   
+
     <div class= 'signup-form' style="margin: auto;">
 
 <div class='container' id='new-preference-container-1' >

@@ -1,4 +1,3 @@
-require_relative 'Matching'
 class ProjectMatching < Matching
     # def initProjects(projects, preferences)
     #     super

@@ -1,14 +1,5 @@
-require 'poro/Matching'
-require 'poro/RandomMatching'
-require 'poro/ProjectMatching'
-require 'poro/HolisticMatching'
-
-require 'services/group_creation_service'
-require 'services/error_service'
-
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :destroy]
-  include CoursesHelper
   
   # GET /courses
   # GET /courses.json
@@ -31,14 +22,27 @@ class CoursesController < ApplicationController
     else
       @professor_id = nil
     end
+
     @preferences = @course.preferences
     @groups = @course.groups
+    active_groups = []
+    @groups.each do |group|
+      if group.active
+        active_groups << group
+      end
+    end
+    if active_groups.size < 3
+      @disabled = true
+      @message = "Can not create groups using preferences until there are 3 active projects"
+    else
+      @disabled = false
+    end
   end
 
   #POST /courses/1/create_groups
   def create_groups
-    group_service = GroupCreationService.new #contains group creation functions
-    error_service = ErrorService.new # Contains error detection and generation functions
+    group_service = GroupCreationManager::GroupMatcher.new #contains group creation functions
+    error_service = GroupCreationManager::MatchingErrorGenerator.new # Contains error detection and generation functions
     @course = Course.find(params[:id])
     algorithm = params[:algo]
     errors = error_service.handle_group_creation_errors(@course, algorithm)

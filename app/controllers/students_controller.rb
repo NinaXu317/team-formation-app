@@ -49,13 +49,6 @@ class StudentsController < ApplicationController
     redirect_to @student, notice: "Course added!"
   end
 
-  #POST /students/1/drop_course
-
-
-
-
-
-
   # POST /students
   # POST /students.json
   def create
