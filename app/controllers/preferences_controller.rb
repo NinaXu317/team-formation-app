@@ -18,8 +18,9 @@ class PreferencesController < ApplicationController
         Preference.where(student_id: params[:preference][:student_id], course_id: params[:preference][:course_id]).destroy_all
         if (@preference.save)
           flash[:success] = "Thanks for submitting your preference!"
-          redirect_to @preference.student
+          redirect_to @preference.course
         else
+          flash[:alert] = @preference.errors
           redirect_to new_preference_path(course: course)
         end
     end
