@@ -33,7 +33,7 @@ class CoursesController < ApplicationController
     end
     if active_groups.size < 3
       @disabled = true
-      @message = "Can not create groups using preferences until there are 3 projects"
+      @message = "Can not create groups using preferences until there are 3 active projects"
     else
       @disabled = false
     end
