@@ -29,7 +29,8 @@ class GroupsController < ApplicationController
     respond_to do |format|
       if @group.save
         course = Course.find(params[:group][:course_id].to_i)
-        ActionCable.server.broadcast "room_channel", {commit: 'addCard', payload: render_to_string(:show, formats: [:json])}
+        room = Course.find_by(params[:course_id])
+        RoomChannel.broadcast_to room, {commit: 'addCard', payload: render_to_string(:show, formats: [:json])}
         format.html { redirect_to course, notice: 'Group was successfully created.' }
         format.json { render :show, status: :created, location: @group }
       else
@@ -47,7 +48,6 @@ class GroupsController < ApplicationController
   def update
     respond_to do |format|
       if @group.update(group_params)
-        
         format.html { redirect_to @group, notice: 'Group was successfully updated.' }
         format.json { render :show, status: :ok, location: @group }
       else
@@ -59,13 +59,15 @@ class GroupsController < ApplicationController
 
   def move
     @group.update(group_params)
-    ActionCable.server.broadcast "room_channel", { commit: 'moveCard', payload: render_to_string(:show, formats: [:json]) }
+    room = Course.find_by(params[:course_id])
+    RoomChannel.broadcast_to room, { commit: 'moveCard', payload: render_to_string(:show, formats: [:json]) }
     render action: :show
   end
 
   def vote
     @group.update(group_params)
-    ActionCable.server.broadcast "room_channel", { commit: 'vote', payload: render_to_string(:show, formats: [:json]) }
+    room = Course.find_by(params[:course_id])
+    RoomChannel.broadcast_to room, { commit: 'vote', payload: render_to_string(:show, formats: [:json]) }
     render action: :show
   end 
   

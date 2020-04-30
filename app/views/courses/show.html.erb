@@ -2,7 +2,7 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
 
 <body class='view4'>
-  <div class='container' style="padding-top: 30px">
+  <div class='container' style="padding-top: 30px" id="classroom" data_channel_subscribe="room" data-room-id="<%= @course.id %>">
   <% flash.each do |type, msg| %>
     <div class="alert alert-info">
       <%= msg %>
