@@ -2,6 +2,7 @@ class Preference < ApplicationRecord
   belongs_to :student
   belongs_to :course
 
+  validates :student_id, uniqueness: { scope: :course_id, message: "Only one preference allowed per student per course" }
   validates :first,  presence: true
   validates :second,  presence: true
   validates :third,  presence: true
@@ -29,15 +30,15 @@ class Preference < ApplicationRecord
   end
 
   def first_choice_is_present
-    errors.add(:first, "project choice must exist") if !Group.where(course_id: course_id, id: first).empty?
+    errors.add(:first, "project choice must exist") if Group.where(course_id: course_id, id: first).empty?
   end
 
   def second_choice_is_present
-    errors.add(:second, "project choice must exist") if !Group.where(course_id: course_id, id: second).empty?
+    errors.add(:second, "project choice must exist") if Group.where(course_id: course_id, id: second).empty?
   end
 
   def third_choice_is_present
-    errors.add(:third, "project choice must exist") if !Group.where(course_id: course_id, id: third).empty?
+    errors.add(:third, "project choice must exist") if Group.where(course_id: course_id, id: third).empty?
   end
     
   def choicesArePresent

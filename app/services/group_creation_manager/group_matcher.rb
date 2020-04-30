@@ -80,8 +80,12 @@ module GroupCreationManager
         #Updates database to assign students to groups
         def assignGroups(groups_hash)
             groups_hash.each do |group, students|
+                puts "Group: " + group.inspect
+                puts "Students: " + students.inspect
                 students.each do |student|
                     group_record = Group.find(group)
+                    puts "Student: " + student.inspect
+                    puts "Group course id: " + group_record.course_id.inspect
                     groupAssigment = Taking.find_by(student_id: student, course_id: group_record.course.id)
                     groupAssigment.update(group_id: group_record.id)
                 end

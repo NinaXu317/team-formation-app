@@ -1,5 +1,5 @@
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
+  before_action :set_course, only: [:show, :edit, :update, :toggle_voting, :destroy]
   
   # GET /courses
   # GET /courses.json
@@ -37,7 +37,35 @@ class CoursesController < ApplicationController
     else
       @disabled = false
     end
+
+    if @course.voting
+      @voting_button = "Stop Voting"
+    else
+      @voting_button = "Start Voting"
+    end
   end
+
+  #PATCH /courses/1/toggle_voting
+  def toggle_voting
+    respond_to do |format|
+      if @course.update(voting: !@course.voting)
+        notice = "Voting was stopped"
+        if @course.voting
+          notice = "Voting was started"
+        end
+        format.html { redirect_to @course, notice: notice }
+        format.json { render :show, status: :ok, location: @course }
+      else
+        notice = "Voting could not be stopped"
+        if !@course.voting
+          notice = "Voting could not be started"
+        end
+        format.html { render @course, notice: notice }
+        format.json { render json: @course.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 
   #POST /courses/1/create_groups
   def create_groups
@@ -113,6 +141,6 @@ class CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.require(:course).permit(:name, :pin, :professor_id)
+      params.require(:course).permit(:name, :pin, :professor_id, :voting)
     end
 end

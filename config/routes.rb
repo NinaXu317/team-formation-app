@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :courses do 
     member do
       post 'create_groups'
+      patch 'toggle_voting'
     end
   end
   resources :professors

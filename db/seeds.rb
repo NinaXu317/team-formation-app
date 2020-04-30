@@ -69,10 +69,11 @@ end
     project_name: Faker::Team.name, description: Faker::Game.genre)
 end
 
-#Add 30 groups into the admin professor's classes for demo uses
-30.times do 
-    g = Group.create(course_id: Course.where(professor_id: admin_professor.id).sample.id,
-                    project_name: Faker::Team.name, description: Faker::Game.genre)
+#Add 4 groups into each of the professor's classes for demo purposes
+Course.where(professor_id: admin_professor.id).each do |course|
+    4.times do 
+        g = Group.create(course_id: course.id, project_name: Faker::Team.name, description: Faker::Game.genre)
+    end
 end
 
 #Add 30 students into the admin professor's courses for demo uses
@@ -92,15 +93,26 @@ end
 #Add a preference for each student in all of the admin professor's
 #courses for demo purposes
 admin_professor.courses.each do |course|
-    groups = course.groups
-    if groups.size > 0
+    groups = course.groups.pluck(:id)
+    if groups.size > 2
         students = course.students
         students.each do |student|
+            first = groups.sample
+
+            second = groups.sample
+            while (first == second)
+                second = groups.sample
+            end
+
+            third = groups.sample
+            while (third == first || third == second)
+                third = groups.sample
+            end
             p = Preference.create(course_id: course.id, 
                                     student_id: student.id, 
-                                    first: groups.sample.id, 
-                                    second: groups.sample.id,
-                                    third: groups.sample.id,
+                                    first: first, 
+                                    second: second,
+                                    third: third,
                                     codingProficiency: 5,
                                     dreampartner: students.sample.id,
                                     schedule: '[{"weekday":"Sunday","start":"08:00:00",

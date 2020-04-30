@@ -3,11 +3,22 @@
 
 <body class='view4'>
   <div class='container' style="padding-top: 30px">
-  <% flash.each do |type, msg| %>
-    <div class="alert alert-info">
-      <%= msg %>
-    </div>
-  <% end %>
+    <% flash.each do |type, msg| %>
+      <div class="alert alert-info">
+        <%= msg %>
+      </div>
+    <% end %>
+
+    <% if @course.errors.any? %>
+      <div id="alert alert-info">
+        <p><%= pluralize(@course.errors.count, "error") %> prohibited this course from being updating:</p>
+        <ul>
+          <% @course.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
     <div class='container' id='body-container-course-show'>
     <div class='page-wrap'>
       <div class='row profile-row'>
@@ -146,7 +157,8 @@
             <div class="tab-pane fade show active" id="projects">
               <% if current_user_type == "professor" && @professor_id == current_user.id%>
                 <%= tag.div id: :boards, data:{groups: @course.groups.to_json, course: @course.to_json, takings: Taking.where(course_id:@course.id).to_json} %>
-                <button class='btn btn-primary'> Stop Voting </button>
+
+                <%= button_to @voting_button, toggle_voting_course_path(@course), :method => :patch, :class => 'btn btn-primary'%>
               <% else %>    
                 <%= tag.div id: :stuboards, data:{groups: @course.groups.to_json,course:@course.to_json, student: Student.find(current_user.id).to_json, taking: Taking.find_by(student_id:current_user.id, course_id:@course.id).to_json}%>              
               <%end%>
