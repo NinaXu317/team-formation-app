@@ -34,11 +34,17 @@
           <div class='col' style='padding: 40px'>
             <%= button_to 'Create Random Groups', {:controller => "courses", :action => "create_groups", :algo => "random"}, :class => "btn btn-outline-primary addButton", :method=>:post%>
             <br>
-            <%= button_to 'Create Groups Based on Project Preference', {:controller => "courses", :action => "create_groups", :algo => "project_only"}, :class => "btn btn-outline-primary addButton", :method=>:post%>
+            <%= button_to 'Create Groups Based on Project Preference', {:controller => "courses", :action => "create_groups", :algo => "project_only"},  :disabled => @disabled, :class => "btn btn-outline-primary addButton", :method=>:post%>
             <br>
-            <button class="btn btn-outline-primary addButton" data-toggle="modal" data-target="#professor-preference-form">
-              Create Groups Based on All Preference
-            </button>
+            <% if @disabled %>
+              <button disabled class="btn btn-outline-primary addButton" data-toggle="modal" data-target="#professor-preference-form">
+                Create Groups Based on All Preference
+              </button>
+            <% else %>
+              <button class="btn btn-outline-primary addButton" data-toggle="modal" data-target="#professor-preference-form">
+                Create Groups Based on All Preference
+              </button>
+            <% end %>
           </div>
 
             <div class="modal fade" id="professor-preference-form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -4,11 +4,16 @@ class PreferencesController < ApplicationController
         redirect_to :root
     end
     
-    def new 
-        @preference = Preference.new
+    def new
         @course = Course.find(params[:course])
-        @projects = @course.groups.all
-        @students = @course.students.all
+        if @course.has_enough_projects
+          @preference = Preference.new
+          @projects = @course.groups.all
+          @students = @course.students.all
+        else
+          flash[:alert] = "Can not create preferences until there are at least three active projects"
+          redirect_to @course 
+        end
     end
 
  
