@@ -96,62 +96,62 @@
 import draggable from 'vuedraggable'
 export default {
   components: {draggable},
-  props: ["group_list", "curr_course", "taking_list"],
   data: function(){
     return {
       messages: {},
       description: {},
-      groups: this.group_list.filter(group=>group.active==true),
-      holdprojects: this.group_list.filter(group=>group.active==false),
-      course: this.curr_course,
-      takings: this.taking_list,
-      allprojects: this.group_list,
     }
   },
+
+  computed:{
+    groups: {
+      get(){
+        return this.$store.state.groups.filter(group=>group.active==true)
+      },
+      set(value){
+        console.log("in vue compute")
+        console.log(value)   
+      }
+    },
+    holdprojects: {
+      get(){
+        return this.$store.state.groups.filter(group=>group.active==false)
+      },
+      set(value){
+        console.log("in vue compute")
+        console.log(value)
+      }
+    },
+    course: {
+      get(){
+        return this.$store.state.course
+      }
+    }
+  },
+
   methods: {
     cardMoved: function(event){
-      if(event.added != undefined){
-        console.log(event)
-        var moved_project_name = event.added.element.project_name
-        console.log(moved_project_name)
-        console.log(event.added.element.id)
-        
-        if(this.groups.find((project)=>project.project_name===moved_project_name)){
-          console.log("move from holds to groups")
-          var data = new FormData
-          data.append("group[active]", true)  
-          data.append("group[position]", event.added.newIndex+1)      
+      if(event.added != undefined || event.moved != undefined){ 
+        const evt = event.added || event.moved
+        const element = evt.element  
+        var moved_project_name = element.project_name
+        var data = new FormData      
+        if(event.added != undefined && element.active==false){
+          //console.log("move from holds to groups")
+          data.append("group[active]", true) 
+        }else if(event.added != undefined){
+          //console.log("move from groups to holds")
+          data.append("group[active]", false)
+        }  
+          data.append("group[position]", evt.newIndex+1)      
           Rails.ajax({
-            url:`/groups/${event.added.element.id}`,
+            beforeSend: () => true,
+            url:`/groups/${element.id}/move`,
             type: "PATCH",
             data: data,
             dataType: "json"
           })
-        }else{
-          console.log("move from groups to holds")
-          var data = new FormData
-          data.append("group[position]", event.added.newIndex+1)
-          data.append("group[active]", false)
-          Rails.ajax({
-            url:`/groups/${event.added.element.id}`,
-            type: "PATCH",
-            data: data,
-            dataType: "json"
-          })   
-        }
-      }else if (event.moved != undefined){
-        var moved_project_name = event.moved.element.project_name
-        var moved_project_id = event.moved.element.id
-        var data  = new FormData
-        data.append("group[position]", event.moved.newIndex+1)
-        Rails.ajax({
-            url:`/groups/${moved_project_id}/move`,
-            type: "PATCH",
-            data: data,
-            dataType: "json",
-        })
       }
- 
     },
     submitMessages: function(column_str, course_id){
       var data = new FormData
@@ -163,17 +163,14 @@ export default {
       data.append("group[course_id]", course_id)
       data.append("group[project_name]", this.messages[column_str])
       data.append("group[description]", this.description[column_str])
+      
       Rails.ajax({
+          beforeSend: () => true,
           url: "/groups",
           type: "POST",
           data: data,
           dataType: "json",
-          success: (data) => {
-            if(column_str=='groups'){
-              this.groups.push(data)
-            }else{
-              this.holdprojects.push(data)
-            }        
+          success: (data) => {     
             this.messages[column_str] = undefined
             this.description[column_str]= undefined
           }

@@ -94,17 +94,35 @@
 
 <script>
 export default {
-  props: ["group_list", "hold_list", "curr_course", "curr_student", "curr_taking"],
+  props: ["curr_student", "curr_taking"],
+  computed: {
+    groups:{
+      get(){return this.$store.state.groups.filter(group=>group.active==true)},
+      set(value){
+          console.log("in vue compute")
+          console.log(value)
+      }
+    },
+    holdprojects:{
+      get(){return this.$store.state.groups.filter(group=>group.active==false)},
+      set(value){
+        console.log("in vue compute")
+        console.log(value)
+      }
+    },
+    course(){
+      return this.$store.state.course
+    },
+    allprojects(){
+        return this.$store.state.groups
+    }
+  },
   data: function(){
     return {
       messages: {},
       description:{},
-      groups: this.group_list.filter(group=>group.active==true),
-      holdprojects: this.group_list.filter(group=>group.active==false),
-      course: this.curr_course,
       student: this.curr_student,
-      taking: this.curr_taking,
-      allprojects: this.group_list,
+      taking: this.curr_taking,  
     }
   },
   methods: {
@@ -115,13 +133,11 @@ export default {
         if(choice_str=='first'){
             groupdata.append("group[vfirst]", group.vfirst+1)
             Rails.ajax({
-                url:`/groups/${group.id}`,
+                url:`/groups/${group.id}/vote`,
                 type: "PATCH",
                 data: groupdata,
                 dataType: "json",
                 success: (data) => {
-                    group.vfirst += 1
-                    document.getElementById(`f${group.id}`).innerHTML=choice_str.charAt(0).toUpperCase() + choice_str.slice(1)+ " ("+ group.vfirst+")"
                     console.log(`add 1 to ${group.project_name}`)
                     var prevcount = 0
                     var previd = -1
@@ -151,13 +167,12 @@ export default {
                         var prevdata = new FormData
                         prevdata.append(`group[v${choice_str}]`, prevgroup.vfirst-1)
                         Rails.ajax({
-                            url:`/groups/${previd}`,
+                            url:`/groups/${previd}/vote`,
                             type: "PATCH",
                             data: prevdata,
                             dataType: "json",
                             success: (data) => {
-                                prevgroup.vfirst -= 1
-                                document.getElementById(`f${previd}`).innerHTML= choice_str.charAt(0).toUpperCase() + choice_str.slice(1)+ " ("+prevgroup.vfirst+")"
+                                //document.getElementById(`f${previd}`).innerHTML= choice_str.charAt(0).toUpperCase() + choice_str.slice(1)+ " ("+prevgroup.vfirst+")"
                                 console.log("previous group number -1")
                                 var takingdata = new FormData
                                 takingdata.append(`taking[vote${choice_str}]`, group.id)
@@ -180,13 +195,11 @@ export default {
         }else if(choice_str=='second'){
             groupdata.append("group[vsecond]", group.vsecond+1)
             Rails.ajax({
-                url:`/groups/${group.id}`,
+                url:`/groups/${group.id}/vote`,
                 type: "PATCH",
                 data: groupdata,
                 dataType: "json",
                 success: (data) => {
-                    group.vsecond += 1
-                    document.getElementById(`s${group.id}`).innerHTML=choice_str.charAt(0).toUpperCase() + choice_str.slice(1)+ " ("+ group.vsecond+")"
                     console.log(`add 1 to ${group.project_name}`)
                     var prevcount = 0
                     var previd = -1
@@ -217,13 +230,11 @@ export default {
                         var prevdata = new FormData
                         prevdata.append(`group[v${choice_str}]`, prevgroup.vsecond-1)
                         Rails.ajax({
-                            url:`/groups/${previd}`,
+                            url:`/groups/${previd}/vote`,
                             type: "PATCH",
                             data: prevdata,
                             dataType: "json",
                             success: (data) => {
-                                prevgroup.vsecond -= 1
-                                document.getElementById(`s${previd}`).innerHTML= choice_str.charAt(0).toUpperCase() + choice_str.slice(1)+ " ("+prevgroup.vsecond+")"
                                 console.log("previous group number -1")
                                 var takingdata = new FormData
                                 takingdata.append(`taking[vote${choice_str}]`, group.id)
@@ -246,13 +257,11 @@ export default {
         }else {
             groupdata.append("group[vthird]", group.vthird+1)
             Rails.ajax({
-                url:`/groups/${group.id}`,
+                url:`/groups/${group.id}/vote`,
                 type: "PATCH",
                 data: groupdata,
                 dataType: "json",
-                success: (data) => {
-                    group.vthird += 1
-                    document.getElementById(`t${group.id}`).innerHTML=choice_str.charAt(0).toUpperCase() + choice_str.slice(1)+ " ("+ group.vthird+")"
+                success: (data) => {     
                     console.log(`add 1 to ${group.project_name}`)
                     var prevcount = 0
                     var previd = -1
@@ -281,13 +290,11 @@ export default {
                         var prevdata = new FormData
                         prevdata.append(`group[v${choice_str}]`, prevgroup.vthird-1)
                         Rails.ajax({
-                            url:`/groups/${previd}`,
+                            url:`/groups/${previd}/vote`,
                             type: "PATCH",
                             data: prevdata,
                             dataType: "json",
                             success: (data) => {
-                                prevgroup.vthird -= 1
-                                document.getElementById(`t${previd}`).innerHTML= choice_str.charAt(0).toUpperCase() + choice_str.slice(1)+ " ("+prevgroup.vthird+")"
                                 console.log("previous group number -1")
                                 var takingdata = new FormData
                                 takingdata.append(`taking[vote${choice_str}]`, group.id)
@@ -330,12 +337,7 @@ export default {
           type: "POST",
           data: data,
           dataType: "json",
-          success: (data) => {
-            if(column_str=='groups'){
-              this.groups.push(data)
-            }else{
-              this.holdprojects.push(data)
-            }        
+          success: (data) => {   
             this.messages[column_str] = undefined
             this.description[column_str]= undefined
           }

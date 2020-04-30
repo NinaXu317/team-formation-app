@@ -2,7 +2,7 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
 
 <body class='view4'>
-  <div class='container' style="padding-top: 30px">
+  <div class='container' style="padding-top: 30px" id="classroom" data_channel_subscribe="room" data-room-id="<%= @course.id %>">
     <% flash.each do |type, msg| %>
       <div class="alert alert-info">
         <%= msg %>
@@ -155,10 +155,16 @@
             </div>
  
             <div class="tab-pane fade show active" id="projects">
+              
               <% if current_user_type == "professor" && @professor_id == current_user.id%>
+<<<<<<< HEAD
                 <%= tag.div id: :boards, data:{groups: @course.groups.to_json, course: @course.to_json, takings: Taking.where(course_id:@course.id).to_json} %>
 
                 <%= button_to @voting_button, toggle_voting_course_path(@course), :method => :patch, :class => 'btn btn-primary'%>
+=======
+                <%= tag.div id: :boards, data:{groups: @course.groups.to_json, course: @course.to_json} %>
+                <button class='btn btn-primary'> Stop Voting </button>
+>>>>>>> 925b705cc738990404110cdbbefd0ff41bd11c65
               <% else %>    
                 <%= tag.div id: :stuboards, data:{groups: @course.groups.to_json,course:@course.to_json, student: Student.find(current_user.id).to_json, taking: Taking.find_by(student_id:current_user.id, course_id:@course.id).to_json}%>              
               <%end%>
@@ -220,49 +226,56 @@
 
 
 <script>
-
+window.store = new Vuex.Store({
+    state: {
+      groups:[],
+      course: [],
+    },
+    mutations: {
+      addCard(state, data){
+        state.groups.push(data)
+      },
+      moveCard(state, data){
+        const card_index = state.groups.findIndex((item)=>item.id==data.id)
+        state.groups.splice(card_index, 1, data)
+      },
+      vote(state, data){
+        const card_index = state.groups.findIndex((item)=>item.id==data.id)
+        state.groups.splice(card_index, 1, data)
+      }
+    }
+})
      document.addEventListener("turbolinks:load", function(){
-        
-        var element = document.querySelector('#boards');
-        
+        var element = document.querySelector('#boards'); 
         if(element != undefined){
+          window.store.state.groups = JSON.parse(element.dataset.groups)
+          window.store.state.course = JSON.parse(element.dataset.course)
           const app = new Vue({
-          el: element,
-          data: {
-              groups: JSON.parse(element.dataset.groups),
-              
-              course: JSON.parse(element.dataset.course),
-              takings: JSON.parse(element.dataset.takings),
-              
-          },
-          template: "<App :group_list='groups' :curr_course='course' :taking_list='takings'/>",
-          components: { App }
+            el: element,
+            store: window.store,
+            template: "<App />",
+            components: { App }
           });
-        }
-      
+        }    
      });
 
     document.addEventListener("turbolinks:load", function(){
-        
         var element = document.querySelector('#stuboards');
-        
         if(element != undefined){
+          window.store.state.groups = JSON.parse(element.dataset.groups)
+          window.store.state.course = JSON.parse(element.dataset.course)
           const stuapp = new Vue({
           el: element,
+          store: window.store,
           data: {
-              groups: JSON.parse(element.dataset.groups),
-              
-              course: JSON.parse(element.dataset.course),
               student: JSON.parse(element.dataset.student), 
               taking: JSON.parse(element.dataset.taking),
 
           },
-          template: "<stuApp :group_list='groups' :curr_course='course' :curr_student='student' :curr_taking='taking' />",
+          template: "<stuApp :curr_student='student' :curr_taking='taking' />",
           components: { stuApp }
-          });
-          
-        }
-      
+          });       
+        }  
      });
 
     document.addEventListener("turbolinks:load", function(){

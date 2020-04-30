@@ -22,18 +22,6 @@ class GroupsController < ApplicationController
   def edit
   end
 
-  #POST /groups/1/vote
-  def vote
-    #params: {course_id, student_id}
-    enrollment = Taking.where(course_id: params[:course_id], student_id: params[:student_id]).first
-    if !enrollment.voted.nil?
-      voted_group = Group.find(enrollment.voted)
-      voted_group.update(vote: voted_group.vote - 1)
-    end
-    @group.update(vote: @group.vote + 1)
-    enrollment.update(voted: @group.id)
-  end
-
   # POST /groups
   # POST /groups.json
   def create
@@ -41,6 +29,8 @@ class GroupsController < ApplicationController
     respond_to do |format|
       if @group.save
         course = Course.find(params[:group][:course_id].to_i)
+        room = Course.find_by(params[:course_id])
+        RoomChannel.broadcast_to room, {commit: 'addCard', payload: render_to_string(:show, formats: [:json])}
         format.html { redirect_to course, notice: 'Group was successfully created.' }
         format.json { render :show, status: :created, location: @group }
       else
@@ -50,10 +40,7 @@ class GroupsController < ApplicationController
     end
   end
 
-  def vote
-    # parse the vote structurem
-    # update the database
-  end
+ 
 
   
   # PATCH/PUT /groups/1
@@ -71,12 +58,19 @@ class GroupsController < ApplicationController
   end
 
   def move
-    @group.insert_at(group_params[:position].to_i)
-    @students = @group.students
-    render :show
+    @group.update(group_params)
+    room = Course.find_by(params[:course_id])
+    RoomChannel.broadcast_to room, { commit: 'moveCard', payload: render_to_string(:show, formats: [:json]) }
+    render action: :show
   end
 
-
+  def vote
+    @group.update(group_params)
+    room = Course.find_by(params[:course_id])
+    RoomChannel.broadcast_to room, { commit: 'vote', payload: render_to_string(:show, formats: [:json]) }
+    render action: :show
+  end 
+  
 
   # DELETE /groups/1
   # DELETE /groups/1.json
@@ -87,8 +81,6 @@ class GroupsController < ApplicationController
       format.json { render :show}
     end
   end
-
-  
 
   private
     # Use callbacks to share common setup or constraints between actions.
