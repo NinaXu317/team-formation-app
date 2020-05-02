@@ -1,4 +1,3 @@
-require_relative 'Matching'
 class ProjectMatching < Matching
     # def initProjects(projects, preferences)
     #     super
@@ -38,7 +37,7 @@ class ProjectMatching < Matching
             temp_project_choice = x[:first]
             result[temp_project_choice] << x[:student_id]
         end
-
+        puts "Before moving people: " + result.inspect
         result = move_people(result)
         @matched_groups = result
     end
@@ -69,6 +68,7 @@ class ProjectMatching < Matching
                 while(result[mostpopular_project].length>@groupsizemax && i>=0)
                     #move students ID from this popular array to other array that are incomplete 
                     unlucky_student= result[mostpopular_project][i]
+                    #puts @preferences.inspect
                     second_choice= @preferences.find {|project| project['student_id']= unlucky_student} [:third]
                     if(result[second_choice].length < @groupsizemax) then
                         result[mostpopular_project].delete(unlucky_student)
@@ -94,7 +94,7 @@ class ProjectMatching < Matching
         # puts unfilled.inspect
         while(!unfilled.nil?) do
             most_p= find_mostpopular_project(result)
-            poor_student = result[most_p].delete(result[most_p].size-1)
+            poor_student = result[most_p].delete_at(result[most_p].size-1)
             result[unfilled[0]] << poor_student
             unfilled = result.find{|key,value| value.length<@grousizemin}
         end

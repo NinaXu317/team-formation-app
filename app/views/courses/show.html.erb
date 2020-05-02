@@ -1,13 +1,24 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
 
-<div class='view4'>
-  <div class='container' style="padding-top: 30px">
-  <% flash.each do |type, msg| %>
-    <div class="alert alert-info">
-      <%= msg %>
-    </div>
-  <% end %>
+<body class='view4'>
+  <div class='container' style="padding-top: 30px" id="classroom" data_channel_subscribe="room" data-room-id="<%= @course.id %>">
+    <% flash.each do |type, msg| %>
+      <div class="alert alert-info">
+        <%= msg %>
+      </div>
+    <% end %>
+
+    <% if @course.errors.any? %>
+      <div id="alert alert-info">
+        <p><%= pluralize(@course.errors.count, "error") %> prohibited this course from being updating:</p>
+        <ul>
+          <% @course.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
     <div class='container' id='body-container-course-show'>
     <div class='page-wrap'>
       <div class='row profile-row'>
@@ -34,11 +45,18 @@
           <div class='col' style='padding: 40px'>
             <%= button_to 'Create Random Groups', {:controller => "courses", :action => "create_groups", :algo => "random"}, :class => "btn btn-outline-primary addButton", :method=>:post%>
             <br>
-            <%= button_to 'Create Groups Based on Project Preference', {:controller => "courses", :action => "create_groups", :algo => "project_only"}, :class => "btn btn-outline-primary addButton", :method=>:post%>
+            <p> <%= @message %> </p>
+            <%= button_to 'Create Groups Based on Project Preference', {:controller => "courses", :action => "create_groups", :algo => "project_only"},  :disabled => @disabled, :class => "btn btn-outline-primary addButton", :method=>:post%>
             <br>
-            <button class="btn btn-outline-primary addButton" data-toggle="modal" data-target="#professor-preference-form">
-              Create Groups Based on All Preference
-            </button>
+            <% if @disabled %>
+              <button disabled class="btn btn-outline-primary addButton" data-toggle="modal" data-target="#professor-preference-form">
+                Create Groups Based on All Preference
+              </button>
+            <% else %>
+              <button class="btn btn-outline-primary addButton" data-toggle="modal" data-target="#professor-preference-form">
+                Create Groups Based on All Preference
+              </button>
+            <% end %>
           </div>
 
             <div class="modal fade" id="professor-preference-form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -113,6 +131,7 @@
           </ul>
           <div class="tab-content">
             <div class="tab-pane fade " id="students">
+            <div class="container projects-box">
               <% group_members = @course.students%>
               <div class = "wrapper overflow students-container">
                   <table class = "table table-hover table-sm" id="students-table">
@@ -132,27 +151,34 @@
                       </tbody>
                   </table>
               </div>
+              </div>
             </div>
  
             <div class="tab-pane fade show active" id="projects">
+              
               <% if current_user_type == "professor" && @professor_id == current_user.id%>
-                <%= tag.div id: :boards, data:{groups: @course.groups.to_json, holdprojects: @course.holdprojects.to_json, course: @course.to_json } %>
-                <button class='btn btn-primary'> Stop Voting </button>
-              <% else %>    
+<<<<<<< HEAD
+                <%= tag.div id: :boards, data:{groups: @course.groups.to_json, course: @course.to_json, takings: Taking.where(course_id:@course.id).to_json} %>
 
-                <%= tag.div id: :stuboards, data:{groups: @course.groups.to_json, course:@course.to_json, student: Student.find(current_user.id).to_json, taking: Taking.find_by(student_id:current_user.id, course_id:@course.id).to_json}%>
-                
+                <%= button_to @voting_button, toggle_voting_course_path(@course), :method => :patch, :class => 'btn btn-primary'%>
+=======
+                <%= tag.div id: :boards, data:{groups: @course.groups.to_json, course: @course.to_json} %>
+                <button class='btn btn-primary'> Stop Voting </button>
+>>>>>>> 925b705cc738990404110cdbbefd0ff41bd11c65
+              <% else %>    
+                <%= tag.div id: :stuboards, data:{groups: @course.groups.to_json,course:@course.to_json, student: Student.find(current_user.id).to_json, taking: Taking.find_by(student_id:current_user.id, course_id:@course.id).to_json}%>              
               <%end%>
             </div>
             
             <div class="tab-pane fade" id="groups">
+              <div class="container projects-box">
               <div class = "row" id="course-group-info-row" >   
                 <% if @course.students.size==0 %>
                   <h6>No Student Enrolled</h6>
                 <% elsif findGroup(@course.students[0], @course).nil? %>
                   <h6>Not Yet Created Group</h6>
                 <% else %>
-                  <% @course.groups.each do |group| %>
+                  <% @course.groups.where(active: true).each do |group| %>
                     <div class="container course-group-box">
                     <p style="margin-top: 20px; margin-left: 6px"> <%= group.project_name %> </p>                  
                       <div>
@@ -180,6 +206,7 @@
                   <%end%>
                 <%end%>
               </div>
+              </div>
             </div>
          
           </div> 
@@ -194,52 +221,61 @@
 
     </div>
   </div>
-</div>
+</body>
 
 
 
 <script>
-
+window.store = new Vuex.Store({
+    state: {
+      groups:[],
+      course: [],
+    },
+    mutations: {
+      addCard(state, data){
+        state.groups.push(data)
+      },
+      moveCard(state, data){
+        const card_index = state.groups.findIndex((item)=>item.id==data.id)
+        state.groups.splice(card_index, 1, data)
+      },
+      vote(state, data){
+        const card_index = state.groups.findIndex((item)=>item.id==data.id)
+        state.groups.splice(card_index, 1, data)
+      }
+    }
+})
      document.addEventListener("turbolinks:load", function(){
-        
-        var element = document.querySelector('#boards');
-        
+        var element = document.querySelector('#boards'); 
         if(element != undefined){
+          window.store.state.groups = JSON.parse(element.dataset.groups)
+          window.store.state.course = JSON.parse(element.dataset.course)
           const app = new Vue({
-          el: element,
-          data: {
-              groups: JSON.parse(element.dataset.groups),
-              holdprojects: JSON.parse(element.dataset.holdprojects),
-              course: JSON.parse(element.dataset.course)
-              
-          },
-          template: "<App :group_list='groups' :hold_list='holdprojects' :curr_course='course' />",
-          components: { App }
+            el: element,
+            store: window.store,
+            template: "<App />",
+            components: { App }
           });
-        }
-      
+        }    
      });
 
     document.addEventListener("turbolinks:load", function(){
-        
         var element = document.querySelector('#stuboards');
-        console.log(element.dataset.taking)
         if(element != undefined){
+          window.store.state.groups = JSON.parse(element.dataset.groups)
+          window.store.state.course = JSON.parse(element.dataset.course)
           const stuapp = new Vue({
           el: element,
+          store: window.store,
           data: {
-              groups: JSON.parse(element.dataset.groups),
-              course: JSON.parse(element.dataset.course),
               student: JSON.parse(element.dataset.student), 
               taking: JSON.parse(element.dataset.taking),
 
           },
-          template: "<stuApp :group_list='groups' :curr_course='course' :curr_student='student' :curr_taking='taking' />",
+          template: "<stuApp :curr_student='student' :curr_taking='taking' />",
           components: { stuApp }
-          });
-          
-        }
-      
+          });       
+        }  
      });
 
     document.addEventListener("turbolinks:load", function(){

@@ -4,6 +4,7 @@
     <title>TeamFormation</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%= action_cable_meta_tag %>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://kit.fontawesome.com/4f7943abdb.js" crossorigin="anonymous"></script>
@@ -16,9 +17,6 @@
         <nav>
           <ul class="nav navbar-nav navbar-right">
             <% if !logged_in? %>
-              <li><%= link_to "Home",   root_path, class: "nav-link" %></li>
-              <li><%= link_to "Student Login", '/student_login', class: "nav-link" %></li>
-              <li><%= link_to "Professor Login", '/professor_login' , class: "nav-link"%></li>
               <li><%= link_to "Student Sign Up", new_student_path, class: "nav-link" %></li>
               <li><%= link_to "Professor Sign Up", new_professor_path, class: "nav-link" %></li>
             <% else %>

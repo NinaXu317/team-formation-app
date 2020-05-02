@@ -1,14 +1,5 @@
-require 'poro/Matching'
-require 'poro/RandomMatching'
-require 'poro/ProjectMatching'
-require 'poro/HolisticMatching'
-
-require 'services/group_creation_service'
-require 'services/error_service'
-
 class CoursesController < ApplicationController
-  before_action :set_course, only: [:show, :edit, :update, :destroy]
-  include CoursesHelper
+  before_action :set_course, only: [:show, :edit, :update, :toggle_voting, :destroy]
   
   # GET /courses
   # GET /courses.json
@@ -31,14 +22,55 @@ class CoursesController < ApplicationController
     else
       @professor_id = nil
     end
+
     @preferences = @course.preferences
     @groups = @course.groups
+    active_groups = []
+    @groups.each do |group|
+      if group.active
+        active_groups << group
+      end
+    end
+    if active_groups.size < 3
+      @disabled = true
+      @message = "Can not create groups using preferences until there are 3 active projects"
+    else
+      @disabled = false
+    end
+
+    if @course.voting
+      @voting_button = "Stop Voting"
+    else
+      @voting_button = "Start Voting"
+    end
   end
+
+  #PATCH /courses/1/toggle_voting
+  def toggle_voting
+    respond_to do |format|
+      if @course.update(voting: !@course.voting)
+        notice = "Voting was stopped"
+        if @course.voting
+          notice = "Voting was started"
+        end
+        format.html { redirect_to @course, notice: notice }
+        format.json { render :show, status: :ok, location: @course }
+      else
+        notice = "Voting could not be stopped"
+        if !@course.voting
+          notice = "Voting could not be started"
+        end
+        format.html { render @course, notice: notice }
+        format.json { render json: @course.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
 
   #POST /courses/1/create_groups
   def create_groups
-    group_service = GroupCreationService.new #contains group creation functions
-    error_service = ErrorService.new # Contains error detection and generation functions
+    group_service = GroupCreationManager::GroupMatcher.new #contains group creation functions
+    error_service = GroupCreationManager::MatchingErrorGenerator.new # Contains error detection and generation functions
     @course = Course.find(params[:id])
     algorithm = params[:algo]
     errors = error_service.handle_group_creation_errors(@course, algorithm)
@@ -109,6 +141,6 @@ class CoursesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def course_params
-      params.require(:course).permit(:name, :pin, :professor_id)
+      params.require(:course).permit(:name, :pin, :professor_id, :voting)
     end
 end

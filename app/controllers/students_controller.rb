@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  before_action :set_student, only: [:show, :edit, :update, :destroy, :vote]
+  before_action :set_student, only: [:show, :edit, :update, :destroy]
 
   # GET /students
   # GET /students.json
@@ -34,6 +34,8 @@ class StudentsController < ApplicationController
   def search_course
     @student = Student.find(params[:id])
     course = Course.where(pin: params[:pin]).take
+    puts "Student: " + @student.inspect
+    puts "Course: " + course.inspect
     if course.nil?
       redirect_to @student, notice: "There is no course with that pin" and return
     end
@@ -46,13 +48,6 @@ class StudentsController < ApplicationController
 
     redirect_to @student, notice: "Course added!"
   end
-
-  #POST /students/1/drop_course
-
-
-
-
-
 
   # POST /students
   # POST /students.json

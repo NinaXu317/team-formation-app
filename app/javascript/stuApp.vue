@@ -1,50 +1,128 @@
 <template>
-    <div class="container projects-box"> 
-        <div class = 'container' style="min-height: 300px; padding-top: 10px;">
-          <h5 style='text-align: center; margin: 0px'>
-            Projects
-          </h5>
-          <hr>
+    <div class = "wrapper overflow projects-container">
+        <div id="stuapp" class="row projects-row" >
+            <div class="col projects-box"> 
+                <div class = 'container student-projects-container'>
+                    <h5 class='project-title'>
+                    Projects
+                    </h5>
+                    <hr>
 
-          <a v-for="(group, index) in groups" class='row single-project-container-stu' >            
-                <div class='project-name-text'>
-                    {{ group.project_name }}
-                </div>
-                <div class='form-control editbox-stu'>
-                    <p class="project-description-text">{{ group.description }}</p>
-                </div>
-                <div class='vote-buttons'>              
-                    <button v-on:click = "voteUpdate(group,'first')" class='btn btn-outline-danger' :id="'f'+group.id" >First ({{group.vfirst}})</button>      
-                    <button v-on:click = "voteUpdate(group,'second')" class='btn btn-outline-warning' :id="'s'+group.id">Second ({{group.vsecond}})</button>        
-                    <button v-on:click = "voteUpdate(group,'third')" class='btn btn-outline-info' :id="'t'+group.id">Thrid ({{group.vthird}})</button>
-                </div>
+                    <a v-for="(group, index) in groups" class='row single-project-container-stu' >
+                        <div class='container project-container'>           
+                            <p class='project-name-text'>
+                                {{ group.project_name }}
+                            </p>
+                            <div class='form-control editbox-stu'>
+                                <p class="project-description-text">{{ group.description }}</p>
+                            </div>
+                            
+                            <div class='vote-buttons'>
+                                <button v-if="taking.votethird==group.id" class='btn btn-info voteBtn' :id="'t'+group.id">Thrid ({{group.vthird}})</button>              
+                                <button v-else v-on:click = "voteUpdate(group,'third')" class='btn btn-outline-info voteBtn' :id="'t'+group.id">Thrid ({{group.vthird}})</button>
+                                <button v-if="taking.votesecond==group.id" class='btn btn-warning voteBtn' :id="'s'+group.id">Second ({{group.vsecond}})</button>  
+                                <button v-else v-on:click = "voteUpdate(group,'second')" class='btn btn-outline-warning voteBtn' :id="'s'+group.id">Second ({{group.vsecond}})</button>
+                                <button v-if="taking.votefirst==group.id" class='btn btn-danger voteBtn' :id="'f'+group.id">First ({{group.vfirst}})</button>  
+                                <button v-else v-on:click = "voteUpdate(group,'first')" class='btn btn-outline-danger voteBtn' :id="'f'+group.id" >First ({{group.vfirst}})</button>
+                                
+                                
+                                
+                            </div>
+                        </div>
+                    </a>
 
-          </a>
-
-          <div class = 'single-project-container-stu'>
-            <textarea v-model="messages['group']" class="form-control editbox" placeholder="Project Name"></textarea>
-            <textarea v-model="description['group']" class="form-control editbox" placeholder="Description"></textarea>
-            <button v-on:click = "submitMessages(course.id)" class="btn btn-outline-primary addProjectBtn">Add</button>
-          </div>
+                    <div class = 'single-project-container-stu'>
+                        <div class= 'container project-container project-container-input'>
+                            <textarea v-model="messages['groups']" class="form-control editbox-stu editbox-name" placeholder="Project Name"></textarea>
+                            <textarea v-model="description['groups']" class="form-control editbox-stu editbox-description" placeholder="Description"></textarea>
+                            <div class="row">
+                                <div class="container">
+                                <button v-on:click = "submitMessages('groups', course.id)" class="btn btn-outline-primary addProjectBtn">Add</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
           
+                </div>
+            </div>
+            <div id="middle-col">
+            </div>
+            <div class="col projects-box"> 
+                <div class = 'container student-projects-container'>
+                    <h5 class='project-title'>
+                    Hold Projects
+                    </h5>
+                    <hr>
+                  
+                    <a v-for="(holdproject, index) in holdprojects" class = 'row single-project-container-stu'>
+                        <div class='container project-container'>
+                            <p class='project-name-text'>
+                            {{ holdproject.project_name }}
+                            </p>
+                            <div class='form-control editbox-stu'>
+                                <p class="project-description-text">{{ holdproject.description }}</p>
+                            </div>
+                            <div class='vote-buttons'>
+                                <button v-if="taking.votethird==holdproject.id" class='btn btn-info voteBtn' :id="'t'+holdproject.id">Thrid ({{holdproject.vthird}})</button>              
+                                <button v-else v-on:click = "voteUpdate(holdproject,'third')" class='btn btn-outline-info voteBtn' :id="'t'+holdproject.id">Thrid ({{holdproject.vthird}})</button>
+                                
+                                <button v-if="taking.votesecond==holdproject.id" class='btn btn-warning voteBtn' :id="'s'+holdproject.id">Second ({{holdproject.vsecond}})</button>  
+                                <button v-else v-on:click = "voteUpdate(holdproject,'second')" class='btn btn-outline-warning voteBtn' :id="'s'+holdproject.id">Second ({{holdproject.vsecond}})</button>
+                                <button v-if="taking.votefirst==holdproject.id" class='btn btn-danger voteBtn' :id="'f'+holdproject.id">First ({{holdproject.vfirst}})</button>  
+                                <button v-else v-on:click = "voteUpdate(holdproject,'first')" class='btn btn-outline-danger voteBtn' :id="'f'+holdproject.id" >First ({{holdproject.vfirst}})</button>  
+                                
+                            </div>
+                        </div>
+                    </a>
+                  
+                    <div class = 'single-project-container-stu'>
+                        <div class= 'container project-container project-container-input'>
+                        <textarea v-model="messages['holdprojects']" class="form-control editbox-stu editbox-name" placeholder="Project Name"></textarea>
+                        <textarea v-model="description['holdprojects']" class="form-control editbox-stu editbox-description" placeholder="Description"></textarea>
+                        <div class="row">
+                            <div class="container">
+                            <button v-on:click = "submitMessages('holdprojects', course.id)" class="btn btn-outline-primary addButton addProjectBtn">Add</button>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
 </template>
 
 <script>
-import draggable from 'vuedraggable'
 export default {
-  components: {draggable},
-  props: ["group_list", "curr_course", "curr_student", "curr_taking"],
+  props: ["curr_student", "curr_taking"],
+  computed: {
+    groups:{
+      get(){return this.$store.state.groups.filter(group=>group.active==true)},
+      set(value){
+          console.log("in vue compute")
+          console.log(value)
+      }
+    },
+    holdprojects:{
+      get(){return this.$store.state.groups.filter(group=>group.active==false)},
+      set(value){
+        console.log("in vue compute")
+        console.log(value)
+      }
+    },
+    course(){
+      return this.$store.state.course
+    },
+    allprojects(){
+        return this.$store.state.groups
+    }
+  },
   data: function(){
     return {
       messages: {},
       description:{},
-      groups: this.group_list,
-      course: this.curr_course,
       student: this.curr_student,
-      taking: this.curr_taking
+      taking: this.curr_taking,  
     }
   },
   methods: {
@@ -55,13 +133,11 @@ export default {
         if(choice_str=='first'){
             groupdata.append("group[vfirst]", group.vfirst+1)
             Rails.ajax({
-                url:`/groups/${group.id}`,
+                url:`/groups/${group.id}/vote`,
                 type: "PATCH",
                 data: groupdata,
                 dataType: "json",
                 success: (data) => {
-                    group.vfirst += 1
-                    document.getElementById(`f${group.id}`).innerHTML=choice_str.charAt(0).toUpperCase() + choice_str.slice(1)+ " ("+ group.vfirst+")"
                     console.log(`add 1 to ${group.project_name}`)
                     var prevcount = 0
                     var previd = -1
@@ -82,21 +158,21 @@ export default {
                         console.log("option 1 finished")
                     }else{
                         previd = this.taking.votefirst
-                        var prevgroup = this.groups.find(function(element){
+                        var prevgroup = this.allprojects.find(function(element){
                             if(element.id == previd){
                                 return element
                             }
                         })
+                        console.log(`previous choice is ${prevgroup.project_name}`)
                         var prevdata = new FormData
                         prevdata.append(`group[v${choice_str}]`, prevgroup.vfirst-1)
                         Rails.ajax({
-                            url:`/groups/${previd}`,
+                            url:`/groups/${previd}/vote`,
                             type: "PATCH",
                             data: prevdata,
                             dataType: "json",
                             success: (data) => {
-                                prevgroup.vfirst -= 1
-                                document.getElementById(`f${previd}`).innerHTML= choice_str.charAt(0).toUpperCase() + choice_str.slice(1)+ " ("+prevgroup.vfirst+")"
+                                //document.getElementById(`f${previd}`).innerHTML= choice_str.charAt(0).toUpperCase() + choice_str.slice(1)+ " ("+prevgroup.vfirst+")"
                                 console.log("previous group number -1")
                                 var takingdata = new FormData
                                 takingdata.append(`taking[vote${choice_str}]`, group.id)
@@ -119,13 +195,11 @@ export default {
         }else if(choice_str=='second'){
             groupdata.append("group[vsecond]", group.vsecond+1)
             Rails.ajax({
-                url:`/groups/${group.id}`,
+                url:`/groups/${group.id}/vote`,
                 type: "PATCH",
                 data: groupdata,
                 dataType: "json",
                 success: (data) => {
-                    group.vsecond += 1
-                    document.getElementById(`s${group.id}`).innerHTML=choice_str.charAt(0).toUpperCase() + choice_str.slice(1)+ " ("+ group.vsecond+")"
                     console.log(`add 1 to ${group.project_name}`)
                     var prevcount = 0
                     var previd = -1
@@ -146,21 +220,21 @@ export default {
                         console.log("option 2 finished")
                     }else{
                         previd = this.taking.votesecond
-                        var prevgroup = this.groups.find(function(element){
+                        var prevgroup = this.allprojects.find(function(element){
                             if(element.id == previd){
                                 return element
                             }
                         })
+                        console.log(prevgroup)
+                        console.log(`prevgroup is ${prevgroup.project_name}`)
                         var prevdata = new FormData
                         prevdata.append(`group[v${choice_str}]`, prevgroup.vsecond-1)
                         Rails.ajax({
-                            url:`/groups/${previd}`,
+                            url:`/groups/${previd}/vote`,
                             type: "PATCH",
                             data: prevdata,
                             dataType: "json",
                             success: (data) => {
-                                prevgroup.vsecond -= 1
-                                document.getElementById(`s${previd}`).innerHTML= choice_str.charAt(0).toUpperCase() + choice_str.slice(1)+ " ("+prevgroup.vsecond+")"
                                 console.log("previous group number -1")
                                 var takingdata = new FormData
                                 takingdata.append(`taking[vote${choice_str}]`, group.id)
@@ -183,13 +257,11 @@ export default {
         }else {
             groupdata.append("group[vthird]", group.vthird+1)
             Rails.ajax({
-                url:`/groups/${group.id}`,
+                url:`/groups/${group.id}/vote`,
                 type: "PATCH",
                 data: groupdata,
                 dataType: "json",
-                success: (data) => {
-                    group.vthird += 1
-                    document.getElementById(`t${group.id}`).innerHTML=choice_str.charAt(0).toUpperCase() + choice_str.slice(1)+ " ("+ group.vthird+")"
+                success: (data) => {     
                     console.log(`add 1 to ${group.project_name}`)
                     var prevcount = 0
                     var previd = -1
@@ -210,7 +282,7 @@ export default {
                         console.log("option 3 finished")
                     }else{
                         previd = this.taking.votethird
-                        var prevgroup = this.groups.find(function(element){
+                        var prevgroup = this.allprojects.find(function(element){
                             if(element.id == previd){
                                 return element
                             }
@@ -218,13 +290,11 @@ export default {
                         var prevdata = new FormData
                         prevdata.append(`group[v${choice_str}]`, prevgroup.vthird-1)
                         Rails.ajax({
-                            url:`/groups/${previd}`,
+                            url:`/groups/${previd}/vote`,
                             type: "PATCH",
                             data: prevdata,
                             dataType: "json",
                             success: (data) => {
-                                prevgroup.vthird -= 1
-                                document.getElementById(`t${previd}`).innerHTML= choice_str.charAt(0).toUpperCase() + choice_str.slice(1)+ " ("+prevgroup.vthird+")"
                                 console.log("previous group number -1")
                                 var takingdata = new FormData
                                 takingdata.append(`taking[vote${choice_str}]`, group.id)
@@ -249,23 +319,27 @@ export default {
 
 
 
-    submitMessages: function(course_id){
+    submitMessages: function(column_str,course_id){
+      
+      console.log(this.description[column_str])
       var data = new FormData
-      console.log("hello")
-      console.log(this.description['group'])
+      if(column_str=='groups'){
+        data.append("group[active]", true)
+      }else{
+        data.append("group[active]", false)
+      }
       data.append("group[course_id]", course_id)
-      data.append("group[project_name]", this.messages['group'])
-      data.append("group[description]", this.description['group'])
+      data.append("group[project_name]", this.messages[column_str])
+      data.append("group[description]", this.description[column_str])
 
         Rails.ajax({
           url: "/groups",
           type: "POST",
           data: data,
           dataType: "json",
-          success: (data) => {
-            this.groups.push(data)
-            this.messages['group']= undefined
-            this.description['group']=undefined
+          success: (data) => {   
+            this.messages[column_str] = undefined
+            this.description[column_str]= undefined
           }
         })
     }
@@ -274,5 +348,15 @@ export default {
 </script>
 
 <style scoped>
-
+  .projects-row{
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+  .projects-box{
+    background: rgb(193, 213, 250);
+    border-radius: 3px;
+    min-height: 300px;
+    white-space: normal;
+    padding-bottom: 15px;
+  }
 </style>

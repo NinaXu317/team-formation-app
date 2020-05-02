@@ -7,10 +7,11 @@ Rails.application.routes.draw do
 
   get 'pages/home'
   resources :takings
-  resources :groups
+
   resources :courses do 
     member do
       post 'create_groups'
+      patch 'toggle_voting'
     end
   end
   resources :professors
@@ -33,13 +34,7 @@ Rails.application.routes.draw do
   resources :groups do
     member do
       patch :move
-    end 
-  end 
-
-  resources :holdprojects do
-    member do
-      patch :move
-
+      patch :vote
     end 
   end 
 

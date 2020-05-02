@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_25_195625) do
+ActiveRecord::Schema.define(version: 2020_04_30_192953) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 2020_04_25_195625) do
     t.integer "professor_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "voting", default: true
   end
 
   create_table "groups", force: :cascade do |t|
@@ -33,6 +34,7 @@ ActiveRecord::Schema.define(version: 2020_04_25_195625) do
     t.integer "vfirst", default: 0
     t.integer "vsecond", default: 0
     t.integer "vthird", default: 0
+    t.boolean "active", default: true
   end
 
   create_table "holdprojects", force: :cascade do |t|
@@ -41,6 +43,7 @@ ActiveRecord::Schema.define(version: 2020_04_25_195625) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "course_id"
+    t.text "description"
   end
 
   create_table "preferences", force: :cascade do |t|
