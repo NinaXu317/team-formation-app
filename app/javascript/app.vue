@@ -131,6 +131,7 @@ export default {
 
   methods: {
     cardMoved: function(event){
+      console.log(event)
       if(event.added != undefined || event.moved != undefined){ 
         const evt = event.added || event.moved
         const element = evt.element  
@@ -143,7 +144,8 @@ export default {
           //console.log("move from groups to holds")
           data.append("group[active]", false)
         }  
-          data.append("group[position]", evt.newIndex+1)      
+          data.append("group[position]", evt.newIndex+1) 
+          console.log(`in app vue index: ${evt.newIndex+1}`)     
           Rails.ajax({
             beforeSend: () => true,
             url:`/groups/${element.id}/move`,
