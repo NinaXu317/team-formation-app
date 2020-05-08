@@ -76,11 +76,11 @@ class CoursesController < ApplicationController
     errors = error_service.handle_group_creation_errors(@course, algorithm)
     if errors.size > 0
       flash[:alert] = error_service.to_message_array(errors)
-      puts flash[:alert].inspect
       redirect_to @course and return
     end
     group_service.determineAlgorithmAndMatch(@course, params)
-    redirect_to @course, notice: "Groups created!"
+    flash[:success] = "Groups created!"
+    redirect_to @course
   end
 
   # GET /courses/new
