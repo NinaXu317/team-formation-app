@@ -1,0 +1,19 @@
+<% group_members = @course.students%>
+<div class = "wrapper overflow students-container">
+    <table class = "table table-hover table-sm" id="students-table">
+        <thead>
+            <tr>
+                <th style='border-top: 0'>Name</th>
+                <th style='border-top: 0'>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% group_members.each do |stu| %>
+            <tr>
+                <td><%= stu.firstname + " " + stu.lastname%>
+                <td><%= stu.email%>
+            </tr>
+            <% end %>
+        </tbody>
+    </table>
+</div>
