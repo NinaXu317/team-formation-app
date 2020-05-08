@@ -4,20 +4,20 @@
       <div class="col projects-box"> 
         <div class = 'container student-projects-container'>
           <h5 class='project-title'>
-           Projects
+           Active Projects
           </h5>
           <hr>
           <draggable v-model="groups" :options="{group: 'projects'}" @change="cardMoved">
           <a v-for="(group, index) in groups" class = 'row single-project-container-stu' >
             <div class='container project-container'>
-              <p class='project-name-text'>
+              <h5 class='project-name-text'>
               {{ group.project_name }}
-              </p>
+              </h5>
               <div class='form-control editbox-stu'>
                 <p class="project-description-text">{{ group.description }}</p>
               </div>
               <div class='vote-buttons'>
-                <button class='btn btn-info voteBtn' :id="'t'+group.id">Thrid ({{group.vthird}})</button>
+                <button class='btn btn-info voteBtn' :id="'t'+group.id">Third ({{group.vthird}})</button>
                 <button class='btn btn-warning voteBtn' :id="'s'+group.id">Second ({{group.vsecond}})</button> 
                 <button class='btn btn-danger voteBtn' :id="'f'+group.id">First ({{group.vfirst}})</button>               
                    
@@ -52,22 +52,22 @@
       <div class="col projects-box"> 
         <div class = 'container student-projects-container'>
           <h5 class='project-title'>
-            Hold Projects
+            Projects on Hold
           </h5>
           <hr>
           <draggable v-model="holdprojects" :options="{group: 'projects'}" @change="cardMoved">
           <a v-for="(holdproject, index) in holdprojects" class = 'row single-project-container-stu'>
             <div class='container project-container'>
-              <p class='project-name-text'>
+              <h5 class='project-name-text'>
                 {{ holdproject.project_name }}
-              </p>
+              </h5>
               <div class='form-control editbox-stu'>
                 <p class="project-description-text">{{ holdproject.description }}</p>
               </div>
               <div class='vote-buttons'>
                              
                    
-                <button class='btn btn-info voteBtn' :id="'t'+holdproject.id">Thrid ({{holdproject.vthird}})</button>  
+                <button class='btn btn-info voteBtn' :id="'t'+holdproject.id">Third ({{holdproject.vthird}})</button>  
                 <button class='btn btn-warning voteBtn' :id="'s'+holdproject.id">Second ({{holdproject.vsecond}})</button>   
                 <button class='btn btn-danger voteBtn' :id="'f'+holdproject.id">First ({{holdproject.vfirst}})</button> 
               </div>
@@ -140,10 +140,8 @@ export default {
         var moved_project_name = element.project_name
         var data = new FormData      
         if(event.added != undefined && element.active==false){
-          //console.log("move from holds to groups")
           data.append("group[active]", true) 
         }else if(event.added != undefined){
-          //console.log("move from groups to holds")
           data.append("group[active]", false)
         }  
           data.append("group[position]", evt.newIndex+1) 

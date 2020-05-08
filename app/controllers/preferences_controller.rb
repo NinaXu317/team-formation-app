@@ -25,7 +25,10 @@ class PreferencesController < ApplicationController
           flash[:success] = "Thanks for submitting your preference!"
           redirect_to @preference.course
         else
+          puts @preference.errors.inspect
+          puts @preference.errors.count.inspect
           flash[:alert] = @preference.errors
+          flash[:count] = @preference.errors.count
           redirect_to new_preference_path(course: course)
         end
     end

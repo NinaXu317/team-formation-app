@@ -5,7 +5,7 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
     <%= action_cable_meta_tag %>
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script src="https://kit.fontawesome.com/4f7943abdb.js" crossorigin="anonymous"></script>
     
@@ -20,7 +20,12 @@
               <li><%= link_to "Student Sign Up", new_student_path, class: "nav-link" %></li>
               <li><%= link_to "Professor Sign Up", new_professor_path, class: "nav-link" %></li>
             <% else %>
-              <li><%= link_to "Profile", profile_url, class: "nav-link" %></li>
+              <% if current_user_type == "professor"%>
+                <li><%= link_to "Professor Home", profile_url, class: "nav-link" %></li>
+              <% elsif current_user_type == "student" %>
+                <li><%= link_to "Student Home", profile_url, class: "nav-link" %></li>
+              <% end %>
+              
               <li><%= link_to "Logout", logout_path, class: "nav-link" %></li>
             <% end %>
           </ul>
