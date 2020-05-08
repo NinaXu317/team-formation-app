@@ -9,12 +9,14 @@ class Course < ApplicationRecord
 
     def active_groups
         groups = Group.where(course_id: id).all
+        puts groups.inspect
         active_groups = 0
         groups.each do |group|
             if group.active
                 active_groups += 1
             end
         end
+        puts "ACTIVE GROUPS: " + active_groups.inspect
         return active_groups
     end
 
