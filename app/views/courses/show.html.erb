@@ -104,9 +104,14 @@
 
         <% elsif current_user_type == "student" %>
           <div class='col course-button-column-stu'>
-            <%= link_to new_preference_path(course: @course) do %>
-              <button class="btn btn-outline-primary addButton"></i> Create Preference</button>
-            <% end %>
+            <%if @course.voting==false then %>
+              <%= link_to new_preference_path(course: @course) do %>
+                <button class="btn btn-outline-primary addButton btn-lg"></i> Create Preference</button>
+              <% end %>
+            <%else%>
+              <img src="/assets/yellow-alert.png" height="32" width="32"> 
+              <p class ="warning"> Awaiting professor to start preference filling</p>
+            <%end%>
           </div>
         <% end %>
       </div>
@@ -155,9 +160,16 @@
             <div class="tab-pane fade show active" id="projects">
               
               <% if current_user_type == "professor" && @professor_id == current_user.id%>
+                <br>
+                <% if @course.voting==true then%>
+                  <%= button_to @voting_button, toggle_voting_course_path(@course), :method => :patch, :class => 'btn btn-primary btn-lg'%>
+                  <p>(This will also stop the voting process)</p>
+                <%else%>
+                  <p class ="status">note: voting process has finished</p>
+                <%end%>
                 <%= tag.div id: :boards, data:{groups: @course.groups.to_json, course: @course.to_json}%>
 
-                <%= button_to @voting_button, toggle_voting_course_path(@course), :method => :patch, :class => 'btn btn-primary'%>
+                
               <% else %>    
                 <%= tag.div id: :stuboards, data:{groups: @course.groups.to_json,course:@course.to_json, student: Student.find(current_user.id).to_json, taking: Taking.find_by(student_id:current_user.id, course_id:@course.id).to_json}%>              
               <%end%>

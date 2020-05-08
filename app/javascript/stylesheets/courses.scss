@@ -207,3 +207,18 @@
   .drag-text{
     margin-left: 15px;
   }
+
+  .monospace {
+    font-family: "Lucida Console", Courier, monospace;
+  }
+
+  .warning{
+    font-size: 120%;
+    display: inline;
+  }
+
+  .status{
+    font-size: 110%;
+
+    font-style: italic;
+  }
