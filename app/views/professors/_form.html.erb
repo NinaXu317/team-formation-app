@@ -1,6 +1,6 @@
-<h1 style="margin-top: 30px; color: rgb(0,52,120); margin-left: 120px">New Professor</h1>
-<div class="row" style="margin: 0px; margin-bottom: 10px">
-<div style="padding-left: 100px; width: 600px">
+<h1 id="signup-title">New Professor</h1>
+<div class="row" id="signup-row" >
+<div id="signup-form-content">
 <%= form_with(model: professor, local: true) do |form| %>
   <% if professor.errors.any? %>
     <div id="error_explanation">
@@ -13,21 +13,21 @@
     </div>
   <% end %>
   
-  <%= form.label :First_name , style:"margin-bottom: 0px"%>
-  <%= form.text_field :firstname, class: 'form-control' , style:"width:300px; margin-bottom: 10px"%>
+  <%= form.label :First_name , class:'signup-label' %>
+  <%= form.text_field :firstname, class: 'form-control signup-input'%>
   
-  <%= form.label :Last_name , style:"margin-bottom: 0px"%>
-  <%= form.text_field :lastname, class: 'form-control', style:"width:300px; margin-bottom: 10px" %>
+  <%= form.label :Last_name , class:'signup-label'%>
+  <%= form.text_field :lastname, class: 'form-control signup-input'%>
 
-  <%= form.label :email, style:"margin-bottom: 0px" %>
-  <%= form.email_field :email, class: 'form-control' , style:"width:300px; margin-bottom: 10px"%>
+  <%= form.label :email, class:'signup-label' %>
+  <%= form.email_field :email, class: 'form-control signup-input'%>
   
-  <%= form.label :password, style:"margin-bottom: 0px" %>
-  <%= form.password_field :password, class: 'form-control', style:"width:300px; margin-bottom: 10px" %>
-  <%= form.label :password_confirmation, "Confirmation" , style:"margin-bottom: 0px"%>
-  <%= form.password_field :password_confirmation, class: 'form-control', style:"width:300px; margin-bottom: 10px" %>
+  <%= form.label :password, class:'signup-label' %>
+  <%= form.password_field :password, class: 'form-control signup-input' %>
+  <%= form.label :password_confirmation, "Confirmation" , class:'signup-label'%>
+  <%= form.password_field :password_confirmation, class: 'form-control signup-input'%>
   <br>
-  <%= form.submit "Create Professor Account", class: "btn btn-outline-primary signup-Button", style: "width:300px"%>
+  <%= form.submit "Create Professor Account", class: "btn btn-outline-primary", id:"signup-Button" %>
 
 <% end %>
 </div>

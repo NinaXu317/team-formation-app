@@ -2,32 +2,29 @@
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
 
 <div class="container course-column-box">
-    <div class='row course-name-row' style='margin-left:0px; margin-right: 0px;'>
+    <div class='row course-name-row'>
         <div id="course-name"><%= link_to course.name, course, class:'btn course-name-button' %></div>
     </div>
     
     <% group = findGroup(@student, course) %>
     <% if group.nil? %>
-        <div style='height: 282px; display: flex; align-items: center; margin-left: 35px; color:grey'>
+        <div class='not-assigned-text-professor'>
             <h6>Not yet assigned by the professor</h6>
         </div>
     <% else %>
-        <div class='row' style="margin-left: 10px; margin-right: 10px; margin-top: 10px">
+        <div class='row profile-group-row' >
             <div class='column'>
-                <h5 style="text-align:center; padding: 20px"><%= group['project_name'] %></h5>
+                <h5 class='profile-group-name'><%= group['project_name'] %></h5>
             </div>
             <div class='column'>
-            <a class="fa-stack fa-2x group-icon" href="#">
-                <i class="fas fa-circle fa-stack-2x" style="color: rgb(77, 131, 203)" id="circle"></i>
-                <i class="fas fa-users fa-stack-1x fa-inverse"></i>
-            </a>
+            <p class="group-icon"><a href="#">show members</a></p>
             </div>
         </div>
 
         <div>
             <% group_members = group.students%>
             <div class = "wrapper overflow group-container">
-                <table class = "table table-hover table-sm" id="member-table">
+                <table class = "table table-hover table-sm member-table" id='member-table'>
                     <thead>
                         <tr>
                             <th style='border-top: 0'>Name</th>
@@ -47,29 +44,17 @@
         </div>
         
     <% end %>
-    <div class='row course-drop-row' style='margin-left:0px; margin-right: 0px;'>
+    <div class='row course-drop-row'>
         <div id="course-drop-button">
         <% taking = Taking.where(student_id: @student.id, course_id: course.id)[0] %>
         <%= link_to taking, method: :delete, data: { confirm: 'Are you sure you want to drop this course?' } do %>
-        <button class="btn btn-outline-primary dropButton"><i class="fas fa-minus-circle" style='margin-left: 2px'></i> Drop course</button>
+        <button class="btn btn-outline-primary dropButton"><i class="fas fa-minus-circle"></i> Drop course</button>
         <% end %>
         </div>
     </div>
 </div>
 
 <script>
-    $(document).on('click', '.group-icon', function(event){
-            event.preventDefault();
-            event.stopPropagation();
-            event.stopImmediatePropagation();
-            $(this).closest('.course-column-box').find('.group-container').slideToggle(); 
-            var table = $(this).closest('.course-column-box').find('#member-table');
-            if(! $.fn.DataTable.isDataTable(table)){
-                table.DataTable({
-                 searching: false,
-                "lengthChange": false, 
-                "pageLength": 5,
-                });
-            }
-    });
+
+    
 </script>

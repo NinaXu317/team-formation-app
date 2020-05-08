@@ -7,17 +7,39 @@
     background-size: cover;
     min-height: 2000px;
   }
-  
+
+.profile-container{
+  padding-top: 30px;
+}
+
   .profile-row{
     background: linear-gradient(to left, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8));
     height: 100%;
     min-height: 150px;
     border-radius: 5px;
-    margin-left: 0px;
-    margin-right: 0px;
+    margin-left: 10px;
+    margin-right: 10px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   }
-  
+  .profile-column{
+    padding: 40px;
+  }
+  #profile-icon{
+    color: rgb(77, 131, 203);
+  }
+  .profile-name{
+    text-transform: uppercase; 
+    font-size: x-large;
+    font-weight: bold; 
+    padding-top:5px;
+  }
+  .profile-email{
+    margin-top: -15px;
+  }
+  .profile-button-column{
+    padding: 60px;
+  }
+
   .courses-info-row{
     display: flex;
     flex-wrap: wrap;
@@ -28,10 +50,10 @@
   .course-column-box{
     background: linear-gradient(to left, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9));
     box-sizing: border-box;
-    width: 300px;
-    height: 400px;
-    margin:20px;
+    width: 350px;
+    min-height: 400px;
     margin-top: 0px;
+    margin-bottom: 10px;
     > h4 {
         font-size:bold;
     }
@@ -50,11 +72,14 @@
     font-size: 30px;
     display:flex;
     border-bottom: 1.5px solid   rgb(77, 131, 203);
+    margin-left:0px; 
+    margin-right: 0px;
     
   }
   .course-name-row:hover{
     .course-name-button{
       color: #007bff;
+      font-size: 21px;
     }
   }
   #course-name{
@@ -69,12 +94,31 @@
     font-size: 20px;
   }
   
-  
+  .not-assigned-text{
+    height: 282px; 
+    display: flex; 
+    align-items: center; 
+    margin-left: 35px; 
+    color:grey;
+  }
+  .profile-group-row{
+    margin-left: 10px; 
+    margin-right: 10px; 
+    margin-top: 10px;
+  }
+  .profile-group-name{
+    text-align:center; 
+    padding: 20px;
+  }
+
   .course-drop-row{
     font-family: "Poppins", sans-serif;
     font-size: 30px;
     display:flex;
     border-top: 1.5px solid   rgb(77, 131, 203);
+    margin-left:0px; 
+    margin-right: 0px;
+    margin-bottom: 25px;
   }
   .dropButton{
     color: rgb(77, 131, 203);
@@ -82,7 +126,8 @@
     border-radius: 100px;
     margin-right: 0px; 
     position: relative;
-    left: 133px;
+    left: 165px;
+    margin-left: 2px;
   }
   
   
@@ -91,21 +136,26 @@
     border: 1.5px solid rgb(77, 131, 203);
     font-weight: bold;
   }
-  
-  .group-icon:hover{
-    #circle {
-      color:#007bff !important ;
+  .group-icon{
+    text-align:center;
+    padding-top: 20px;
+    margin-left: 20px;
+    >a{
+    text-decoration: none;
+    color: rgb(77, 131, 203);
     }
   }
-  
-  
+  .group-icon:hover{
+    font-weight: bold;
+  }
   
   .group-container{
     display: none;
-    height: 200px; 
+    height: 200px;
+    font-size: 11px; 
   }
   
-  #member-table{
+  .member-table{
     max-width: 280px;
     font-size: 11px;
     border-collapse: collapse;
@@ -114,12 +164,9 @@
       padding-bottom: 4px;
     }
   }
-  #member-table_info{
-    display:none;
-  }
   #member-table_paginate{
-    margin-top: 0px;
-    font-size: 10px;
+    position:relative;
+    right: 10px;
   }
   
   .add-course-button{

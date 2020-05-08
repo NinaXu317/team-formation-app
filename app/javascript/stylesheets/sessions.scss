@@ -10,34 +10,59 @@
     background-size: cover;
     background-repeat: no-repeat;
   }
+
+#login-container{
+  padding-top: 100px;
+}
+.form-wrap{
+  width: 500px;
+  height: 500px;
+  background: linear-gradient(to left, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7));
+  border-radius: 10px;
+  overflow: hidden;
+  margin-left: 20px;
+}
+
+.login-title{
+  margin-top: 30px; 
+  margin-left:80px; 
+  color: rgb(0,52,120);
+}
+#login-row{
+  margin-left: 50px; 
+  margin-right: 50px;
+}
   
-  .form-wrap{
-    width: 500px;
-    height: 500px;
-    background: linear-gradient(to left, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5));
-    border-radius: 10px;
-    overflow: hidden;
-    
-  }
+#login-input{
+  width: 350px;
+  padding-left: 40px;
+  padding-right: 40px;
+}
   
-  .form-icon{
-    color: darkgrey; 
-    position: absolute; 
-    z-index: 1; 
-    padding: 10px; 
-    padding-top:12px;
-    float: right;
-  }
+.form-icon{
+  color: darkgrey; 
+  position: absolute; 
+  z-index: 1; 
+  padding: 10px; 
+  padding-top:12px;
+  float: right;
+}
   
-  .btn-custom{
+#btn-custom{
     border: 1.5px solid    rgb(0,52,120);
     font-weight: bold;
     color: rgb(0,52,120);
+    margin-left:295px;
   }
-  .btn-custom:hover{
+
+#btn-custom:hover{
     color: #fff;
     border: 1.5px solid    rgb(0,52,120);
     background-color:    rgb(0,52,120);
     transition-delay: 0.1s;
   }
+.login-back-path{
+  padding-left: 200px; 
+  width:500px;
+}
   

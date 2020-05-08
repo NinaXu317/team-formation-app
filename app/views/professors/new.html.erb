@@ -1,8 +1,8 @@
 <div class='view3'>
-    <div class='container' style="padding-top: 50px;" >
-            <div class= 'signup-form' style="margin: auto; ">
+    <div class='container' id='signup-container'>
+            <div class='signup-form'>
                 <%= render 'form', professor: @professor %>
-                <%= link_to 'Back to Home', root_path , style:"float: right; margin-right: 20px"%>
+                <%= link_to 'Back to Home', root_path , id:"signup-back-path"%>
             </div>
         </div>
         

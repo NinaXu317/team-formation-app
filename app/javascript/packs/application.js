@@ -22,7 +22,7 @@ require("moment")
 // const images = require.context('../images', true)
 // const imagePath = (name) => images(name, true)
 import '../stylesheets/application'
-import './bootstrap_custom.js'
+import 'bootstrap'
 
 import Vue from 'vue/dist/vue.esm'
 import Vuex from 'vuex'
@@ -45,8 +45,9 @@ window.App = App;
 window.stuApp = stuApp;
 
 window.Vuex = Vuex;
-
 Rails.start();
 
-
+require('packs/student')
+require('packs/preference')
+require('packs/course')
 

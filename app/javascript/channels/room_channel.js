@@ -1,26 +1,28 @@
 import consumer from "./consumer"
-$(document).on('turbolinks:load', function(){
+var subscription
+document.addEventListener('turbolinks:load', function(){
   let room = document.getElementById('classroom')
   if(room){
     console.log("exist!")
     console.log($('#classroom').attr('data-room-id'))
-    consumer.subscriptions.create({
+    subscription = consumer.subscriptions.create({
       channel: "RoomChannel", 
       id:$('#classroom').attr('data-room-id')
       },
       {
       connected() {
         // Called when the subscription is ready for use on the server
-        console.log("yiha we are alive")
+        console.log(`connected to ${$('#classroom').attr('data-room-id')}`)
       },
   
       disconnected() {
         // Called when the subscription has been terminated by the server
+        console.log(`disconnected from ${$('#classroom').attr('data-room-id')}`)
       },
   
       received(data) {
         // Called when there's incoming data on the websocket for this channel
-        console.log("receive data")
+        console.log(`receive data from ${$('#classroom').attr('data-room-id')}`)
         if (data.commit){
           window.store.commit(data.commit, JSON.parse(data.payload))
           console.log(data)
@@ -30,5 +32,14 @@ $(document).on('turbolinks:load', function(){
     });
   }
   
+});
+
+document.addEventListener("turbolinks:before-visit",function(){
+  let room = document.getElementById('classroom')
+  if(room){
+    console.log(consumer.subscriptions)
+    subscription.unsubscribe()
+    subscription.disconnected()
+  }
 })
 

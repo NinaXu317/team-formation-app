@@ -40,11 +40,13 @@
         </div>
       </div>
       
-      <div id="middle-col">
-        
-        <div>drag</div>
+      <div class="column" id="middle-col">
+        <div class='container'>
+        <div class="row drag-text">drag</div>
+        <div class="row" >
         <i class="fas fa-exchange-alt fa-2x" id="change-icon"></i>
-        
+        </div>
+        </div>
       </div>
 
       <div class="col projects-box"> 
@@ -183,18 +185,6 @@ export default {
 </script>
 
 <style scoped>
-  .projects-row{
-    margin-left: 0px;
-    margin-right: 0px;
-  }
-  .projects-box{
-    background: rgb(193, 213, 250);
-    border-radius: 3px;
-    min-height: 300px;
-    white-space: normal;
-    padding-bottom: 15px;
-  }
-
 
   #change-icon{
     color: rgb(141, 180, 252);

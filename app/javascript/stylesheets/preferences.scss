@@ -6,12 +6,26 @@
     margin-top: 20px;
     padding-top: 30px;
 }
+.preference-title{
+    margin-left: 30px; 
+    margin-bottom: 30px;
+    >span {
+        color:rgb(77, 131, 203);
+    }
+}
+.preference-form-column{
+    margin-left: 50px; 
+    margin-right: 50px;
+}
 #fullcalendar{
     width: 300px;
     height:25px; 
     border-radius: 5px; 
     background-color: rgb(248, 248, 248);
     border-color: darkgray;
+}
+.fc-today{
+    background-color: inherit;
 }
 
 #calendar{
@@ -32,10 +46,21 @@
     border: solid rgb(141, 180, 252);
     color: white;
 }
-.resetButton{
+
+.preference-button-row{
+    margin-top: 30px; 
+    margin-left: 120px;
+}
+
+.submitButton{
     color: white;
     border: 1.5px solid rgb(77, 131, 203);
     font-weight: bold;
     width: 80px;
   }
+.preference-back{
+    float: right; 
+    margin-right: 0px;
+    margin-bottom: 30px;
+}
   
