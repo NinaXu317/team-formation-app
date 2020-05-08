@@ -1,0 +1,45 @@
+// Place all the styles related to the Pages controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+
+ /* body */
+.view1{
+    background: linear-gradient(to left, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0.4)),url('https://www.brandeis.edu/gsas/programs/images/computer-science.jpg') ;
+    background-color: rgba(255, 255, 255, 0.5);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* text */
+.main-title{
+    color: rgb(0,52,120);
+    display: 3;
+    font-weight: bold;
+    text-align: center;
+    font-size: 60px;
+    padding-top: 250px;
+}
+
+.signin-row{
+    text-align: center;
+}
+
+#signin-button{
+    border: 1.5px solid    rgb(0,52,120);
+    font-weight: bold;
+    font-size: 20px;
+    color: rgb(0,52,120);
+    width: 250px;
+    margin-left: 90px;
+    margin-right: 90px;
+}
+
+#signin-button:hover{
+    color: #fff;
+    background-color:    rgb(0,52,120);
+    transition-delay: 0.1s;
+}
+
+
+

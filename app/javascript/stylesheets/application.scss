@@ -17,7 +17,7 @@ body,
 @media (max-width: 740px) {
   html,
   body,
-  .view1, .view2, .view3, view4{
+  .view1, .view2, .view3, .view4{
     height: 100vh;
   }
 }
@@ -49,37 +49,18 @@ body,
     color: #fff;
     font-weight: bold;
 }
-/* body */
-.view1{
-    background: linear-gradient(to left, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)),url('https://www.brandeis.edu/gsas/programs/images/computer-science.jpg') ;
-    background-color: rgba(255, 255, 255, 0.5);
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-}
 
-/* text */
-.main-title{
-    color: rgb(0,52,120);
-    display: 3;
-    font-weight: bold;
-    text-align: center;
-    font-size: 60px;
-    padding-top: 250px;
-}
-
+/* Homepage */
+@import './pages.scss';
 /* Professor signup page*/
-@import './professors.scss';
+@import './signup.scss';
 
 
 /* login page */
 @import './sessions.scss';
 
-
-/* calendar */
-.fc-today{
-  background-color: inherit;
-}
+/* Professor profile page */
+@import './professors.scss';
 
 /* Student profile page */
 @import './students.scss';

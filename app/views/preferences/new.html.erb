@@ -1,7 +1,6 @@
 
-
-<div class='view4'>
-  <div class='container' style="padding-top: 30px;" >
+<body class='view4'>
+  <div class='container profile-container' >
 
     <% if !flash[:alert].nil? %>
     
@@ -23,158 +22,68 @@
     <% end %>
    
 
-    <div class= 'signup-form' style="margin: auto;">
+    <div class= 'signup-form'>
 
-<div class='container' id='new-preference-container-1' >
-<h5 style="margin-left: 30px; margin-bottom: 30px"> Create Preference for: <span style="color:rgb(77, 131, 203)"><%= @course.name %></span> </h5>
-<div class="row">
-  <div class="column" style="margin-left: 50px; margin-right: 50px">
-    <%= form_with(model: @preference, local: true)do |f| %>
-        <div class="alert alert-danger d-none">Please review the problems below:</div>
-        <%= f.label 'First Choice: '%> <sup>*</sup>
-        <%= f.collection_select :first, @projects.order(:project_name), :project_name, :project_name, {:include_blank=> true}, {:style => "width:250px; float:right"} %>
-        <br><br>
-        <%= f.label 'Second Choice: '%>
-        <%= f.collection_select :second, @projects.order(:project_name), :project_name, :project_name, {:include_blank=> true}, {:style => "width:250px; float:right"} %>
-        <br><br>
-        <%= f.label 'Third Choice: '%>
-        <%= f.collection_select :third, @projects.order(:project_name), :project_name, :project_name, {:include_blank=> true}, {:style => "width:250px; float:right"} %>
-        <br><br>
-        <%= f.label 'Coding Proficiency:' %>
-        
-        <%= f.collection_radio_buttons :codingProficiency, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
-        margin-left: 24px; margin-right:5px"}%>
-        <br><br>
-        <%= f.label 'Dream Partner'%>
-        <%= f.collection_select :dreampartner, @course.students.order(firstname: :asc, lastname: :asc), :id, :full_name, {:include_blank=> true}, {:style => "width:250px; float:right"}%>
+    <div class='container' id='new-preference-container-1' >
+    <h5 class='preference-title'> Create Preference for: <span><%= @course.name %></span> </h5>
+    <div class="row">
+      <div class="column preference-form-column" >
+        <%= form_with(model: @preference, local: true)do |f| %>
+            <div class="alert alert-danger d-none">Please review the problems below:</div>
+            <%= f.label 'First Choice: '%> <sup>*</sup>
+            <%= f.collection_select :first, @projects.order(:project_name), :project_name, :project_name, {:include_blank=> true}, {:style => "width:250px; float:right"} %>
+            <br><br>
+            <%= f.label 'Second Choice: '%>
+            <%= f.collection_select :second, @projects.order(:project_name), :project_name, :project_name, {:include_blank=> true}, {:style => "width:250px; float:right"} %>
+            <br><br>
+            <%= f.label 'Third Choice: '%>
+            <%= f.collection_select :third, @projects.order(:project_name), :project_name, :project_name, {:include_blank=> true}, {:style => "width:250px; float:right"} %>
+            <br><br>
+            <%= f.label 'Coding Proficiency:' %>
+            
+            <%= f.collection_radio_buttons :codingProficiency, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
+            margin-left: 24px; margin-right:5px"}%>
+            <br><br>
+            <%= f.label 'Dream Partner'%>
+            <%= f.collection_select :dreampartner, @course.students.order(firstname: :asc, lastname: :asc), :id, :full_name, {:include_blank=> true}, {:style => "width:250px; float:right"}%>
 
 
-        <br><br>
-        <%= f.label 'Select Your Free Time for Group Meeting'%>
-        <div class="input-group mb-3">
-         
-          <%= f.search_field :schedule, class:"form-control showCalendar", id:"fullcalendar"%>
+            <br><br>
+            <%= f.label 'Select Your Free Time for Group Meeting'%>
+            <div class="input-group mb-3">
+            
+              <%= f.search_field :schedule, class:"form-control showCalendar", id:"fullcalendar"%>
 
-        <div class="container m-t-20">
-            <div id="outline">
-              <div id = 'calendarForm'>
-                <div id = 'calendar'></div>
-                <div class='btn btn-primary submitCalendar'> submit calendar </div>
-              </div>
+            <div class="container m-t-20">
+                <div id="outline">
+                  <div id = 'calendarForm'>
+                    <div id = 'calendar'></div>
+                    <div class='btn btn-primary submitCalendar'> submit calendar </div>
+                  </div>
+                </div>
+            </div>  
+
+
+            <%= f.hidden_field :student_id, :value => current_user.id%>
+            <%= f.hidden_field :course_id, :value => @course.id%>
+
+            <div class="preference-button-row" >
+              <%= submit_tag("Submit", class: "btn btn-primary submitButton") %>
+              <button class="btn btn-outline-primary addButton" type="reset">Reset</button>
             </div>
-        </div>  
-
-
-        <%= f.hidden_field :student_id, :value => current_user.id%>
-        <%= f.hidden_field :course_id, :value => @course.id%>
-
-        <div style="margin-top: 30px; margin-left: 120px ">
-          <%= submit_tag("Submit", class: "btn btn-outline-primary addButton") %>
-          <button class="btn btn-primary resetButton" type="reset">Reset</button>
-        </div>
-      </div>   
-    <% end %>
-    <%= link_to 'Back to Course Page', @course , style:"float: right; margin-right: 0px"%>
-  </div>
- 
-</div>
-</div>
+          </div>   
+        <% end %>
+        <%= link_to 'Back to Course Page', @course , class:"preference-back"%>
+      </div>
+    
+    </div>
+    </div>
 
     </div>
   </div>
-</div>
+</body>
   
 <script>
-$(document).ready(function(){
-  $("#calendarForm").hide();
-  var calendar = null;
-  var freeTime = [];
-  var submitArray = [];
-  $('.showCalendar').click(function (){ 
-    $("#calendarForm").slideToggle();
-    var calendarEl = document.getElementById('calendar');
-    if(calendar){
-        calendar.destroy();
-        freeTime = [];
-    }
-    var eventList = new Array();
-    calendar = new Calendar(calendarEl, {
-        plugins: [ timeGridPlugin, momentPlugin, interactionPlugin, bootstrapPlugin],
-        themeSystem: 'bootstrap',
-        defaultView: 'timeGridWeek',
-        columnHeaderFormat: 'ddd', 
-        minTime: "08:00:00", 
-        maxTime: "22:00:00",
-        header:false,
-        allDaySlot: false,
-        selectable: true,
-        selectHelper: true,
-        
-        select: function(info) {
-            start = info.startStr;
-            end = info.endStr;
-            var weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-            var event = {
-              start: info.startStr,
-              end: info.endStr, 
-            };
-            calendar.addEvent(event);
-            console.log("Great: now update your database!");
-            console.log(calendar.getEvents());
-            
-        },
-        eventClick: function(info){
-          info.event.remove();
-        }
-    });
-    calendar.render();
-  });
-
-  $('.submitCalendar').click(function (){ 
-      console.log("submitted: test");
-      if(calendar){
-        var weekdays = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-        function iterate(event){
-          var startDate = event.start;
-          var endDate = event.end;
-          if(startDate.getDay()==endDate.getDay()){
-            freeTime.push({
-              'weekday' : weekdays[endDate.getDay()],
-              'start' : startDate.toString().split(" ")[4],
-              'end' : endDate.toString().split(" ")[4]
-            });
-            //console.log(endDate.toString().split(" ")[4]);
-          }else{
-            freeTime.push({
-              'weekday' : weekdays[startDate.getDay()],
-              'start' : startDate.toString().split(" ")[4],
-              'end' : "22:00:00"
-            });
-            freeTime.push({
-              'weekday' : weekdays[endDate.getDay()],
-              'start' : "08:00:00",
-              'end' : endDate.toString().split(" ")[4],
-            });
-          }
-        }
-        calendar.getEvents().forEach(iterate);
-      }
-      console.log("form is submitted");
-      submitArray = [];
-      for(i=0; i<freeTime.length; i++){
-        submitArray[i]=freeTime[i];
-      }
-      calendar.destroy();
-      freeTime = [];
-      //console.log(submitArray);
-      $("#calendarForm").hide();
-      document.getElementById("fullcalendar").value = JSON.stringify(submitArray);
-      var list = document.getElementById("fullcalendar").value;
-      console.log(JSON.parse(list));
-      console.log(submitArray);
-    });
-    
-})
 
 
 </script>

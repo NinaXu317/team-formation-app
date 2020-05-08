@@ -4,6 +4,8 @@ class TakingsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @taking = takings(:one)
     @user = professors(:admin)
+    @course = courses(:FakeCourse2)
+    @student = students(:jeremy)
   end
 
   test "should get index" do
@@ -18,7 +20,7 @@ class TakingsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create taking" do
     assert_difference('Taking.count') do
-      post takings_url, params: { taking: { course_id: @taking.course.id,  student_id: @taking.student_id } }
+      post takings_url, params: { taking: { course_id: @course.id,  student_id: @student.id } }
     end
 
     assert_redirected_to taking_url(Taking.last)

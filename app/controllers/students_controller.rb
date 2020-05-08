@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  before_action :set_student, only: [:show, :edit, :update, :destroy]
+  before_action :set_student, only: [:show, :edit, :update, :destroy, :add_course, :drop_course, :search_course]
 
   # GET /students
   # GET /students.json
@@ -26,27 +26,24 @@ class StudentsController < ApplicationController
 
   #GET /students/1/add_course
   def add_course
-    @student = Student.find(params[:id])
     @student_id = params[:id]
   end
 
   #POST /students/1/search_course
   def search_course
-    @student = Student.find(params[:id])
-    course = Course.where(pin: params[:pin]).take
-    puts "Student: " + @student.inspect
-    puts "Course: " + course.inspect
-    if course.nil?
-      redirect_to @student, notice: "There is no course with that pin" and return
-    end
+    registrar = EnrollmentManager::Registrar.new
+    registrar_notice = registrar.enroll_in_course(@student.id, params[:pin])
+    redirect_to @student, notice: registrar_notice 
+  end
 
-    if Taking.where(student_id: params[:id], course_id: course.id).size == 0
-      @taking = Taking.create(student_id: params[:id], course_id: course.id)
-    else
-      redirect_to @student, notice: "You are already registered for this course" and return
+  #DELETE /students/1/drop_course?course=1
+  def drop_course
+    registrar = EnrollmentManager::Registrar.new
+    registrar.drop_course(params[:student_id], params[:course_id])
+    respond_to do |format|
+      format.html { redirect_to @student, notice: 'Class was dropped.' }
+      format.json { head :no_content }
     end
-
-    redirect_to @student, notice: "Course added!"
   end
 
   # POST /students

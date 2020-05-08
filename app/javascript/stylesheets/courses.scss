@@ -5,14 +5,45 @@
 #course-info-box{
     background: linear-gradient(to left, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9));
     margin-top: 0px;
-    margin-left: 0px;
-    margin-right: 0px;
+    margin-left: 10px;
+    margin-right: 10px;
     min-height: 500px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 5px;
-    
+    border-radius: 5px; 
+}  
+.course-button-column{
+  padding: 40px;
+}
+.course-button-column-stu{
+  padding: 60px;
+}
+
+.modal-content{
+  padding-left: 30px;
+}
+
+#exampleModalLabel{
+  >span{
+    color:rgb(77, 131, 203);
   }
-  
+}
+.modal-label{
+  font-size:22px;
+}
+.modal-button{
+  margin-left: 80px; 
+  margin-bottom: 50px;
+  .createButton{
+    width:250px;
+    font-weight: bold;
+  }
+}
+
+#course-info-col{
+  padding: 40px; 
+  padding-top: 20px; 
+}
+
   #course-nav{
     .nav-link{
       color: rgb(77, 131, 203);
@@ -53,7 +84,7 @@
     background: linear-gradient(to left, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9));
     box-sizing: border-box;
     width: 300px;
-    height: 200px;
+    min-height: 200px;
     margin:20px;
     margin-top: 20px;
     margin-bottom: 0px;
@@ -61,13 +92,30 @@
     > h4 {
         font-size:bold;
     }
+    > p{
+      margin-top: 20px; 
+      margin-left: 6px;
+    }
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 5px;
 
   }
 
+  .course-group-container{
+    font-size: 11px;
+  }
+
+  .course-back-path{
+    float: right; 
+    margin-right: 5px; 
+    margin-top: 10px;
+  }
+
   .projects-row{
     margin: 20px;
+    margin-left: 0px;
+    margin-right: 0px;
+    
   }
   .projects-box{
     background: rgb(193, 213, 250);
@@ -152,7 +200,10 @@
   }
 
   #middle-col{
-    min-width: 100px;
+    width: 100px;
     display: flex;
     align-items: center;
+  }
+  .drag-text{
+    margin-left: 15px;
   }

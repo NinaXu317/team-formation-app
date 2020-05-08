@@ -35,9 +35,13 @@ module GroupCreationManager
         def getStudentsWithoutPreference(course)
             students_without_preference = []
             course.students.each do |student|
-            if student.preferences.where(course_id: course.id).size == 0
-                students_without_preference << student.full_name
-            end
+                puts "STUDENTS: " + course.students.size.to_s
+                puts course.students.inspect
+                puts "Preferences: " + course.preferences.size.to_s
+                puts course.preferences.inspect
+                if student.preferences.where(course_id: course.id).size == 0
+                    students_without_preference << student.full_name
+                end
             end
             return students_without_preference
         end

@@ -348,15 +348,5 @@ export default {
 </script>
 
 <style scoped>
-  .projects-row{
-    margin-left: 0px;
-    margin-right: 0px;
-  }
-  .projects-box{
-    background: rgb(193, 213, 250);
-    border-radius: 3px;
-    min-height: 300px;
-    white-space: normal;
-    padding-bottom: 15px;
-  }
+
 </style>

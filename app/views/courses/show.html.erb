@@ -1,14 +1,14 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
 
+
 <body class='view4'>
-  <div class='container' style="padding-top: 30px" id="classroom" data_channel_subscribe="room" data-room-id="<%= @course.id %>">
+  <div class='container profile-container' id="classroom" data_channel_subscribe="room" data-room-id="<%= @course.id %>">
     <% flash.each do |type, msg| %>
       <div class="alert alert-info">
         <%= msg %>
       </div>
     <% end %>
-
     <% if @course.errors.any? %>
       <div id="alert alert-info">
         <p><%= pluralize(@course.errors.count, "error") %> prohibited this course from being updating:</p>
@@ -18,11 +18,9 @@
           <% end %>
         </ul>
       </div>
-    <% end %>
-    <div class='container' id='body-container-course-show'>
-    <div class='page-wrap'>
+    <% end %> 
       <div class='row profile-row'>
-        <div class='col' style='padding: 40px; padding-bottom: 20px; padding-top:40px'>
+        <div class='col profile-column'>
           <p>
             <strong>Name:</strong>
             <%= @course.name %>
@@ -42,12 +40,13 @@
 
         <% if current_user_type == "professor" && @professor_id == current_user.id%>
           <% create_groups_path = @course.id.to_s+ "/create_groups" %>
-          <div class='col' style='padding: 40px'>
+          <div class='col course-button-column'>
             <%= button_to 'Create Random Groups', {:controller => "courses", :action => "create_groups", :algo => "random"}, :class => "btn btn-outline-primary addButton", :method=>:post%>
             <br>
             <p> <%= @message %> </p>
             <%= button_to 'Create Groups Based on Project Preference', {:controller => "courses", :action => "create_groups", :algo => "project_only"},  :disabled => @disabled, :class => "btn btn-outline-primary addButton", :method=>:post%>
             <br>
+            <p></p>
             <% if @disabled %>
               <button disabled class="btn btn-outline-primary addButton" data-toggle="modal" data-target="#professor-preference-form">
                 Create Groups Based on All Preference
@@ -61,9 +60,9 @@
 
             <div class="modal fade" id="professor-preference-form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
               <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content" style="padding-left: 30px">
+                <div class="modal-content">
                   <div class="modal-header border-bottom-0">
-                    <h5 class="modal-title" id="exampleModalLabel">Create Your Preference for: <span style="color:rgb(77, 131, 203)"><%= @course.name %></span></h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Create Your Preference for: <span><%= @course.name %></span></h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
@@ -74,30 +73,29 @@
                         <%= hidden_field_tag :algo, 'holistic'%>
                         <div class="alert alert-danger d-none">Please review the problems below:</div>
                        
-                        <label style="margin-right: 35px;font-size:22px;"><%= f.label 'How important are student\'s preference on project choices? '%> </label>
+                        <label class="modal-label"><%= f.label 'How important are student\'s preference on project choices? '%> </label>
                         <%= f.collection_radio_buttons :projectWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
                         margin-left: 24px; margin-right:5px;"}%>
                         very important<br>
                         <hr size="10">
-                        <label style="margin-right: 3px;font-size:22px;"><%= f.label 'Do you want each team to have various level of coding proficiencies?' %></label>
+                        <label class="modal-label"><%= f.label 'Do you want each team to have various level of coding proficiencies?' %></label>
                         <%= f.collection_radio_buttons :codingWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
                         margin-left: 24px; margin-right:5px"}%>
                         As diverse as possible<br><hr size="10">
-                        <label style="margin-right: 33px;font-size:22px;"><%= f.label 'How important are student\'s preference on their partner choice?'%></label>
+                        <label class="modal-label"><%= f.label 'How important are student\'s preference on their partner choice?'%></label>
                         <%= f.collection_radio_buttons :partnerWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
                         margin-left: 24px; margin-right:5px"}%>
                         very important<br><hr size="10">
-                        <label style="margin-right: 68px;font-size:22px;"><%= f.label 'How important that the team members will have more than 2 hours/week avaiable meeting-time?'%></label>
+                        <label class="modal-label"><%= f.label 'How important that the team members will have more than 2 hours/week avaiable meeting-time?'%></label>
                         <%= f.collection_radio_buttons :scheduleWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
                         margin-left: 24px; margin-right:5px"}%> very important
                         <div class="modal-footer border-top-0 d-flex justify-content-center">
-                          <div style="margin-left: 80px; margin-bottom: 50px ">
-                            <%= f.submit("Submit and Create Group", class: "btn btn-outline-primary addButton") %>
-                            <button class="btn btn-primary resetButton" type="reset">Reset</button>
+                          <div class='modal-button'>
+                            <%= f.submit("Submit and Create Group", class: "btn btn-primary createButton") %>
+                            <button class="btn btn-outline-primary addButton" type="reset">Reset</button>
                           </div>
                         </div>
                       <%end%>
-                    </div>
                   </div>
                 </div>
               </div>
@@ -105,7 +103,7 @@
 
 
         <% elsif current_user_type == "student" %>
-          <div class='col' style='padding: 60px;'>
+          <div class='col course-button-column-stu'>
             <%= link_to new_preference_path(course: @course) do %>
               <button class="btn btn-outline-primary addButton"></i> Create Preference</button>
             <% end %>
@@ -114,9 +112,9 @@
       </div>
 
       <hr/>
-
+      
       <div class='row' id='course-info-box'>
-        <div class='col' id='course-info-col' style="padding: 40px; padding-top: 20px; ">
+        <div class='col' id='course-info-col'>
           <ul class="nav nav-tabs" id="course-nav">
             <li class="nav-item">
               <a href="#projects" class="nav-link tab-projects active" data-toggle="tab" >Projects</a>
@@ -157,14 +155,9 @@
             <div class="tab-pane fade show active" id="projects">
               
               <% if current_user_type == "professor" && @professor_id == current_user.id%>
-<<<<<<< HEAD
-                <%= tag.div id: :boards, data:{groups: @course.groups.to_json, course: @course.to_json, takings: Taking.where(course_id:@course.id).to_json} %>
+                <%= tag.div id: :boards, data:{groups: @course.groups.to_json, course: @course.to_json}%>
 
                 <%= button_to @voting_button, toggle_voting_course_path(@course), :method => :patch, :class => 'btn btn-primary'%>
-=======
-                <%= tag.div id: :boards, data:{groups: @course.groups.to_json, course: @course.to_json} %>
-                <button class='btn btn-primary'> Stop Voting </button>
->>>>>>> 925b705cc738990404110cdbbefd0ff41bd11c65
               <% else %>    
                 <%= tag.div id: :stuboards, data:{groups: @course.groups.to_json,course:@course.to_json, student: Student.find(current_user.id).to_json, taking: Taking.find_by(student_id:current_user.id, course_id:@course.id).to_json}%>              
               <%end%>
@@ -180,15 +173,16 @@
                 <% else %>
                   <% @course.groups.where(active: true).each do |group| %>
                     <div class="container course-group-box">
-                    <p style="margin-top: 20px; margin-left: 6px"> <%= group.project_name %> </p>                  
+                    <p> <%= group.project_name %> </p>                  
                       <div>
                         <% group_members = group.students%>
                         <div class = "wrapper overflow course-group-container">
-                            <table class = "table table-hover table-sm" id="member-table">
+                            <table class = "table table-hover table-sm">
                                 <thead>
                                     <tr>
                                         <th style='border-top: 0'>Name</th>
                                         <th style='border-top: 0'>Email</th>
+                                        
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -210,83 +204,15 @@
             </div>
          
           </div> 
-          <%= link_to 'Back to Profile Page', courses_path, style: "float: right; margin:right: 5px; margin-top: 10px" %> 
+          <%= link_to 'Back to Profile Page', courses_path, class:"course-back-path" %> 
         </div>
               
       </div>
 
-      <%= link_to 'Edit', edit_course_path(@course) %> 
-      
-    </div>
-
-    </div>
   </div>
 </body>
 
-
-
 <script>
-window.store = new Vuex.Store({
-    state: {
-      groups:[],
-      course: [],
-    },
-    mutations: {
-      addCard(state, data){
-        state.groups.push(data)
-      },
-      moveCard(state, data){
-        const card_index = state.groups.findIndex((item)=>item.id==data.id)
-        state.groups.splice(card_index, 1, data)
-      },
-      vote(state, data){
-        const card_index = state.groups.findIndex((item)=>item.id==data.id)
-        state.groups.splice(card_index, 1, data)
-      }
-    }
-})
-     document.addEventListener("turbolinks:load", function(){
-        var element = document.querySelector('#boards'); 
-        if(element != undefined){
-          window.store.state.groups = JSON.parse(element.dataset.groups)
-          window.store.state.course = JSON.parse(element.dataset.course)
-          const app = new Vue({
-            el: element,
-            store: window.store,
-            template: "<App />",
-            components: { App }
-          });
-        }    
-     });
 
-    document.addEventListener("turbolinks:load", function(){
-        var element = document.querySelector('#stuboards');
-        if(element != undefined){
-          window.store.state.groups = JSON.parse(element.dataset.groups)
-          window.store.state.course = JSON.parse(element.dataset.course)
-          const stuapp = new Vue({
-          el: element,
-          store: window.store,
-          data: {
-              student: JSON.parse(element.dataset.student), 
-              taking: JSON.parse(element.dataset.taking),
-
-          },
-          template: "<stuApp :curr_student='student' :curr_taking='taking' />",
-          components: { stuApp }
-          });       
-        }  
-     });
-
-    document.addEventListener("turbolinks:load", function(){
-            var table = $('#students-table');
-            if(! $.fn.DataTable.isDataTable(table)){
-                table.DataTable({
-                "lengthChange": false, 
-                "pageLength": 10,
-                });
-            }
-    });
-    
 
 </script>

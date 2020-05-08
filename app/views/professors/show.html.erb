@@ -1,24 +1,24 @@
-<div class='view4'>
-  <div class='container' style="padding-top: 30px">
+<body class='view4'>
+  <div class='container profile-container'>
     <p id="notice"><%= notice %></p>
-    <div class='container' id='body-container-course-show'>
-    <div class='page-wrap'> 
+    
+     
       <div class='row profile-row'>
-        <div class='col' style='padding: 40px'>
+        <div class='col profile-column'>
           <div class='row'>
             <div class='column'>
               <span class="fa-stack fa-3x">
-                <i class="fas fa-circle fa-stack-2x" style="color: rgb(77, 131, 203)"></i>
+                <i class="fas fa-circle fa-stack-2x" id="profile-icon"></i>
                 <i class="fas fa-chalkboard-teacher fa-stack-1x fa-inverse"></i>
               </span>
             </div>
             <div class='column'>
-              <p style='text-transform: uppercase; font-size: x-large;font-weight: bold; padding-top:5px'><%= @professor.firstname%> <%=@professor.lastname %></p>
-              <p style='margin-top: -15px'><%= @professor.email %></p>
+              <p class='profile-name'><%= @professor.firstname%> <%=@professor.lastname %></p>
+              <p class='profile-email'><%= @professor.email %></p>
             </div>
           </div>
         </div>
-        <div class='col' style='padding: 60px'>
+        <div class='col profile-button-column' >
           <% add_course_path = @professor.id.to_s+ "/add_course" %>
           <div id="add-course-button-p">
             <%= link_to add_course_path, remote: true do %>
@@ -31,21 +31,16 @@
       </div>
 
       <hr/>
-      <div class = "container courses-info-row" id="professor-course-info-row">
+      <div class = "courses-info-row" id="professor-course-info-row">
         <%= render partial: 'course', collection: @courses%>
       </div>
 
 
-<%= link_to 'Add new course', new_course_path, class: 'btn btn-primary btn-lg'%>
-<br> <br>
-
 <%= link_to 'Edit', edit_professor_path(@professor) %> |
-<%= link_to 'Back', professors_path %>
+<%= link_to 'Back', @professor %>
 
-    </div>
-    </div>
   </div>
-</div>
+</body>
 
 <script>
 

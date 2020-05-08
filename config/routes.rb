@@ -1,11 +1,14 @@
 Rails.application.routes.draw do
-  resources :holdprojects
+
+  get 'pages/home'
+
   get 'student_login', to: 'sessions#new_student'
   get 'professor_login', to: 'sessions#new_professor'
   post 'login', to: 'sessions#create'
   get 'logout', to: 'sessions#logout'
 
-  get 'pages/home'
+  resources :holdprojects
+
   resources :takings
 
   resources :courses do 
@@ -14,11 +17,14 @@ Rails.application.routes.draw do
       patch 'toggle_voting'
     end
   end
+  
   resources :professors
+
   resources :students do
     member do
       get 'add_course'
       post 'search_course'
+      delete 'drop_course'
     end
   end
 
@@ -29,7 +35,8 @@ Rails.application.routes.draw do
       post 'create_course'
     end
   end
-  resources :preferences
+
+  resources :preferences 
 
   resources :groups do
     member do

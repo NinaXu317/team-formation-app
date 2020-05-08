@@ -1,31 +1,31 @@
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
 
-<div class="container course-column-box">
-    <div class='row course-name-row' style='margin-left:0px; margin-right: 0px;'>
+<div class="container course-column-box-professor">
+    <div class='row course-name-row' >
         <div id="course-name"><%= link_to course.name, course, class:'btn course-name-button' %></div>
     </div>
     
     
     <% if course.students.size==0 %>  
-        <div style='height: 50px; display: flex; align-items: center; margin-left: 35px; color:grey'>
+        <div class='not-assigned-text-professor'>
             <h6>No Student Enrolled</h6>
         </div>
     <% elsif  findGroup(course.students[0], course).nil?%>
-        <div style='height: 50px; display: flex; align-items: center; margin-left: 35px; color:grey'>
+        <div class='not-assigned-text-professor'>
             <h6>Not yet Created Group</h6>
         </div>        
     <% else %>
         
-        <div style='height: 50px; display: flex; align-items: center; margin-left: 35px; color:black'>
+        <div class='assigned-text-professor'>
             <img src="/assets/green_check.jpg" height="22" width="22"> 
             <body>&nbsp;&nbsp;Group Created</body>
         </div>    
     <% end %>
-    <div class='row course-drop-row' style='margin-left:0px; margin-right: 0px;'>
+    <div class='row course-drop-row'>
         <div id="course-drop-button">
         <%= link_to course, method: :delete, data: { confirm: 'Are you sure you want to drop this course?' } do %>
-        <button class="btn btn-outline-primary dropButton"><i class="fas fa-minus-circle" style='margin-left: 2px'></i> Delete course</button>
+        <button class="btn btn-outline-primary dropButton"><i class="fas fa-minus-circle"></i> Delete course</button>
         <% end %>
         </div>
     </div>

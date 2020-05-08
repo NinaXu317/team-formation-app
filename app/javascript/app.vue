@@ -40,11 +40,13 @@
         </div>
       </div>
       
-      <div id="middle-col">
-        
-        <div>drag</div>
+      <div class="column" id="middle-col">
+        <div class='container'>
+        <div class="row drag-text">drag</div>
+        <div class="row" >
         <i class="fas fa-exchange-alt fa-2x" id="change-icon"></i>
-        
+        </div>
+        </div>
       </div>
 
       <div class="col projects-box"> 
@@ -131,6 +133,7 @@ export default {
 
   methods: {
     cardMoved: function(event){
+      console.log(event)
       if(event.added != undefined || event.moved != undefined){ 
         const evt = event.added || event.moved
         const element = evt.element  
@@ -143,7 +146,8 @@ export default {
           //console.log("move from groups to holds")
           data.append("group[active]", false)
         }  
-          data.append("group[position]", evt.newIndex+1)      
+          data.append("group[position]", evt.newIndex+1) 
+          console.log(`in app vue index: ${evt.newIndex+1}`)     
           Rails.ajax({
             beforeSend: () => true,
             url:`/groups/${element.id}/move`,
@@ -181,18 +185,6 @@ export default {
 </script>
 
 <style scoped>
-  .projects-row{
-    margin-left: 0px;
-    margin-right: 0px;
-  }
-  .projects-box{
-    background: rgb(193, 213, 250);
-    border-radius: 3px;
-    min-height: 300px;
-    white-space: normal;
-    padding-bottom: 15px;
-  }
-
 
   #change-icon{
     color: rgb(141, 180, 252);
