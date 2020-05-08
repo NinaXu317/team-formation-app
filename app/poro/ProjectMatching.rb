@@ -46,11 +46,13 @@ class ProjectMatching < Matching
     def move_people(result)
         j=0
         while j<@projects.length do
+            puts "stuck here?"
             #(2) Find the most popular array, and move out those's whos second choice is a project that is incomplete. 
             mostpopular_project= find_mostpopular_project(result)
             if result[mostpopular_project].length > @groupsizemax then
                 i=result[mostpopular_project].length-1
                 while(result[mostpopular_project].length>@groupsizemax && i>=0)
+                    puts "stuck here??"
                     #move students ID from this popular array to other array that are incomplete
                     unlucky_student= result[mostpopular_project][i]
                     second_choice= @preferences.find {|project| project['student_id']= unlucky_student} [:second]
@@ -66,6 +68,7 @@ class ProjectMatching < Matching
             if result[mostpopular_project].length > @groupsizemax then
                 i=result[mostpopular_project].length-1
                 while(result[mostpopular_project].length>@groupsizemax && i>=0)
+                    puts "stuck here???"
                     #move students ID from this popular array to other array that are incomplete 
                     unlucky_student= result[mostpopular_project][i]
                     #puts @preferences.inspect
@@ -80,8 +83,9 @@ class ProjectMatching < Matching
             
             #(4) If the array is still overpopulated, use random algo to move students out
             while result[mostpopular_project].length > @groupsizemax 
+                puts @grousizemin.inspect
                 poor_student = result[mostpopular_project].delete(result[mostpopular_project].sample)
-                result[result.find{|key,value| value.length<=@grousizemin}[0]] << poor_student
+                result[result.find{|key,value| key != mostpopular_project && value.length<=@grousizemin}[0]] << poor_student
             end
             j=j+1
 
@@ -93,6 +97,7 @@ class ProjectMatching < Matching
         unfilled = result.find{|key,value| value.length<@grousizemin}
         # puts unfilled.inspect
         while(!unfilled.nil?) do
+            puts "stuck here?????"
             most_p= find_mostpopular_project(result)
             poor_student = result[most_p].delete_at(result[most_p].size-1)
             result[unfilled[0]] << poor_student
@@ -106,6 +111,7 @@ class ProjectMatching < Matching
     def find_mostpopular_project(result)
         most_popular_project= result.keys.sample
         result.each do |key,value|
+            puts "stuck here??????"
             if value.length> result[most_popular_project].length then
                 most_popular_project= key
             end
