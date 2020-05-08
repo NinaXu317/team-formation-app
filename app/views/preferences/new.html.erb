@@ -6,7 +6,7 @@
     
       <div class="alert alert-info">     
         <% errors = flash[:alert] %>
-        <p><%= pluralize(errors.count, "error") %> prohibited this preference from being saved:</p>
+        <p><%= pluralize(flash[:count], "error") %> prohibited this preference from being saved:</p>
         <ul>
           <% errors.each do |type, message| %>
             <% if type == "first" || type == "second" || type == "third"%>

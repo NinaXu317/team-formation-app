@@ -20,13 +20,15 @@ class PreferencesController < ApplicationController
     def create
         course = Course.find(params[:preference][:course_id])
         @preference = Preference.new(preference_params) 
-        puts @preference.inspect
         Preference.where(student_id: params[:preference][:student_id], course_id: params[:preference][:course_id]).destroy_all
         if (@preference.save)
           flash[:success] = "Thanks for submitting your preference!"
           redirect_to @preference.course
         else
+          puts @preference.errors.inspect
+          puts @preference.errors.count.inspect
           flash[:alert] = @preference.errors
+          flash[:count] = @preference.errors.count
           redirect_to new_preference_path(course: course)
         end
     end
