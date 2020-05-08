@@ -20,6 +20,7 @@ class PreferencesController < ApplicationController
     def create
         course = Course.find(params[:preference][:course_id])
         @preference = Preference.new(preference_params) 
+        puts @preference.inspect
         Preference.where(student_id: params[:preference][:student_id], course_id: params[:preference][:course_id]).destroy_all
         if (@preference.save)
           flash[:success] = "Thanks for submitting your preference!"
