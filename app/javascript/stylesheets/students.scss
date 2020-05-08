@@ -95,7 +95,7 @@
   }
   
   .not-assigned-text{
-    height: 282px; 
+    height: 302px; 
     display: flex; 
     align-items: center; 
     margin-left: 35px; 
@@ -109,6 +109,7 @@
   .profile-group-name{
     text-align:center; 
     padding: 20px;
+    padding-bottom: 0px;
   }
 
   .course-drop-row{
@@ -138,7 +139,6 @@
   }
   .group-icon{
     text-align:center;
-    padding-top: 20px;
     margin-left: 20px;
     >a{
     text-decoration: none;

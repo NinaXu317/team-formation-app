@@ -9,7 +9,6 @@
         <%= msg %>
       </div>
     <% end %>
-
     <% if @course.errors.any? %>
       <div id="alert alert-info">
         <p><%= pluralize(@course.errors.count, "error") %> prohibited this course from being updating:</p>
@@ -19,9 +18,7 @@
           <% end %>
         </ul>
       </div>
-    <% end %>
-    
-    
+    <% end %> 
       <div class='row profile-row'>
         <div class='col profile-column'>
           <p>
