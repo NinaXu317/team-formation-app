@@ -54,11 +54,13 @@ window.store = new Vuex.Store({
 
     document.addEventListener("turbolinks:load", function(){
             var table = $('#students-table');
+            if(table && $.fn.DataTable){
             if(! $.fn.DataTable.isDataTable(table)){
                 table.DataTable({
                 "lengthChange": false, 
                 "pageLength": 10,
                 });
+            }
             }
     });
     

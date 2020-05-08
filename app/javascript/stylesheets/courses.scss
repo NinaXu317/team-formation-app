@@ -84,7 +84,7 @@
     background: linear-gradient(to left, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9));
     box-sizing: border-box;
     width: 300px;
-    height: 200px;
+    min-height: 200px;
     margin:20px;
     margin-top: 20px;
     margin-bottom: 0px;
@@ -99,6 +99,10 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 5px;
 
+  }
+
+  .course-group-container{
+    font-size: 11px;
   }
 
   .course-back-path{
