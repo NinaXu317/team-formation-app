@@ -23,7 +23,10 @@ document.addEventListener('turbolinks:load', function(){
       received(data) {
         // Called when there's incoming data on the websocket for this channel
         console.log(`receive data from ${$('#classroom').attr('data-room-id')}`)
-        if (data.commit){
+        var parsed_data = JSON.parse(data.payload)
+        console.log(parsed_data.course_id)
+        if (parsed_data.course_id == $('#classroom').attr('data-room-id') && data.commit){
+          console.log("matches!")
           window.store.commit(data.commit, JSON.parse(data.payload))
           console.log(data)
         }
