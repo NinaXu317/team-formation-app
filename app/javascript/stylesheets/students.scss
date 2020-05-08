@@ -95,10 +95,10 @@
   }
   
   .not-assigned-text{
-    height: 302px; 
+    height: 329px; 
     display: flex; 
     align-items: center; 
-    margin-left: 35px; 
+    margin-left: 15px; 
     color:grey;
   }
   .profile-group-row{
@@ -106,10 +106,12 @@
     margin-right: 10px; 
     margin-top: 10px;
   }
+  .profile-group-pre{
+    color: rgb(77, 131, 203);
+  }
   .profile-group-name{
     text-align:center; 
-    padding: 20px;
-    padding-bottom: 0px;
+    margin: auto;
   }
 
   .course-drop-row{
@@ -139,7 +141,9 @@
   }
   .group-icon{
     text-align:center;
-    margin-left: 20px;
+    margin-top: 15px;
+    margin-left: 95px;
+    
     >a{
     text-decoration: none;
     color: rgb(77, 131, 203);
