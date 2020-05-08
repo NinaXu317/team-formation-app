@@ -80,8 +80,9 @@ class ProjectMatching < Matching
             
             #(4) If the array is still overpopulated, use random algo to move students out
             while result[mostpopular_project].length > @groupsizemax 
+                puts @grousizemin.inspect
                 poor_student = result[mostpopular_project].delete(result[mostpopular_project].sample)
-                result[result.find{|key,value| value.length<=@grousizemin}[0]] << poor_student
+                result[result.find{|key,value| key != mostpopular_project && value.length<=@grousizemin}[0]] << poor_student
             end
             j=j+1
 
