@@ -1,5 +1,5 @@
 class StudentsController < ApplicationController
-  before_action :set_student, only: [:show, :edit, :update, :destroy, :add_course, :drop_course]
+  before_action :set_student, only: [:show, :edit, :update, :destroy, :add_course, :drop_course, :search_course]
 
   # GET /students
   # GET /students.json
@@ -31,19 +31,9 @@ class StudentsController < ApplicationController
 
   #POST /students/1/search_course
   def search_course
-    @student = Student.find(params[:id])
-    course = Course.where(pin: params[:pin]).take
-    if course.nil?
-      redirect_to @student, notice: "There is no course with that pin" and return
-    end
-    #Should call taking controller here
-    if Taking.where(student_id: params[:id], course_id: course.id).size == 0
-      @taking = Taking.create(student_id: params[:id], course_id: course.id)
-    else
-      redirect_to @student, notice: "You are already registered for this course" and return
-    end
-
-    redirect_to @student, notice: "Course added!"
+    registrar = EnrollmentManager::Registrar.new
+    registrar_notice = registrar.enroll_in_course(@student.id, params[:pin])
+    redirect_to @student, notice: registrar_notice 
   end
 
   #DELETE /students/1/drop_course?course=1
