@@ -31,27 +31,27 @@
             <%= f.label 'First Choice: '%> <sup>*</sup>
             <%= f.collection_select :first, @projects.order(:project_name), :id, :project_name, {:include_blank=> true}, {:style => "width:250px; float:right"} %>
             <br><br>
-            <%= f.label 'Second Choice: '%>
+            <%= f.label 'Second Choice: '%> <sup>*</sup>
             <%= f.collection_select :second, @projects.order(:project_name), :id, :project_name, {:include_blank=> true}, {:style => "width:250px; float:right"} %>
             <br><br>
-            <%= f.label 'Third Choice: '%>
+            <%= f.label 'Third Choice: '%> <sup>*</sup>
             <%= f.collection_select :third, @projects.order(:project_name), :id, :project_name, {:include_blank=> true}, {:style => "width:250px; float:right"} %>
             <br><br>
-            <%= f.label 'Coding Proficiency:' %>
+            <%= f.label 'Coding Proficiency:' %> <sup>*</sup>
             
             <%= f.collection_radio_buttons :codingProficiency, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
-            margin-left: 24px; margin-right:5px"}%>
+            margin-left: 20px; margin-right:5px"}%>
             <br><br>
             <%= f.label 'Dream Partner'%>
             <%= f.collection_select :dreampartner, @course.students.order(firstname: :asc, lastname: :asc), :id, :full_name, {:include_blank=> true}, {:style => "width:250px; float:right"}%>
 
 
             <br><br>
-            <%= f.label 'Select Your Free Time for Group Meeting'%>
+            <%= f.label 'Select Your Free Time for Group Meeting'%> <sup>*</sup>
             <div class="input-group mb-3">
             
               <%= f.search_field :schedule, class:"form-control showCalendar", id:"fullcalendar"%>
-
+            </div>
             <div class="container m-t-20">
                 <div id="outline">
                   <div id = 'calendarForm'>
