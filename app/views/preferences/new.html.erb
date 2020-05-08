@@ -4,16 +4,14 @@
 
     <% if !flash[:alert].nil? %>
     
-      <div class="alert alert-info">     
+      <div class="alert alert-danger" role="alert">    
         <% errors = flash[:alert] %>
-        <p><%= pluralize(flash[:count], "error") %> prohibited this preference from being saved:</p>
+        <strong><%= pluralize(flash[:count], "error") %> prohibited this preference from being saved:</strong>
+        <br>
         <ul>
           <% errors.each do |type, message| %>
-            <% if type == "first" || type == "second" || type == "third"%>
-              <% type = type + " choice"%>
-            <% end %>
             <% message.each do |error|%>
-              <li> <%= type + " " + error %> </li>
+              <li> <%= error %> </li>
             <% end %>
           <% end %>
         </ul>
