@@ -17,4 +17,13 @@ class ErrorService
         return errors_string
     end
 
+    #Returns an array of just the error messages
+    def to_message_array(errors)
+        message_array = []
+        errors.each do |error|
+            message_array << error[:message]
+        end
+        return message_array
+    end
+
 end

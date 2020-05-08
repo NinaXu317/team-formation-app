@@ -4,13 +4,19 @@
 
 <body class='view4'>
   <div class='container profile-container' id="classroom" data_channel_subscribe="room" data-room-id="<%= @course.id %>">
-    <% flash.each do |type, msg| %>
+  
+    <% if !flash[:alert].nil?%>
       <div class="alert alert-danger">
-        <%= msg %>
+        <strong> Group creation had the following errors: </strong>
+        <% flash[:alert].each do |error| %>
+          <li> <%= error %> </li>
+        <% end %>
       </div>
     <% end %>
+
+
     <% if @course.errors.any? %>
-      <div id="alert alert-info">
+      <div id="alert alert-danger">
         <p><%= pluralize(@course.errors.count, "error") %> prohibited this course from being updating:</p>
         <ul>
           <% @course.errors.full_messages.each do |message| %>

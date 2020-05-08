@@ -67,7 +67,7 @@ module GroupCreationManager
                 errors << no_students()
             end
           
-            if course.active_groups.size == 0
+            if course.active_groups == 0
                 errors << no_groups()
             end
           
