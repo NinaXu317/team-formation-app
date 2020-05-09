@@ -46,7 +46,7 @@ class ProfessorsController < ApplicationController
 
   #POST /professors/1/create_course
   def create_course
-    @course = Course.create(name: params[:name], pin: params[:name], professor_id: params[:professor_id])
+    @course = Course.create(name: params[:name], pin: params[:pin], professor_id: params[:professor_id])
     redirect_to :controller => 'professors', :action => 'show', :id => params[:id]
   end
 

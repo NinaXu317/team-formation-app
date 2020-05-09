@@ -48,18 +48,18 @@ admin_professor = Professor.create(firstname: "admin",
 #Create 10 courses taught by the admin for demo use
 10.times do
     c = Course.create(name: Faker::Educator.course_name,
-    pin: Faker::Number.number(digits: 4),
+    pin: Faker::Number.number(digits: 4).to_s,
     professor_id: admin_professor.id)
 end
 
 #Create a consistent course taught by the admin professor for demo use
 consistent_course = Course.create(name: Faker::Educator.course_name,
-    pin: 1111, professor_id: admin_professor.id)
+    pin: "1111", professor_id: admin_professor.id)
 
 #Add 30 courses into the database
 30.times do
     c = Course.create(name: Faker::Educator.course_name,
-    pin: Faker::Number.number(digits: 4),
+    pin: Faker::Number.number(digits: 4).to_s,
     professor_id: Professor.all.sample.id)
 end
 
