@@ -28,8 +28,8 @@ class ProfessorsController < ApplicationController
     @professor = Professor.new(professor_params)
     respond_to do |format|
       if @professor.save
-        log_in(@professor, "professor")
-        format.html { redirect_to @professor, notice: 'Professor was successfully created.' }
+        @professor.send_activation_email
+        format.html { redirect_to root_url, notice: 'Please check your email to activate your account.' }
         format.json { render :show, status: :created, location: @professor }
       else
         format.html { render :new }
@@ -46,7 +46,7 @@ class ProfessorsController < ApplicationController
 
   #POST /professors/1/create_course
   def create_course
-    @course = Course.create(name: params[:name], pin: params[:name], professor_id: params[:professor_id])
+    @course = Course.create(name: params[:name], pin: params[:pin], professor_id: params[:professor_id])
     redirect_to :controller => 'professors', :action => 'show', :id => params[:id]
   end
 

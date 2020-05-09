@@ -50,20 +50,20 @@
           </p>
         </div>
 
-        <% if current_user_type == "professor" && @professor_id == current_user.id%>
+        <% if current_user_type == "professor" && get_professor_id(@course) == current_user.id%>
           <% create_groups_path = @course.id.to_s+ "/create_groups" %>
           <div class='col course-button-column'>
             <%= button_to 'Create Random Groups', {:controller => "courses", :action => "create_groups", :algo => "random"}, :class => "btn btn-outline-primary addButton", :method=>:post%>
             <br>
-            <p> <%= @message %> </p>
+            <p> <%= get_message(@course) %> </p>
             <%if @course.voting==true%>
               <img src="/assets/yellow-alert.png" height="22" width="22">
               <p class="warning"> awaiting preference filling process</p>
             <%end%>
-            <%= button_to 'Create Groups Based on Project Preference', {:controller => "courses", :action => "create_groups", :algo => "project_only"},  :disabled => @disabled, :class => "btn btn-outline-primary addButton", :method=>:post%>
+            <%= button_to 'Create Groups Based on Project Preference', {:controller => "courses", :action => "create_groups", :algo => "project_only"},  :disabled => !three_active_groups?(@course), :class => "btn btn-outline-primary addButton", :method=>:post%>
             <br>
             <p></p>
-            <% if @disabled %>
+            <% if !three_active_groups?(@course) %>
               <%if @course.voting==true%>
                 <img src="/assets/yellow-alert.png" height="22" width="22">
                 <p class="warning"> awaiting preference filling process</p>
@@ -166,7 +166,7 @@
           <div class="tab-content">
 
             <div class="tab-pane fade show active" id="projects">
-              <% if current_user_type == "professor" && @professor_id == current_user.id%>
+              <% if current_user_type == "professor" && get_professor_id(@course) == current_user.id%>
                 <br>
                 <div id = "toggle-container">
                   <% if @course.voting==true %>

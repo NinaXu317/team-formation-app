@@ -1,5 +1,6 @@
 class CoursesController < ApplicationController
   before_action :set_course, only: [:show, :edit, :update, :toggle_voting, :destroy]
+  include CoursesHelper
   
   # GET /courses
   # GET /courses.json
@@ -16,33 +17,8 @@ class CoursesController < ApplicationController
       @teams = params[:teams]
     end
 
-    @professor = @course.professor
-    if !@professor.nil?
-      @professor_id = @professor.id
-    else
-      @professor_id = nil
-    end
-
     @preferences = @course.preferences
     @groups = @course.groups
-    active_groups = []
-    @groups.each do |group|
-      if group.active
-        active_groups << group
-      end
-    end
-    if active_groups.size < 3
-      @disabled = true
-      @message = "Can not create groups using preferences until there are 3 active projects"
-    else
-      @disabled = false
-    end
-
-    if @course.voting
-      @voting_button = "Start Preference Filling Process"
-    else
-      @voting_button = "Resume Voting"
-    end
   end
 
 

@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_30_192953) do
+ActiveRecord::Schema.define(version: 2020_05_09_014731) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "courses", force: :cascade do |t|
     t.string "name"
-    t.integer "pin"
+    t.string "pin"
     t.integer "professor_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -67,6 +67,8 @@ ActiveRecord::Schema.define(version: 2020_04_30_192953) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "password_digest"
+    t.string "activation_digest"
+    t.boolean "activated"
   end
 
   create_table "students", force: :cascade do |t|
@@ -76,6 +78,8 @@ ActiveRecord::Schema.define(version: 2020_04_30_192953) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.string "password_digest"
+    t.string "activation_digest"
+    t.boolean "activated"
   end
 
   create_table "takings", force: :cascade do |t|

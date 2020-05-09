@@ -19,4 +19,37 @@ module CoursesHelper
         end
         return group_hash
     end
+
+    def get_professor_id(course)
+      professor = course.professor
+      if !professor.nil?
+        professor_id = professor.id
+      else
+        professor_id = nil
+      end
+      return professor_id
+    end
+
+    def three_active_groups?(course)
+      active_groups = 0
+      @groups.each do |group|
+        if group.active
+          active_groups += 1
+        end
+      end
+
+      if active_groups < 3
+        return false
+      end
+
+      return true
+    end
+
+    def get_message(course)
+      if three_active_groups?(course)
+        return ""
+      end
+      return "Can not create groups using preferences until there are 3 active projects"
+    end
+
 end

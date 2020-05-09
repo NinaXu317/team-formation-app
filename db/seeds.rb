@@ -21,14 +21,16 @@ Taking.reset_pk_sequence
     s = Student.create(firstname: first,
                         lastname: last,
                         email: last + "@brandeis.edu",
-                        password: "password")
+                        password: "password",
+                        activated: true)
 end
 
 #Create an admin student for development use
 admin_student = Student.create(firstname: "admin",
     lastname: "admin",
     email: "admin@admin.com",
-    password: "password")
+    password: "password",
+    activated: true)
 
 #Add 50 professors into the database
 #Password for everyone: password
@@ -36,30 +38,32 @@ admin_student = Student.create(firstname: "admin",
     p = Professor.create(firstname: Faker::Name.first_name,
     lastname: Faker::Name.last_name,
     email: Faker::Internet.email,
-    password: "password")
+    password: "password",
+    activated: true)
 end
 
 #Create an admin professor for development use
 admin_professor = Professor.create(firstname: "admin",
     lastname: "admin",
     email: "admin@admin.com",
-    password: "password")
+    password: "password",
+    activated: true)
 
 #Create 10 courses taught by the admin for demo use
 10.times do
     c = Course.create(name: Faker::Educator.course_name,
-    pin: Faker::Number.number(digits: 4),
+    pin: Faker::Number.number(digits: 4).to_s,
     professor_id: admin_professor.id)
 end
 
 #Create a consistent course taught by the admin professor for demo use
 consistent_course = Course.create(name: Faker::Educator.course_name,
-    pin: 1111, professor_id: admin_professor.id)
+    pin: "1111", professor_id: admin_professor.id)
 
 #Add 30 courses into the database
 30.times do
     c = Course.create(name: Faker::Educator.course_name,
-    pin: Faker::Number.number(digits: 4),
+    pin: Faker::Number.number(digits: 4).to_s,
     professor_id: Professor.all.sample.id)
 end
 
