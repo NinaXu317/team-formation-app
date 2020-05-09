@@ -39,7 +39,7 @@ class CoursesController < ApplicationController
     end
 
     if @course.voting
-      @voting_button = "Start Students Preference Filling"
+      @voting_button = "Start Preference Filling Process"
     else
       @voting_button = "Resume Voting"
     end

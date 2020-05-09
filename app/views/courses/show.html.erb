@@ -50,14 +50,26 @@
             <%= button_to 'Create Random Groups', {:controller => "courses", :action => "create_groups", :algo => "random"}, :class => "btn btn-outline-primary addButton", :method=>:post%>
             <br>
             <p> <%= @message %> </p>
+            <%if @course.voting==true%>
+              <img src="/assets/yellow-alert.png" height="22" width="22">
+              <p class="warning"> awaiting preference filling process</p>
+            <%end%>
             <%= button_to 'Create Groups Based on Project Preference', {:controller => "courses", :action => "create_groups", :algo => "project_only"},  :disabled => @disabled, :class => "btn btn-outline-primary addButton", :method=>:post%>
             <br>
             <p></p>
             <% if @disabled %>
+              <%if @course.voting==true%>
+                <img src="/assets/yellow-alert.png" height="22" width="22">
+                <p class="warning"> awaiting preference filling process</p>
+              <%end%>
               <button disabled class="btn btn-outline-primary addButton" data-toggle="modal" data-target="#professor-preference-form">
                 Create Groups Based on All Preference
               </button>
             <% else %>
+              <%if @course.voting==true%>
+                <img src="/assets/yellow-alert.png" height="22" width="22">
+                <p class="warning"> awaiting preference filling process</p>
+              <%end%>
               <button class="btn btn-outline-primary addButton" data-toggle="modal" data-target="#professor-preference-form">
                 Create Groups Based on All Preference
               </button>
@@ -111,6 +123,13 @@
         <% elsif current_user_type == "student" %>
           <div class='col course-button-column-stu'>
             <%if @course.voting==false then %>
+
+              <%if !Preference.find_by(student_id:current_user.id).nil?%>
+                <img src="/assets/green_check.jpg" height="22" width="22">
+                <p class ="warning"> Your preference has been recorded</p>
+                <p></p>
+              <%end%>
+
               <%= link_to new_preference_path(course: @course) do %>
                 <button class="btn btn-outline-primary addButton btn-lg"></i> Create Preference</button>
               <% end %>
@@ -145,10 +164,12 @@
               <% if current_user_type == "professor" && @professor_id == current_user.id%>
                 <br>
                 <% if @course.voting==true then%>
+                  <p class="status">Current Process: Voting</p>
                   <%= button_to @voting_button, toggle_voting_course_path(@course), :method => :patch, :class => 'btn btn-primary btn-lg'%>
-                  <p>(This will also stop the voting process)</p>
+                  
                 <%else%>
-                  <p class ="status">note: voting process has finished</p>
+                  <p class="status">Current Process: Preference Filling</p>
+    
                 <%end%>
                 <%= tag.div id: :boards, data:{groups: @course.groups.to_json, course: @course.to_json}%>
               <% else %>    
