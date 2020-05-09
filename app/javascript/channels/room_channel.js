@@ -22,15 +22,22 @@ document.addEventListener('turbolinks:load', function(){
   
       received(data) {
         // Called when there's incoming data on the websocket for this channel
+        console.log("received")
+        console.log(data)
         console.log(`receive data from ${$('#classroom').attr('data-room-id')}`)
         var parsed_data = JSON.parse(data.payload)
-        console.log(parsed_data.course_id)
-        if (parsed_data.course_id == $('#classroom').attr('data-room-id') && data.commit){
+        console.log(data.commit)
+        if(data.commit == "toggleVoting"){
+          if(parsed_data.id == $('#classroom').attr('data-room-id')){
+            console.log("toggle matches!")
+            window.store.commit(data.commit, JSON.parse(data.payload))
+          }
+        }else if(parsed_data.course_id == $('#classroom').attr('data-room-id') && data.commit){
+          console.log(parsed_data.course_id)
           console.log("matches!")
           window.store.commit(data.commit, JSON.parse(data.payload))
-          console.log(data)
         }
-        
+            
       }
     });
   }

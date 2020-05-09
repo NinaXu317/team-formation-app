@@ -23,8 +23,12 @@ class SessionsController < ApplicationController
     end
 
     if user && user.authenticate(params[:password])
-      log_in(user, type)
-      redirect_to root_url, notice: "Logged in!"
+      if user.activated?
+        log_in(user, type)
+        redirect_to root_url, notice: "Logged in!"
+      else
+        redirect_to root_url, notice: "Account not activated. Check email for the activation link."
+      end
     else
       if type == "student"
         redirect_to student_login_path, notice: "Invalid email or password"

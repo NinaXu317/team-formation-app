@@ -4,34 +4,32 @@
             <div class="col projects-box"> 
                 <div class = 'container student-projects-container'>
                     <h5 class='project-title'>
-                    Projects
+                        Active Projects
                     </h5>
                     <hr>
 
                     <a v-for="(group, index) in groups" class='row single-project-container-stu' >
                         <div class='container project-container'>           
-                            <p class='project-name-text'>
+                            <h5 class='project-name-text'>
                                 {{ group.project_name }}
-                            </p>
+                            </h5>
                             <div class='form-control editbox-stu'>
                                 <p class="project-description-text">{{ group.description }}</p>
                             </div>
                             
-                            <div class='vote-buttons'>
+
+                            <div v-if="course.voting==true" class='vote-buttons'>
                                 <button v-if="taking.votethird==group.id" class='btn btn-info voteBtn' :id="'t'+group.id">Third ({{group.vthird}})</button>              
                                 <button v-else v-on:click = "voteUpdate(group,'third')" class='btn btn-outline-info voteBtn' :id="'t'+group.id">Third ({{group.vthird}})</button>
                                 <button v-if="taking.votesecond==group.id" class='btn btn-warning voteBtn' :id="'s'+group.id">Second ({{group.vsecond}})</button>  
                                 <button v-else v-on:click = "voteUpdate(group,'second')" class='btn btn-outline-warning voteBtn' :id="'s'+group.id">Second ({{group.vsecond}})</button>
                                 <button v-if="taking.votefirst==group.id" class='btn btn-danger voteBtn' :id="'f'+group.id">First ({{group.vfirst}})</button>  
-                                <button v-else v-on:click = "voteUpdate(group,'first')" class='btn btn-outline-danger voteBtn' :id="'f'+group.id" >First ({{group.vfirst}})</button>
-                                
-                                
-                                
+                                <button v-else v-on:click = "voteUpdate(group,'first')" class='btn btn-outline-danger voteBtn' :id="'f'+group.id" >First ({{group.vfirst}})</button>    
                             </div>
                         </div>
                     </a>
 
-                    <div class = 'single-project-container-stu'>
+                    <div v-if="course.voting==true" class = 'single-project-container-stu'>
                         <div class= 'container project-container project-container-input'>
                             <textarea v-model="messages['groups']" class="form-control editbox-stu editbox-name" placeholder="Project Name"></textarea>
                             <textarea v-model="description['groups']" class="form-control editbox-stu editbox-description" placeholder="Description"></textarea>
@@ -50,22 +48,21 @@
             <div class="col projects-box"> 
                 <div class = 'container student-projects-container'>
                     <h5 class='project-title'>
-                    Hold Projects
+                    Projects on Hold
                     </h5>
                     <hr>
                   
                     <a v-for="(holdproject, index) in holdprojects" class = 'row single-project-container-stu'>
                         <div class='container project-container'>
-                            <p class='project-name-text'>
+                            <h5 class='project-name-text'>
                             {{ holdproject.project_name }}
-                            </p>
+                            </h5>
                             <div class='form-control editbox-stu'>
                                 <p class="project-description-text">{{ holdproject.description }}</p>
                             </div>
-                            <div class='vote-buttons'>
+                            <div v-if="course.voting==true" class='vote-buttons'>
                                 <button v-if="taking.votethird==holdproject.id" class='btn btn-info voteBtn' :id="'t'+holdproject.id">Third ({{holdproject.vthird}})</button>              
-                                <button v-else v-on:click = "voteUpdate(holdproject,'third')" class='btn btn-outline-info voteBtn' :id="'t'+holdproject.id">Third ({{holdproject.vthird}})</button>
-                                
+                                <button v-else v-on:click = "voteUpdate(holdproject,'third')" class='btn btn-outline-info voteBtn' :id="'t'+holdproject.id">Third ({{holdproject.vthird}})</button>           
                                 <button v-if="taking.votesecond==holdproject.id" class='btn btn-warning voteBtn' :id="'s'+holdproject.id">Second ({{holdproject.vsecond}})</button>  
                                 <button v-else v-on:click = "voteUpdate(holdproject,'second')" class='btn btn-outline-warning voteBtn' :id="'s'+holdproject.id">Second ({{holdproject.vsecond}})</button>
                                 <button v-if="taking.votefirst==holdproject.id" class='btn btn-danger voteBtn' :id="'f'+holdproject.id">First ({{holdproject.vfirst}})</button>  
@@ -75,7 +72,7 @@
                         </div>
                     </a>
                   
-                    <div class = 'single-project-container-stu'>
+                    <div v-if="course.voting==true" class = 'single-project-container-stu'>
                         <div class= 'container project-container project-container-input'>
                         <textarea v-model="messages['holdprojects']" class="form-control editbox-stu editbox-name" placeholder="Project Name"></textarea>
                         <textarea v-model="description['holdprojects']" class="form-control editbox-stu editbox-description" placeholder="Description"></textarea>
