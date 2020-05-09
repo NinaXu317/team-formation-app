@@ -28,8 +28,8 @@ class ProfessorsController < ApplicationController
     @professor = Professor.new(professor_params)
     respond_to do |format|
       if @professor.save
-        log_in(@professor, "professor")
-        format.html { redirect_to @professor, notice: 'Professor was successfully created.' }
+        @professor.send_activation_email
+        format.html { redirect_to root_url, notice: 'Please check your email to activate your account.' }
         format.json { render :show, status: :created, location: @professor }
       else
         format.html { render :new }

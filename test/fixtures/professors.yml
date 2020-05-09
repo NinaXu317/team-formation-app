@@ -6,13 +6,16 @@ admin:
   lastname: admin
   email: admin@admin.com
   password_digest: <%= Professor.digest('admin1') %>
+  activated: true
 
 one:
   firstname: MyString
   lastname: MyString
   email: MyString
+  activated: true
 
 two:
   firstname: MyString
   lastname: MyString
   email: MyString
+  activated: true

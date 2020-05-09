@@ -21,14 +21,16 @@ Taking.reset_pk_sequence
     s = Student.create(firstname: first,
                         lastname: last,
                         email: last + "@brandeis.edu",
-                        password: "password")
+                        password: "password",
+                        activated: true)
 end
 
 #Create an admin student for development use
 admin_student = Student.create(firstname: "admin",
     lastname: "admin",
     email: "admin@admin.com",
-    password: "password")
+    password: "password",
+    activated: true)
 
 #Add 50 professors into the database
 #Password for everyone: password
@@ -36,14 +38,16 @@ admin_student = Student.create(firstname: "admin",
     p = Professor.create(firstname: Faker::Name.first_name,
     lastname: Faker::Name.last_name,
     email: Faker::Internet.email,
-    password: "password")
+    password: "password",
+    activated: true)
 end
 
 #Create an admin professor for development use
 admin_professor = Professor.create(firstname: "admin",
     lastname: "admin",
     email: "admin@admin.com",
-    password: "password")
+    password: "password",
+    activated: true)
 
 #Create 10 courses taught by the admin for demo use
 10.times do
