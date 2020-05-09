@@ -1,6 +1,10 @@
 <body class='view4'>
   <div class='container profile-container'>
-      <p id="notice"><%= notice %></p>
+    <% if notice%>
+      <div class="alert alert-success">
+        <%= notice %>
+      </div>
+    <% end %>
       <div class='row profile-row'>
         <div class='col profile-column'>
           <div class='row'>
