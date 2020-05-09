@@ -21,6 +21,7 @@ class SessionsController < ApplicationController
     elsif type == "professor"
       user = Professor.find_by_email(params[:email])
     end
+
     if user && user.authenticate(params[:password])
       log_in(user, type)
       redirect_to root_url, notice: "Logged in!"

@@ -47,11 +47,18 @@
 
 
             <br><br>
-            <%= f.label 'Select Your Free Time for Group Meeting'%> <sup>*</sup>
-            <div class="input-group mb-3">
+            <%= f.label 'Select Your Prefered Time for Group Meeting'%> <sup>*</sup>
+            
+            <!--<div class="field">
+              <%= f.label "Monday Morning"%>
+              <%= f.check_box :mondayM %>
+
+            </div>
+            -->
             
               <%= f.search_field :schedule, class:"form-control showCalendar", id:"fullcalendar"%>
             </div>
+            testing
             <div class="container m-t-20">
                 <div id="outline">
                   <div id = 'calendarForm'>
@@ -59,7 +66,8 @@
                     <div class='btn btn-primary submitCalendar'> submit calendar </div>
                   </div>
                 </div>
-            </div>  
+            </div>
+             
 
 
             <%= f.hidden_field :student_id, :value => current_user.id%>
