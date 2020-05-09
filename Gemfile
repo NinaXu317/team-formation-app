@@ -62,6 +62,7 @@ gem 'activerecord-reset-pk-sequence'
 gem 'bootstrap-sass'
 gem 'bootstrap'
 gem 'simple_form'
+gem 'redis'
 
 gem 'acts_as_list'
 
