@@ -68,7 +68,7 @@ Rails.application.configure do
 
   #key: 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
   config.action_mailer.delivery_method = :smtp
-  host = 'team-formation-app.herokuapp.com'
+  host = 'teamation.herokuapp.com'
   config.action_mailer.default_url_options = { host: host }
   ActionMailer::Base.smtp_settings = {
     :address        => 'smtp.sendgrid.net',

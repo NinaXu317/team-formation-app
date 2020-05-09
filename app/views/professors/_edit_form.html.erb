@@ -1,4 +1,3 @@
-
 <div class="row" id="signup-row" >
 <div id="signup-form-content">
 <%= form_with(model: professor, local: true) do |form| %>
@@ -12,24 +11,23 @@
       </ul>
     </div>
   <% end %>
+
+  <%= form.label :email, class:'signup-label' %>
+  <%= form.email_field :email, class: 'form-control signup-input'%>
   
   <%= form.label :First_name , class:'signup-label' %>
   <%= form.text_field :firstname, class: 'form-control signup-input'%>
   
   <%= form.label :Last_name , class:'signup-label'%>
   <%= form.text_field :lastname, class: 'form-control signup-input'%>
-
-  <%= form.label :email, class:'signup-label' %>
-  <%= form.email_field :email, class: 'form-control signup-input'%>
   
   <%= form.label :password, class:'signup-label' %>
   <%= form.password_field :password, class: 'form-control signup-input' %>
   <%= form.label :password_confirmation, "Confirmation" , class:'signup-label'%>
   <%= form.password_field :password_confirmation, class: 'form-control signup-input'%>
   <br>
-  <%= form.submit "Create Professor Account", class: "btn btn-outline-primary", id:"signup-Button" %>
+  <%= form.submit "Update Account", class: "btn btn-outline-primary", id:"signup-Button" %>
 
 <% end %>
 </div>
 </div>
-

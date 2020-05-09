@@ -26,6 +26,7 @@
             <div class='column'>
               <p class='profile-name'><%= @professor.firstname%> <%=@professor.lastname %></p>
               <p class='profile-email'><%= @professor.email %></p>
+              <%= link_to 'Edit Account', edit_professor_path(@professor) %>
             </div>
           </div>
         </div>
@@ -46,9 +47,6 @@
         <%= render partial: 'course', collection: @courses%>
       </div>
 
-
-<%= link_to 'Edit', edit_professor_path(@professor) %> |
-<%= link_to 'Back', @professor %>
 
   </div>
 </body>

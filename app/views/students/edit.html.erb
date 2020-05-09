@@ -1,6 +1,9 @@
-<h1>Editing Student</h1>
-
-<%= render 'form', student: @student %>
-
-<%= link_to 'Show', @student %> |
-<%= link_to 'Back', students_path %>
+<div class='view3'>
+    <div class='container' id='signup-container'>
+            <div class='signup-form'>
+                <h1 id="signup-title">Editing Account</h1>
+                <%= render 'edit_form', student: @student %>
+        </div>
+        
+    </div> 
+</div>

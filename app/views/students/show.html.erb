@@ -17,6 +17,7 @@
             <div class='column'>
               <p class='profile-name'><%= @student.firstname%> <%=@student.lastname %></p>
               <p class='profile-email'><%= @student.email %></p>
+              <%= link_to 'Edit Account', edit_student_path(@student) %>
             </div>
           </div>
         </div>
@@ -36,8 +37,6 @@
       </div>
 
       <div>
-      <%= link_to 'Edit', edit_student_path(@student) %> |
-      <%= link_to 'Back', @student %>
       </div>
   </div>
 </body>
