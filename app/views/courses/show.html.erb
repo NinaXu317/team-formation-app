@@ -171,12 +171,14 @@
                 <div id = "toggle-container">
                   <% if @course.voting==true %>
                   <p class="status" id="status">Current Process: Voting</p>
+                  <button class="btn btn-outline-primary addButton" id="toggle-button"> Start Preference Filling Process</button>
                   <%else%>
                   <p class="status" id="status">Current Process: Preference Filling</p>
+                  <button class="btn btn-outline-primary addButton" id="toggle-button"> Resume Voting</button>
                   <%end%>
-                  <div >
-                      <button class="btn btn-outline-primary addButton" id="toggle-button"> <%= @voting_button %></button>
-                  </div>
+                  
+                      
+                  
                 </div>
                 <%= tag.div id: :boards, data:{groups: @course.groups.to_json, course: @course.to_json}%>
               <% else %>    
