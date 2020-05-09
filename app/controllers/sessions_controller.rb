@@ -21,6 +21,7 @@ class SessionsController < ApplicationController
     elsif type == "professor"
       user = Professor.find_by_email(params[:email])
     end
+
     if user && user.authenticate(params[:password])
       if user.activated?
         log_in(user, type)
