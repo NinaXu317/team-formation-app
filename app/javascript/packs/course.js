@@ -16,6 +16,11 @@ window.store = new Vuex.Store({
       vote(state, data){
         const card_index = state.groups.findIndex((item)=>item.id==data.id)
         state.groups.splice(card_index, 1, data)
+      },
+      toggleVoting(state, data){
+        console.log(state.course)
+        state.course = data
+        console.log(state.course)
       }
     }
 })

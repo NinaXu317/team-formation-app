@@ -5,7 +5,7 @@ $(document).on('click', '.group-icon', function(event){
     event.stopImmediatePropagation();
     $(this).closest('.course-column-box').find('.group-container').slideToggle(); 
     var table = $(this).closest('.course-column-box').find('#member-table');
-    if(table && $.fn.DataTable){
+    if(table){
         if(! $.fn.DataTable.isDataTable(table)){
             table.DataTable({
             searching: false,

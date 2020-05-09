@@ -29,6 +29,7 @@ import Vuex from 'vuex'
 import App from '../app.vue'
 import stuApp from '../stuApp.vue'
 import TurbolinksAdapter from 'vue-turbolinks'
+import Rails from "@rails/ujs"
 
 window.Calendar = require("@fullcalendar/core").Calendar;
 window.dayGridPlugin = require("@fullcalendar/daygrid").default;
@@ -45,6 +46,7 @@ window.App = App;
 window.stuApp = stuApp;
 
 window.Vuex = Vuex;
+window.Rails = Rails;
 Rails.start();
 
 require('packs/student')

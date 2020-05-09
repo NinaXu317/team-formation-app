@@ -129,7 +129,6 @@
         <% elsif current_user_type == "student" %>
           <div class='col course-button-column-stu'>
             <%if @course.voting==false then %>
-
               <%if !Preference.find_by(student_id:current_user.id).nil?%>
                 <img src="/assets/green_check.jpg" height="22" width="22">
                 <p class ="warning"> Your preference has been recorded</p>
@@ -169,14 +168,16 @@
             <div class="tab-pane fade show active" id="projects">
               <% if current_user_type == "professor" && @professor_id == current_user.id%>
                 <br>
-                <% if @course.voting==true then%>
-                  <p class="status">Current Process: Voting</p>
-                  <%= button_to @voting_button, toggle_voting_course_path(@course), :method => :patch, :class => 'btn btn-primary btn-lg'%>
-                  
-                <%else%>
-                  <p class="status">Current Process: Preference Filling</p>
-    
-                <%end%>
+                <div id = "toggle-container">
+                  <% if @course.voting==true %>
+                  <p class="status" id="status">Current Process: Voting</p>
+                  <%else%>
+                  <p class="status" id="status">Current Process: Preference Filling</p>
+                  <%end%>
+                  <div >
+                      <button class="btn btn-outline-primary addButton" id="toggle-button"> <%= @voting_button %></button>
+                  </div>
+                </div>
                 <%= tag.div id: :boards, data:{groups: @course.groups.to_json, course: @course.to_json}%>
               <% else %>    
                 <%= tag.div id: :stuboards, data:{groups: @course.groups.to_json,course:@course.to_json, student: Student.find(current_user.id).to_json, taking: Taking.find_by(student_id:current_user.id, course_id:@course.id).to_json}%>              
@@ -204,6 +205,35 @@
 </body>
 
 <script>
+
+document.addEventListener("turbolinks:load", function(){
+  $("#toggle-button").on('click', function(event){
+    console.log(window.store.state.course.id)
+    var course_id = window.store.state.course.id
+    var prev_status = window.store.state.course.voting
+    var data = new FormData
+    data.append("course[voting]", !window.store.state.course.voting)
+    data.append("course[course_id]", course_id)
+    Rails.ajax({
+      url: `/courses/${course_id}/toggle_voting`,
+      type: "PATCH",
+      data: data,
+      dataType: "json",
+      success: (data) => {  
+        console.log(`current status ${window.store.state.course.voting}`)
+        console.log(`previous status ${prev_status}`)
+        if(prev_status==true){
+          $("#status").text('Current Process: Preference Filling')
+          $("#toggle-button").text('Resume Voting')
+        }else{
+          $("#status").text('Current Process: Voting')
+          $("#toggle-button").text( 'Start Preference Filling Process')
+        }
+      }
+    })
+    
+  })
+})
 
 
 </script>
