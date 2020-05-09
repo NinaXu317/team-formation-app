@@ -3,7 +3,7 @@
 
 
 <body class='view4'>
-  <div class='container profile-container' id="classroom" data_channel_subscribe="room" data-room-id="<%= @course.id %>">
+  <div class='container profile-container' id="classroom" data_channel_subscribe="room" data-room-id="<%= @course.id %>" data-room-voting="<%= @course.voting%>">
   
     <% if !flash[:alert].nil?%>
       <div class="alert alert-danger">
@@ -56,29 +56,34 @@
             <%= button_to 'Create Random Groups', {:controller => "courses", :action => "create_groups", :algo => "random"}, :class => "btn btn-outline-primary addButton", :method=>:post%>
             <br>
             <p> <%= get_message(@course) %> </p>
-            <%if @course.voting==true%>
+            
+              <div class="warnings">
               <img src="/assets/yellow-alert.png" height="22" width="22">
               <p class="warning"> awaiting preference filling process</p>
-            <%end%>
+              </div>
+            
             <%= button_to 'Create Groups Based on Project Preference', {:controller => "courses", :action => "create_groups", :algo => "project_only"},  :disabled => !three_active_groups?(@course), :class => "btn btn-outline-primary addButton", :method=>:post%>
             <br>
             <p></p>
             <% if !three_active_groups?(@course) %>
-              <%if @course.voting==true%>
+              
+              <div class="warnings">
                 <img src="/assets/yellow-alert.png" height="22" width="22">
                 <p class="warning"> awaiting preference filling process</p>
-              <%end%>
+              </div>          
               <button disabled class="btn btn-outline-primary addButton" data-toggle="modal" data-target="#professor-preference-form">
                 Create Groups Based on All Preference
               </button>
             <% else %>
-              <%if @course.voting==true%>
+              
+              <div class="warnings">
                 <img src="/assets/yellow-alert.png" height="22" width="22">
                 <p class="warning"> awaiting preference filling process</p>
-              <%end%>
+              </div>           
               <button class="btn btn-outline-primary addButton" data-toggle="modal" data-target="#professor-preference-form">
                 Create Groups Based on All Preference
               </button>
+              
             <% end %>
           </div>
 
@@ -176,9 +181,7 @@
                   <p class="status" id="status">Current Process: Preference Filling</p>
                   <button class="btn btn-outline-primary addButton" id="toggle-button"> Resume Voting</button>
                   <%end%>
-                  
-                      
-                  
+
                 </div>
                 <%= tag.div id: :boards, data:{groups: @course.groups.to_json, course: @course.to_json}%>
               <% else %>    
@@ -209,6 +212,13 @@
 <script>
 
 document.addEventListener("turbolinks:load", function(){
+  var voting = $('#classroom').attr('data-room-voting')
+  console.log(voting)
+  if(voting=="true"){
+    $(".warnings").show()
+  }else{
+    $(".warnings").hide()
+  }
   $("#toggle-button").on('click', function(event){
     console.log(window.store.state.course.id)
     var course_id = window.store.state.course.id
@@ -227,9 +237,11 @@ document.addEventListener("turbolinks:load", function(){
         if(prev_status==true){
           $("#status").text('Current Process: Preference Filling')
           $("#toggle-button").text('Resume Voting')
+          $(".warnings").hide()
         }else{
           $("#status").text('Current Process: Voting')
           $("#toggle-button").text( 'Start Preference Filling Process')
+          $(".warnings").show()
         }
       }
     })
