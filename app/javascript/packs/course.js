@@ -108,6 +108,7 @@ document.addEventListener("turbolinks:load", function(){
     $(".warnings").hide()
   }
   $("#toggle-button").on('click', function(event){
+    $("#toggle-button").attr("disabled","disabled");
     console.log(window.store.state.course.id)
     console.log(`active2: `)
     console.log(active)
@@ -122,6 +123,7 @@ document.addEventListener("turbolinks:load", function(){
       data: data,
       dataType: "json",
       success: (data) => {  
+        $("#toggle-button").removeAttr("disabled");
         console.log(`current status ${window.store.state.course.voting}`)
         console.log(`previous status ${prev_status}`)
         console.log(`active3: `)
@@ -145,7 +147,7 @@ document.addEventListener("turbolinks:load", function(){
           $(".disabled").show()
           $(".enabled").hide()
         }
-        if(window.store.state.course.voting==false){
+        if(prev_status == true){
           $("#status").text('Current Process: Preference Filling')
           $("#toggle-button").text('Resume Voting')
           $(".warnings").hide()
