@@ -120,7 +120,7 @@ admin_professor.courses.each do |course|
                                     codingProficiency: 5,
                                     dreampartner: students.sample.id,
                                     schedule: "{\"mondayD\":\"0\",\"mondayN\":\"1\",\"tuesdayD\":\"1\",\"tuesdayN\":\"0\",\"wednesdayD\":\"0\",\"wednesdayN\":\"0\",\"thursdayD\":\"1\",\"thursdayN\":\"0\",\"fridayD\":\"0\"
-                                    #,\"fridayN\":\"1\",\"saturdayD\":\"0\",\"saturdayN\":\"0\",\"sundayD\":\"0\",\"sundayN\":\"0\"}")
+                                    ,\"fridayN\":\"1\",\"saturdayD\":\"0\",\"saturdayN\":\"0\",\"sundayD\":\"0\",\"sundayN\":\"0\"}")
         end
     end
 end
