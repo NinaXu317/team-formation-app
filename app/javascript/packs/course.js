@@ -99,6 +99,13 @@ document.addEventListener("turbolinks:load", function(){
   } else {
     console.log(`showing header`)
     $(".header").show()
+    if(active=="true"){
+      $("#active3-warning-show").hide()
+      $("#active3-warning-hide").show()
+    }else{
+      $("#active3-warning-show").show()
+      $("#active3-warning-hide").hide()
+    }
     $(".disabled").show()
     $(".enabled").hide()
   }
