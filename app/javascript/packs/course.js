@@ -122,14 +122,16 @@ document.addEventListener("turbolinks:load", function(){
       type: "PATCH",
       data: data,
       dataType: "json",
-      success: (data) => {  
+      success: (data) => {
+        console.dir(data.voting) 
         $("#toggle-button").removeAttr("disabled");
         console.log(`current status ${window.store.state.course.voting}`)
         console.log(`previous status ${prev_status}`)
         console.log(`active3: `)
+        console.log(`data  `) 
         var active_count = window.store.state.groups.filter((group)=>group.active==true).length
         console.log(active_count)
-        if (active_count>=3 && window.store.state.course.voting == false){
+        if (active_count>=3 && data.voting == false){
           $(".header").hide()
           console.log(`hiding header  deep`)
           $(".disabled").hide()
@@ -147,7 +149,7 @@ document.addEventListener("turbolinks:load", function(){
           $(".disabled").show()
           $(".enabled").hide()
         }
-        if(prev_status == true){
+        if(data.voting == false){
           $("#status").text('Current Process: Preference Filling')
           $("#toggle-button").text('Resume Voting')
           $(".warnings").hide()

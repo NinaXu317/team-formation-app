@@ -22,7 +22,7 @@
 
 
     <% if @course.errors.any? %>
-      <div id="alert alert-danger">
+      <div class="alert alert-danger">
         <p><%= pluralize(@course.errors.count, "error") %> prohibited this course from being updating:</p>
         <ul>
           <% @course.errors.full_messages.each do |message| %>
