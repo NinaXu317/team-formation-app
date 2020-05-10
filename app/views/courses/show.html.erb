@@ -3,7 +3,7 @@
 
 
 <body class='view4'>
-  <div class='container profile-container' id="classroom" data_channel_subscribe="room" data-room-id="<%= @course.id %>" data-room-voting="<%= @course.voting%>">
+  <div class='container profile-container' id="classroom" data_channel_subscribe="room" data-room-active="<%= @course.has_enough_projects%>" data-room-id="<%= @course.id %>" data-room-voting="<%= @course.voting%>">
   
     <% if !flash[:alert].nil?%>
       <div class="alert alert-danger">
@@ -55,36 +55,41 @@
           <div class='col course-button-column'>
             <%= button_to 'Create Random Groups', {:controller => "courses", :action => "create_groups", :algo => "random"}, :class => "btn btn-outline-primary addButton", :method=>:post%>
             <br>
-            <p> <%= get_message(@course) %> </p>
+
             
-              <div class="warnings">
-              <img src="/assets/yellow-alert.png" height="22" width="22">
-              <p class="warning"> awaiting preference filling process</p>
-              </div>
-            
-            <%= button_to 'Create Groups Based on Project Preference', {:controller => "courses", :action => "create_groups", :algo => "project_only"},  :disabled => !three_active_groups?(@course), :class => "btn btn-outline-primary addButton", :method=>:post%>
+            <div id='header' class="header">
+              <p class="warning"> <strong> Group Creation using preferences is disabled due to: </strong> </p>
+            </div>
             <br>
+            <% if !get_message(@course).empty? %>
+              <img src="/assets/yellow-alert.png" height="22" width="22">
+            <% end %>
+            <p class="warning"> <%= get_message(@course) %> </p>
+            <div class="warnings">
+              <img src="/assets/yellow-alert.png" height="22" width="22">
+              <p class="warning">  Voting still in progress </p>
+            </div>
+            <br>
+            
+            
             <p></p>
-            <% if !three_active_groups?(@course) %>
-              
-              <div class="warnings">
-                <img src="/assets/yellow-alert.png" height="22" width="22">
-                <p class="warning"> awaiting preference filling process</p>
-              </div>          
+
+            <div class = disabled>
+              <%= button_to 'Create Groups Based on Project Preference', {:controller => "courses", :action => "create_groups", :algo => "project_only"},  :disabled => true, :class => "btn btn-outline-primary addButton", :method=>:post%>
+              <br>
               <button disabled class="btn btn-outline-primary addButton" data-toggle="modal" data-target="#professor-preference-form">
                 Create Groups Based on All Preference
               </button>
-            <% else %>
-              
-              <div class="warnings">
-                <img src="/assets/yellow-alert.png" height="22" width="22">
-                <p class="warning"> awaiting preference filling process</p>
-              </div>           
+            </div>
+
+            <div class = enabled >
+              <%= button_to 'Create Groups Based on Project Preference', {:controller => "courses", :action => "create_groups", :algo => "project_only"},  :disabled => false, :class => "btn btn-outline-primary addButton", :method=>:post%>
+              <br>        
               <button class="btn btn-outline-primary addButton" data-toggle="modal" data-target="#professor-preference-form">
                 Create Groups Based on All Preference
               </button>
+            </div>
               
-            <% end %>
           </div>
 
             <div class="modal fade" id="professor-preference-form" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -102,22 +107,22 @@
                         <%= hidden_field_tag :algo, 'holistic'%>
                         <div class="alert alert-danger d-none">Please review the problems below:</div>
                        
-                        <label class="modal-label"><%= f.label 'How important are student\'s preference on project choices? '%> </label>
+                        <label class="modal-label"><%= f.label 'How important are students\' preferences on project choices?'%> </label>
                         <%= f.collection_radio_buttons :projectWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
                         margin-left: 24px; margin-right:5px;"}%>
-                        very important<br>
+                        <br> <p> unimportant &emsp; &emsp; &emsp; &emsp; &emsp; very important </p>
                         <hr size="10">
                         <label class="modal-label"><%= f.label 'Do you want each team to have various level of coding proficiencies?' %></label>
                         <%= f.collection_radio_buttons :codingWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
                         margin-left: 24px; margin-right:5px"}%>
-                        As diverse as possible<br><hr size="10">
-                        <label class="modal-label"><%= f.label 'How important are student\'s preference on their partner choice?'%></label>
+                        <p> not diverse &emsp; &emsp; &emsp; &emsp; &emsp; as diverse as possible </p><hr size="10">
+                        <label class="modal-label"><%= f.label 'How important are students\' preferences on their partner choice?'%></label>
                         <%= f.collection_radio_buttons :partnerWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
                         margin-left: 24px; margin-right:5px"}%>
-                        very important<br><hr size="10">
-                        <label class="modal-label"><%= f.label 'How important that the team members will have more than 2 hours/week avaiable meeting-time?'%></label>
+                        <p> unimportant &emsp; &emsp; &emsp; &emsp; &emsp; very important </p><hr size="10">
+                        <label class="modal-label"><%= f.label 'Should team members have more than 2 hours/week avaiable meeting-time?'%></label>
                         <%= f.collection_radio_buttons :scheduleWeight, [[1,1],[2,2],[3,3],[4,4],[5,5]], :first, :last, { item_wrapper_tag: false },{:style=>"
-                        margin-left: 24px; margin-right:5px"}%> very important
+                        margin-left: 24px; margin-right:5px"}%> <p> unimportant &emsp; &emsp; &emsp; &emsp; &emsp; very important </p>
                         <div class="modal-footer border-top-0 d-flex justify-content-center">
                           <div class='modal-button'>
                             <%= f.submit("Submit and Create Group", class: "btn btn-primary createButton") %>
@@ -145,7 +150,8 @@
               <% end %>
             <%else%>
               <img src="/assets/yellow-alert.png" height="32" width="32"> 
-              <p class ="warning"> Awaiting professor to start preference filling process</p>
+              <p class ="warning"> Can not create preferences until voting has ended </p>
+              <br> <br>
             <%end%>
           </div>
         <% end %>
@@ -176,7 +182,7 @@
                 <div id = "toggle-container">
                   <% if @course.voting==true %>
                   <p class="status" id="status">Current Process: Voting</p>
-                  <button class="btn btn-primary btn-lg" id="toggle-button"> Start Preference Filling Process</button>
+                  <button class="btn btn-primary btn-lg" id="toggle-button"> End Voting and Allow Preferences</button>
                   <%else%>
                   <p class="status" id="status">Current Process: Preference Filling</p>
                   <button class="btn btn-primary btn-lg" id="toggle-button"> Resume Voting</button>
@@ -213,7 +219,20 @@
 
 document.addEventListener("turbolinks:load", function(){
   var voting = $('#classroom').attr('data-room-voting')
+  var active = $('#classroom').attr('data-room-active')
+  console.log(`active ${active}`)
   console.log(voting)
+  if (active == "true" && voting == "false") {
+    console.log(`hiding header`)
+    $(".header").hide()
+    $(".disabled").hide()
+    $(".enabled").show()
+  } else {
+    console.log(`showing header`)
+    $(".header").show()
+    $(".disabled").show()
+    $(".enabled").hide()
+  }
   if(voting=="true"){
     $(".warnings").show()
   }else{
@@ -221,6 +240,8 @@ document.addEventListener("turbolinks:load", function(){
   }
   $("#toggle-button").on('click', function(event){
     console.log(window.store.state.course.id)
+    console.log(`active2: `)
+    console.log(active)
     var course_id = window.store.state.course.id
     var prev_status = window.store.state.course.voting
     var data = new FormData
@@ -234,6 +255,19 @@ document.addEventListener("turbolinks:load", function(){
       success: (data) => {  
         console.log(`current status ${window.store.state.course.voting}`)
         console.log(`previous status ${prev_status}`)
+        console.log(`active3: `)
+        console.log(active)
+        if (active == "true" && prev_status == true){
+          $(".header").hide()
+          console.log(`hiding header  deep`)
+          $(".disabled").hide()
+          $(".enabled").show()
+        } else {
+          $(".header").show()
+          console.log(`showing header`)
+          $(".disabled").show()
+          $(".enabled").hide()
+        }
         if(prev_status==true){
           $("#status").text('Current Process: Preference Filling')
           $("#toggle-button").text('Resume Voting')

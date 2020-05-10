@@ -16,7 +16,7 @@ class CoursesController < ApplicationController
     else
       @teams = params[:teams]
     end
-
+    
     @preferences = @course.preferences
     @groups = @course.groups
   end
