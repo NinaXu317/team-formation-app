@@ -54,12 +54,9 @@
           <% create_groups_path = @course.id.to_s+ "/create_groups" %>
           <div class='col course-button-column'>
             <%= button_to 'Create Random Groups', {:controller => "courses", :action => "create_groups", :algo => "random"}, :class => "btn btn-outline-primary addButton", :method=>:post%>
-            
-
             <br>
             
             <div id='header' class="header">
-            <p style="line-height: 80%;">&nbsp</p>
             <div>
               <p class="warning"> <strong> Group Creation using preferences is disabled due to: </strong> </p>
             </div>
@@ -242,6 +239,7 @@ document.addEventListener("turbolinks:load", function(){
     $(".warnings").hide()
   }
   $("#toggle-button").on('click', function(event){
+    $("#toggle-button").attr("disabled","disabled");
     console.log(window.store.state.course.id)
     console.log(`active2: `)
     console.log(active)
@@ -256,6 +254,7 @@ document.addEventListener("turbolinks:load", function(){
       data: data,
       dataType: "json",
       success: (data) => {  
+        $("#toggle-button").removeAttr("disabled");
         console.log(`current status ${window.store.state.course.voting}`)
         console.log(`previous status ${prev_status}`)
         console.log(`active3: `)
