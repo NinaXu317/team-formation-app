@@ -117,6 +117,7 @@ document.addEventListener("turbolinks:load", function(){
     var data = new FormData
     data.append("course[voting]", !window.store.state.course.voting)
     data.append("course[course_id]", course_id)
+    // window.store.state.course.voting= !prev_status
     Rails.ajax({
       url: `/courses/${course_id}/toggle_voting`,
       type: "PATCH",
