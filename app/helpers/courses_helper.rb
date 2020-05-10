@@ -45,11 +45,15 @@ module CoursesHelper
       return true
     end
 
+    def button_disabled?(course)
+      return !three_active_groups?(course) || course.voting
+    end
+
     def get_message(course)
       if three_active_groups?(course)
         return ""
       end
-      return "Can not create groups using preferences until there are 3 active projects"
+      return "Less than 3 active projects"
     end
 
 end

@@ -2,7 +2,7 @@
 <% if @course.students.size==0 %>
     <h6>No Student Enrolled</h6>
 <% elsif findGroup(@course.students[0], @course).nil? %>
-    <h6>Not Yet Created Group</h6>
+    <h6>No Groups Created Yet</h6>
 <% else %>
     <% @course.groups.where(active: true).each do |group| %>
         <div class="container course-group-box">

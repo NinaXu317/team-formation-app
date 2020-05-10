@@ -4,7 +4,7 @@
             <div class="col projects-box"> 
                 <div class = 'container student-projects-container'>
                     <h5 class='project-title'>
-                        Active Projects
+                        Rank Top 3 Projects:
                     </h5>
                     <hr>
 
