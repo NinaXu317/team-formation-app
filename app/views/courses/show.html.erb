@@ -54,25 +54,28 @@
           <% create_groups_path = @course.id.to_s+ "/create_groups" %>
           <div class='col course-button-column'>
             <%= button_to 'Create Random Groups', {:controller => "courses", :action => "create_groups", :algo => "random"}, :class => "btn btn-outline-primary addButton", :method=>:post%>
-            <br>
+            
 
+            <br>
             
             <div id='header' class="header">
+            <p style="line-height: 80%;">&nbsp</p>
+            <div>
               <p class="warning"> <strong> Group Creation using preferences is disabled due to: </strong> </p>
             </div>
-            <br>
-            <% if !get_message(@course).empty? %>
-              <img src="/assets/yellow-alert.png" height="22" width="22">
-            <% end %>
-            <p class="warning"> <%= get_message(@course) %> </p>
-            <div class="warnings">
-              <img src="/assets/yellow-alert.png" height="22" width="22">
-              <p class="warning">  Voting still in progress </p>
+            
+            
+              <% if !get_message(@course).empty? %>
+                <img src="/assets/yellow-alert.png" height="22" width="22">
+              <% end %>
+              <p class="warning"> <%= get_message(@course) %> </p>
+              <div class="warnings">
+                <img src="/assets/yellow-alert.png" height="22" width="22">
+                <p class="warning">  Voting still in progress </p>
+              </div>
+              <p></p>
             </div>
-            <br>
             
-            
-            <p></p>
 
             <div class = disabled>
               <%= button_to 'Create Groups Based on Project Preference', {:controller => "courses", :action => "create_groups", :algo => "project_only"},  :disabled => true, :class => "btn btn-outline-primary addButton", :method=>:post%>
