@@ -257,7 +257,7 @@ document.addEventListener("turbolinks:load", function(){
         console.log(`previous status ${prev_status}`)
         console.log(`active3: `)
         console.log(active)
-        if (active == "true" && prev_status == true){
+        if (active == "true" && window.store.state.course.voting == false){
           $(".header").hide()
           console.log(`hiding header  deep`)
           $(".disabled").hide()
@@ -268,7 +268,7 @@ document.addEventListener("turbolinks:load", function(){
           $(".disabled").show()
           $(".enabled").hide()
         }
-        if(prev_status==true){
+        if(window.store.state.course.voting==false){
           $("#status").text('Current Process: Preference Filling')
           $("#toggle-button").text('Resume Voting')
           $(".warnings").hide()
