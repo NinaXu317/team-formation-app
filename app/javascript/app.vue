@@ -174,6 +174,7 @@ export default {
             data: data,
             dataType: "json",
             success: (data) => {
+              console.log("broad cast success")
               this.checkStatus()    
             }
           })
