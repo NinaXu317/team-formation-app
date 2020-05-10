@@ -7,12 +7,8 @@ one:
   third: 80130551
   codingProficiency: 3
   course: FakeCourse
-  schedule: '[{"weekday":"Sunday","start":"08:00:00",
-                                    "end":"10:00:00"},{"weekday":"Monday","start":"
-                                    10:00:00","end":"12:00:00"},{"weekday":"Wednesday",
-                                    "start":"12:00:00","end":"13:00:00"},{"weekday":
-                                    "Thursday","start":"09:00:00","end":"10:00:00"},
-                                    {"weekday":"Friday","start":"10:00:00","end":"11:00:00"}]'
+  schedule: '{"mondayD":"0","mondayN":"1","tuesdayD":"1","tuesdayN":"0","wednesdayD":"0","wednesdayN":"0","thursdayD":"1","thursdayN":"0","fridayD":"0"
+                                    ,"fridayN":"1","saturdayD":"0","saturdayN":"0","sundayD":"0","sundayN":"0"}'
 
                                     
 two:
@@ -22,12 +18,8 @@ two:
   third: 169123426
   codingProficiency: 3
   course: FakeCourse
-  schedule: '[{"weekday":"Sunday","start":"08:00:00",
-                                    "end":"10:00:00"},{"weekday":"Monday","start":"
-                                    10:00:00","end":"12:00:00"},{"weekday":"Wednesday",
-                                    "start":"12:00:00","end":"13:00:00"},{"weekday":
-                                    "Thursday","start":"09:00:00","end":"10:00:00"},
-                                    {"weekday":"Friday","start":"10:00:00","end":"11:00:00"}]'
+  schedule: '{"mondayD":"0","mondayN":"1","tuesdayD":"1","tuesdayN":"0","wednesdayD":"0","wednesdayN":"0","thursdayD":"1","thursdayN":"0","fridayD":"0"
+                                    ,"fridayN":"1","saturdayD":"0","saturdayN":"0","sundayD":"0","sundayN":"0"}'
 
 three:
   student: eleanor
@@ -36,12 +28,8 @@ three:
   third: 169123426
   codingProficiency: 3
   course: FakeCourse
-  schedule: '[{"weekday":"Sunday","start":"08:00:00",
-                                    "end":"10:00:00"},{"weekday":"Monday","start":"
-                                    10:00:00","end":"12:00:00"},{"weekday":"Wednesday",
-                                    "start":"12:00:00","end":"13:00:00"},{"weekday":
-                                    "Thursday","start":"09:00:00","end":"10:00:00"},
-                                    {"weekday":"Friday","start":"10:00:00","end":"11:00:00"}]'
+  schedule: '{"mondayD":"0","mondayN":"1","tuesdayD":"1","tuesdayN":"0","wednesdayD":"0","wednesdayN":"0","thursdayD":"1","thursdayN":"0","fridayD":"0"
+                                    ,"fridayN":"1","saturdayD":"0","saturdayN":"0","sundayD":"0","sundayN":"0"}'
 
 
 four:
@@ -51,12 +39,8 @@ four:
   third: 80130551
   codingProficiency: 3
   course: FakeCourse
-  schedule: '[{"weekday":"Sunday","start":"08:00:00",
-                                    "end":"10:00:00"},{"weekday":"Monday","start":"
-                                    10:00:00","end":"12:00:00"},{"weekday":"Wednesday",
-                                    "start":"12:00:00","end":"13:00:00"},{"weekday":
-                                    "Thursday","start":"09:00:00","end":"10:00:00"},
-                                    {"weekday":"Friday","start":"10:00:00","end":"11:00:00"}]'
+  schedule: '{"mondayD":"0","mondayN":"1","tuesdayD":"1","tuesdayN":"0","wednesdayD":"0","wednesdayN":"0","thursdayD":"1","thursdayN":"0","fridayD":"0"
+                                    ,"fridayN":"1","saturdayD":"0","saturdayN":"0","sundayD":"0","sundayN":"0"}'
 
 five:
   student: tahani
@@ -65,12 +49,8 @@ five:
   third: 80130551
   codingProficiency: 3
   course: FakeCourse
-  schedule: '[{"weekday":"Sunday","start":"08:00:00",
-                                    "end":"10:00:00"},{"weekday":"Monday","start":"
-                                    10:00:00","end":"12:00:00"},{"weekday":"Wednesday",
-                                    "start":"12:00:00","end":"13:00:00"},{"weekday":
-                                    "Thursday","start":"09:00:00","end":"10:00:00"},
-                                    {"weekday":"Friday","start":"10:00:00","end":"11:00:00"}]'
+  schedule: '{"mondayD":"0","mondayN":"1","tuesdayD":"1","tuesdayN":"0","wednesdayD":"0","wednesdayN":"0","thursdayD":"1","thursdayN":"0","fridayD":"0"
+                                    ,"fridayN":"1","saturdayD":"0","saturdayN":"0","sundayD":"0","sundayN":"0"}'
 
 six:
   student: jason
@@ -79,9 +59,5 @@ six:
   third: 80130551
   codingProficiency: 3
   course: FakeCourse
-  schedule: '[{"weekday":"Sunday","start":"08:00:00",
-                                    "end":"10:00:00"},{"weekday":"Monday","start":"
-                                    10:00:00","end":"12:00:00"},{"weekday":"Wednesday",
-                                    "start":"12:00:00","end":"13:00:00"},{"weekday":
-                                    "Thursday","start":"09:00:00","end":"10:00:00"},
-                                    {"weekday":"Friday","start":"10:00:00","end":"11:00:00"}]'
+  schedule: '{"mondayD":"0","mondayN":"1","tuesdayD":"1","tuesdayN":"0","wednesdayD":"0","wednesdayN":"0","thursdayD":"1","thursdayN":"0","fridayD":"0"
+                                    ,"fridayN":"1","saturdayD":"0","saturdayN":"0","sundayD":"0","sundayN":"0"}'
