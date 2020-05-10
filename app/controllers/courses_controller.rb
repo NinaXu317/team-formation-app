@@ -25,22 +25,12 @@ class CoursesController < ApplicationController
   #PATCH /courses/1/toggle_voting
   def toggle_voting
     respond_to do |format|
-      if @course.update(course_params)
-        #notice = "Voting was stopped"
-        #if @course.voting
-          #notice = "Voting was started"
-        #end
-        
+      if @course.update(course_params)        
         @room = Course.find_by(params[:course_id])
         RoomChannel.broadcast_to @room, { commit: 'toggleVoting', payload: render_to_string(:show, formats: [:json]) }
         format.json { render :show, status: :ok, location: @course }
     
       else
-        #notice = "Voting could not be stopped"
-        #if !@course.voting
-          #notice = "Voting could not be started"
-        #end
-        
         format.json { render json: @course.errors, status: :unprocessable_entity }
       end
     end

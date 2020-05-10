@@ -32,10 +32,9 @@
       </div>
     <% end %> 
       <div class='row profile-row'>
-        <div class='col profile-column'>
-          <p>
-            <strong>Course Name:</strong>
-            <%= @course.name %>
+        <div class='col course-profile-column'>
+          <p class="course-title">
+            <strong><%= @course.name %></strong>
           </p>
 
           <p>
@@ -66,9 +65,14 @@
             
             
               <% if !get_message(@course).empty? %>
-                <img src="/assets/yellow-alert.png" height="22" width="22">
+              <div id="active3-warning-show">
+                <img id="active3-img" src="/assets/yellow-alert.png" height="22" width="22">
+                <p class="warning" id="warning-message"> <%= get_message(@course) %> </p>
+              </div>
+              <% else %>
+              <div id="active3-warning-hide"></div>
               <% end %>
-              <p class="warning"> <%= get_message(@course) %> </p>
+
               <div class="warnings">
                 <img src="/assets/yellow-alert.png" height="22" width="22">
                 <p class="warning">  Voting still in progress </p>
@@ -220,71 +224,6 @@
 
 <script>
 
-document.addEventListener("turbolinks:load", function(){
-  var voting = $('#classroom').attr('data-room-voting')
-  var active = $('#classroom').attr('data-room-active')
-  console.log(`active ${active}`)
-  console.log(voting)
-  if (active == "true" && voting == "false") {
-    console.log(`hiding header`)
-    $(".header").hide()
-    $(".disabled").hide()
-    $(".enabled").show()
-  } else {
-    console.log(`showing header`)
-    $(".header").show()
-    $(".disabled").show()
-    $(".enabled").hide()
-  }
-  if(voting=="true"){
-    $(".warnings").show()
-  }else{
-    $(".warnings").hide()
-  }
-  $("#toggle-button").on('click', function(event){
-    console.log(window.store.state.course.id)
-    console.log(`active2: `)
-    console.log(active)
-    var course_id = window.store.state.course.id
-    var prev_status = window.store.state.course.voting
-    var data = new FormData
-    data.append("course[voting]", !window.store.state.course.voting)
-    data.append("course[course_id]", course_id)
-    Rails.ajax({
-      url: `/courses/${course_id}/toggle_voting`,
-      type: "PATCH",
-      data: data,
-      dataType: "json",
-      success: (data) => {  
-        console.log(`current status ${window.store.state.course.voting}`)
-        console.log(`previous status ${prev_status}`)
-        console.log(`active3: `)
-        console.log(active)
-        if (active == "true" && window.store.state.course.voting == false){
-          $(".header").hide()
-          console.log(`hiding header  deep`)
-          $(".disabled").hide()
-          $(".enabled").show()
-        } else {
-          $(".header").show()
-          console.log(`showing header`)
-          $(".disabled").show()
-          $(".enabled").hide()
-        }
-        if(window.store.state.course.voting==false){
-          $("#status").text('Current Process: Preference Filling')
-          $("#toggle-button").text('Resume Voting')
-          $(".warnings").hide()
-        }else{
-          $("#status").text('Current Process: Voting')
-          $("#toggle-button").text( 'End Voting and Allow Preferences')
-          $(".warnings").show()
-        }
-      }
-    })
-    
-  })
-})
 
 
 </script>

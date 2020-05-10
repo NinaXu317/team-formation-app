@@ -11,6 +11,15 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     border-radius: 5px; 
 }  
+
+.course-profile-column{
+  padding: 40px;
+  padding-left: 60px;
+  font-size: 25px;
+  .course-title{
+    font-size: 35px;
+  }
+}
 .course-button-column{
   padding: 40px;
 }
