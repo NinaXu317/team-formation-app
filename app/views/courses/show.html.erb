@@ -53,12 +53,9 @@
           <% create_groups_path = @course.id.to_s+ "/create_groups" %>
           <div class='col course-button-column'>
             <%= button_to 'Create Random Groups', {:controller => "courses", :action => "create_groups", :algo => "random"}, :class => "btn btn-outline-primary addButton", :method=>:post%>
-            
-
             <br>
             
             <div id='header' class="header">
-            <p style="line-height: 80%;">&nbsp</p>
             <div>
               <p class="warning"> <strong> Group Creation using preferences is disabled due to: </strong> </p>
             </div>
@@ -146,7 +143,7 @@
         <% elsif current_user_type == "student" %>
           <div class='col course-button-column-stu'>
             <%if @course.voting==false then %>
-              <%if !Preference.find_by(student_id:current_user.id).nil?%>
+              <%if !Preference.find_by(student_id:current_user.id, course_id:@course.id).nil?%>
                 <img src="/assets/green_check.jpg" height="22" width="22">
                 <p class ="warning"> Your preference has been recorded</p>
                 <p></p>

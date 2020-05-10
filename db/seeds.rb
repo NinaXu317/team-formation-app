@@ -119,12 +119,8 @@ admin_professor.courses.each do |course|
                                     third: third,
                                     codingProficiency: 5,
                                     dreampartner: students.sample.id,
-                                    schedule: '[{"weekday":"Sunday","start":"08:00:00",
-                                    "end":"10:00:00"},{"weekday":"Monday","start":"
-                                    10:00:00","end":"12:00:00"},{"weekday":"Wednesday",
-                                    "start":"12:00:00","end":"13:00:00"},{"weekday":
-                                    "Thursday","start":"09:00:00","end":"10:00:00"},
-                                    {"weekday":"Friday","start":"10:00:00","end":"11:00:00"}]')
+                                    schedule: "{\"mondayD\":\"0\",\"mondayN\":\"1\",\"tuesdayD\":\"1\",\"tuesdayN\":\"0\",\"wednesdayD\":\"0\",\"wednesdayN\":\"0\",\"thursdayD\":\"1\",\"thursdayN\":\"0\",\"fridayD\":\"0\"
+                                    ,\"fridayN\":\"1\",\"saturdayD\":\"0\",\"saturdayN\":\"0\",\"sundayD\":\"0\",\"sundayN\":\"0\"}")
         end
     end
 end

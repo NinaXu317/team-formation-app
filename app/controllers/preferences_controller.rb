@@ -19,7 +19,11 @@ class PreferencesController < ApplicationController
  
     def create
         course = Course.find(params[:preference][:course_id])
-        @preference = Preference.new(preference_params) 
+        preference_temp = params[:preference]
+        schedule= preference_temp.except(:first, :second, :third, :codingProficiency, :dreampartner, :student_id, :course_id)
+        schedule_j= schedule.to_json
+        #post_params.merge(schedule: value)
+        @preference = Preference.new(preference_params.except(:mondayD, :mondayN, :tuesdayD, :tuesdayN, :wednesdayD, :wednesdayN, :thursdayD, :thursdayN, :fridayD, :fridayN, :saturdayD, :saturdayN, :sundayD, :sundayN).merge(schedule: schedule_j)) 
         Preference.where(student_id: params[:preference][:student_id], course_id: params[:preference][:course_id]).destroy_all
         if (@preference.save)
           flash[:success] = "Thanks for submitting your preference!"
@@ -37,7 +41,7 @@ class PreferencesController < ApplicationController
     
     def preference_params
           params.require(:preference).permit(:first, :second, :third, :codingProficiency, 
-                                            :dreampartner, :schedule, :student_id, :course_id)
+                                            :dreampartner, :mondayD, :mondayN, :tuesdayD, :tuesdayN, :wednesdayD, :wednesdayN, :thursdayD, :thursdayN, :fridayD, :fridayN, :saturdayD, :saturdayN, :sundayD, :sundayN, :student_id, :course_id)
     end
 end
     
