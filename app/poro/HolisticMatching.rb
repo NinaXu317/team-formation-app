@@ -38,8 +38,8 @@ class HolisticMatching < ProjectMatching
             swap_history << temp_formation
             puts "temp_formation: " + temp_formation.inspect
             temp_score = get_score(temp_formation)
-            if(temp_score<0) then next end
-            # puts temp_score
+            # if(temp_score<0) then next end
+            # # puts temp_score
             if(temp_score > highest_score) then
                 result = temp_formation
                 highest_score= temp_score
@@ -144,54 +144,106 @@ class HolisticMatching < ProjectMatching
 
     
 
-    #teamArr= form of [student1id,student2id,student3id]
-    # # string schedule is in the form of [{"weekday":"Sunday","start":"09:00:00","end":"11:30:00"},
-    # {"weekday":"Tuesday","start":"09:00:00","end":"11:30:00"},
-    # {"weekday":"Wednesday","start":"09:30:00","end":"10:30:00"},
-    # {"weekday":"Wednesday","start":"11:00:00","end":"12:00:00"}]
+
+
+
+
+
+
+    #preference schedule has the form of "{\"mondayD\":\"0\",\"mondayN\":\"1\",\"tuesdayD\":\"1\",\"tuesdayN\":\"0\",\"wednesdayD\":\"0\",\"wednesdayN\":\"0\",\"thursdayD\":\"1\",\"thursdayN\":\"0\",\"fridayD\":\"0\"
+    #,\"fridayN\":\"1\",\"saturdayD\":\"0\",\"saturdayN\":\"0\",\"sundayD\":\"0\",\"sundayN\":\"0\"}"
+
+
     def get_schedule_score(teamArr)
-        team_calendar= {"Sunday"=>Array.new(28,0),"Monday"=>Array.new(28,0),"Tuesday"=>Array.new(28,0),"Wednesday"=>Array.new(28,0),"Thursday"=>Array.new(28,0),"Friday"=>Array.new(28,0),"Saturday"=>Array.new(28,0)}
-        # puts "teamArr: " + teamArr.inspect
+        #initalize a team counter hash
+        team_calendar = {}
+        team_calendar["mondayD"]=0
+        team_calendar["mondayN"]=0
+        team_calendar["tuesdayD"]=0
+        team_calendar["tuesdayN"]=0
+        team_calendar["wednesdayD"]=0
+        team_calendar["wednesdayN"]=0
+        team_calendar["thursdayD"]=0
+        team_calendar["thursdayN"]=0
+        team_calendar["fridayD"]=0
+        team_calendar["fridayN"]=0
+        team_calendar["saturdayD"]=0
+        team_calendar["saturdayN"]=0
+        team_calendar["sundayD"]=0
+        team_calendar["sundayN"]=0
+
         teamArr.each do |student|
-            # puts "INSPECTING HASH: " + @preferences_hash.inspect
-            # puts "INSPECTING STUDENT " + student.to_s + ": " + @preferences_hash[student].inspect
             schedule = @preferences_hash[student][:schedule]
+            # schedule = schedule_string[student]
             schedule.delete!("\n")
-            # puts "before: " + schedule.inspect
             schedule_J = JSON.parse(schedule)
-            # puts "after: " + schedule_J.inspect
-            schedule_J.each do |x|
-                day=x["weekday"]
-                start_arr= x["start"].split(":")
-                start_i= (start_arr[0].to_i-8)*2
-                if(start_arr[1].to_i==30) then start_i+= 1 end
-
-                end_arr= x["end"].split(":")
-                end_i= (end_arr[0].to_i-8)*2
-                if(end_arr[1].to_i==30) then end_i+= 1 end
-                
-                i = start_i
-                until i>=end_i
-                    team_calendar[day][i]+=1
-                    i+=1
-                end
+            schedule_J.each do |key,value| 
+                team_calendar[key]+= value.to_i
             end
-
-        end
-        
-        availability_counter=0
-        team_calendar.each do |day,arr|
-            arr.each do |slot|
-                if(slot==teamArr.size) then availability_counter+=1 end
-            end 
         end
 
-        if(availability_counter<4) then return -9999999
-            elsif availability_counter>14 then return 1
-            else return Math.log(availability_counter-3)
+        counter=0
+        team_calendar.each do |time,team_c|
+            if(team_c/teamArr.size == 1) then
+                counter +=1
+            end
         end
-        #[0,1] with log behavior
+
+        if(counter==1) then
+            return -1
+        else
+            return counter.to_f/14
+        end
     end
+
+    # #teamArr= form of [student1id,student2id,student3id]
+    # # # string schedule is in the form of [{"weekday":"Sunday","start":"09:00:00","end":"11:30:00"},
+    # # {"weekday":"Tuesday","start":"09:00:00","end":"11:30:00"},
+    # # {"weekday":"Wednesday","start":"09:30:00","end":"10:30:00"},
+    # # {"weekday":"Wednesday","start":"11:00:00","end":"12:00:00"}]
+    # def get_schedule_score(teamArr)
+    #     team_calendar= {"Sunday"=>Array.new(28,0),"Monday"=>Array.new(28,0),"Tuesday"=>Array.new(28,0),"Wednesday"=>Array.new(28,0),"Thursday"=>Array.new(28,0),"Friday"=>Array.new(28,0),"Saturday"=>Array.new(28,0)}
+    #     # puts "teamArr: " + teamArr.inspect
+    #     teamArr.each do |student|
+    #         # puts "INSPECTING HASH: " + @preferences_hash.inspect
+    #         # puts "INSPECTING STUDENT " + student.to_s + ": " + @preferences_hash[student].inspect
+    #         schedule = @preferences_hash[student][:schedule]
+    #         schedule.delete!("\n")
+    #         # puts "before: " + schedule.inspect
+    #         schedule_J = JSON.parse(schedule)
+    #         # puts "after: " + schedule_J.inspect
+    #         schedule_J.each do |x|
+    #             day=x["weekday"]
+    #             start_arr= x["start"].split(":")
+    #             start_i= (start_arr[0].to_i-8)*2
+    #             if(start_arr[1].to_i==30) then start_i+= 1 end
+
+    #             end_arr= x["end"].split(":")
+    #             end_i= (end_arr[0].to_i-8)*2
+    #             if(end_arr[1].to_i==30) then end_i+= 1 end
+                
+    #             i = start_i
+    #             until i>=end_i
+    #                 team_calendar[day][i]+=1
+    #                 i+=1
+    #             end
+    #         end
+
+    #     end
+        
+    #     availability_counter=0
+    #     team_calendar.each do |day,arr|
+    #         arr.each do |slot|
+    #             if(slot==teamArr.size) then availability_counter+=1 end
+    #         end 
+    #     end
+
+    #     if(availability_counter<4) then return -9999999
+    #         elsif availability_counter>14 then return 1
+    #         else return Math.log(availability_counter-3)
+    #     end
+    #     #[0,1] with log behavior
+    # end
 
     #assuming the score range between 1 and 5 
     #the result would close to 0 if similar, close to 1 if different
