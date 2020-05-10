@@ -49,14 +49,69 @@
             <br><br>
             <%= f.label 'Select Your Prefered Time for Group Meeting'%> <sup>*</sup>
             
-            <!--<div class="field">
-              <%= f.label "Monday Morning"%>
-              <%= f.check_box :mondayM %>
+
+
+            <div class="field">
+  
+              <table class="table table-condensed">
+
+              <thead>
+              <tr>
+                <th></th>
+                <th>Day</th>
+                <th>Night</th>
+              </tr>
+              </thead>
+
+                <tbody>
+                  <tr>
+                    <td>Monday </td>
+                    <td> <%= f.check_box :mondayD %> </td>
+                    <td><%= f.check_box :mondayN %> </td>
+                  </tr>
+                  <tr>
+                    <td>Tueday </td>
+                    <td> <%= f.check_box :tuesdayD %> </td>
+                    <td><%= f.check_box :tuesdayN %> </td>
+                  </tr>
+                  <tr>
+                    <td>Wednesday </td>
+                    <td> <%= f.check_box :wednesdayD %> </td>
+                    <td><%= f.check_box :wednesdayN %> </td>
+                  </tr>
+                  <tr>
+                    <td>Thursday </td>
+                    <td> <%= f.check_box :thursdayD %> </td>
+                    <td><%= f.check_box :thursdayN %> </td>
+                  </tr>
+                  <tr>
+                    <td>Friday </td>
+                    <td> <%= f.check_box :fridayD %> </td>
+                    <td><%= f.check_box :fridayN %> </td>
+                  </tr>
+                  <tr>
+                    <td>Saturday </td>
+                    <td> <%= f.check_box :saturdayD %> </td>
+                    <td><%= f.check_box :saturdayN %> </td>
+                  </tr>
+                  <tr>
+                    <td>Sunday </td>
+                    <td> <%= f.check_box :sundayD %> </td>
+                    <td><%= f.check_box :sundayN %> </td>
+                  </tr>
+                </tbody>
+              </table>
+              
 
             </div>
-            -->
+
+
+       
             
-              <%= f.search_field :schedule, class:"form-control showCalendar", id:"fullcalendar"%>
+            
+
+
+            <!--  <%= f.search_field :schedule, class:"form-control showCalendar", id:"fullcalendar"%>
             </div>
             testing
             <div class="container m-t-20">
@@ -67,6 +122,7 @@
                   </div>
                 </div>
             </div>
+            -->
              
 
 
