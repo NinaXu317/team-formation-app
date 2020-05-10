@@ -28,14 +28,14 @@
                             </div>
                         </div>
                     </a>
-
+                    <p>&nbsp</p>
                     <div v-if="course.voting==true" class = 'single-project-container-stu'>
                         <div class= 'container project-container project-container-input'>
                             <textarea v-model="messages['groups']" class="form-control editbox-stu editbox-name" placeholder="Project Name"></textarea>
                             <textarea v-model="description['groups']" class="form-control editbox-stu editbox-description" placeholder="Description"></textarea>
                             <div class="row">
                                 <div class="container">
-                                <button v-on:click = "submitMessages('groups', course.id)" class="btn btn-outline-primary addProjectBtn">Add</button>
+                                <button v-on:click = "submitMessages('groups', course.id)" class="btn btn-primary addProjectBtn">Add</button>
                                 </div>
                             </div>
                         </div>
@@ -78,7 +78,7 @@
                         <textarea v-model="description['holdprojects']" class="form-control editbox-stu editbox-description" placeholder="Description"></textarea>
                         <div class="row">
                             <div class="container">
-                            <button v-on:click = "submitMessages('holdprojects', course.id)" class="btn btn-outline-primary addButton addProjectBtn">Add</button>
+                            <button v-on:click = "submitMessages('holdprojects', course.id)" class="btn btn-primary addButton addProjectBtn">Add</button>
                             </div>
                         </div>
                         </div>
