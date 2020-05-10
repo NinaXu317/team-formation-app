@@ -66,7 +66,6 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   config.action_mailer.raise_delivery_errors = true
 
-  #key: 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
   config.action_mailer.delivery_method = :smtp
   host = 'teamation.herokuapp.com'
   config.action_mailer.default_url_options = { host: host }
