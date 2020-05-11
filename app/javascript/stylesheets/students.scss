@@ -108,6 +108,7 @@
   }
   .profile-group-pre{
     color: rgb(77, 131, 203);
+    margin-right: 50px;
   }
   .profile-group-name{
     text-align:center; 
@@ -143,7 +144,7 @@
   .group-icon{
     text-align:center;
     margin-top: 15px;
-    margin-left: 95px;
+    
     
     >a{
     text-decoration: none;
@@ -168,10 +169,6 @@
       padding-top: 4px;
       padding-bottom: 4px;
     }
-  }
-  #member-table_paginate{
-    position:relative;
-    right: 10px;
   }
   
   .add-course-button{

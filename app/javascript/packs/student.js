@@ -10,8 +10,9 @@ $(document).on('click', '.group-icon', function(event){
             table.DataTable({
             searching: false,
             "lengthChange": false, 
-            "pageLength": 5,
             info: false,
+            "paging":false,
+            
             });
         }
     }
