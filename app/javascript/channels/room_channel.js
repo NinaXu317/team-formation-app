@@ -34,6 +34,10 @@ document.addEventListener('turbolinks:load', function(){
         // Called when the subscription has been terminated by the server
         console.log(`disconnected from ${$('#classroom').attr('data-room-id')}`)
       },
+
+      rejected: function() {
+        console.log("rejected");
+      },
   
       received(data) {
         // Called when there's incoming data on the websocket for this channel

@@ -143,11 +143,12 @@ document.addEventListener("turbolinks:load", function(){
       console.log(`active2: `)
       console.log(active)
       var course_id = window.store.state.course.id
-      // var prev_status = window.store.state.course.voting
       var prev_status = window.store.state.course.voting
       var data = new FormData
       data.append("course[voting]", !window.store.state.course.voting)
-      data.append("course[course_id]", course_id)
+      data.append("course[id]", course_id)
+      console.dir(data.keys)
+      console.dir(data.values)
       // window.store.state.course.voting= !prev_status
       console.log(`about to send ajax`)
       Rails.ajax({
