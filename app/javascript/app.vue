@@ -133,26 +133,7 @@ export default {
   },
 
   methods: {
-    checkStatus: function(){
-      console.log(`active group number is: ${this.groups.length}`)
-      console.log($(".header"))
-      if(this.groups.length>=3 && this.course.voting==false){
-        $(".header").hide()
-        $(".disabled").hide()
-        $(".enabled").show()
-      }else {
-        if(this.groups.length<3){
-          $("#active3-warning-show").show()
-          $("#active3-warning-hide").hide()
-        }else{
-          $("#active3-warning-show").hide()
-          $("#active3-warning-hide").show()
-        }
-        $(".header").show()
-        $(".disabled").show()
-        $(".enabled").hide()
-      }
-    },
+
     cardMoved: function(event){
       console.log(event)
       if(event.added != undefined || event.moved != undefined){ 
@@ -174,7 +155,8 @@ export default {
             data: data,
             dataType: "json",
             success: (data) => {
-              this.checkStatus()    
+              console.log("broad cast success")
+ 
             }
           })
       }
