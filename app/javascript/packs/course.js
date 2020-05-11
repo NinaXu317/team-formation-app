@@ -143,6 +143,7 @@ document.addEventListener("turbolinks:load", function(){
       console.log(`active2: `)
       console.log(active)
       var course_id = window.store.state.course.id
+      // var prev_status = window.store.state.course.voting
       var prev_status = window.store.state.course.voting
       var data = new FormData
       data.append("course[voting]", !window.store.state.course.voting)
@@ -157,11 +158,13 @@ document.addEventListener("turbolinks:load", function(){
         success: (data) => {
           console.log(`ajax received`)
           console.dir(data.voting) 
+          if (prev_status == data.voting) {
+            console.log(`previous and current status are equal, changing current:`)
+            data.voting = !data.voting
+          }
           $("#toggle-button").removeAttr("disabled");
-          console.log(`current status ${window.store.state.course.voting}`)
+          console.log(`current status ${data.voting}`)
           console.log(`previous status ${prev_status}`)
-          console.log(`active3: `)
-          console.log(`data  `) 
           var active_count = window.store.state.groups.filter((group)=>group.active==true).length
           console.log(active_count)
           if (active_count>=3 && data.voting == false){
