@@ -148,12 +148,14 @@ document.addEventListener("turbolinks:load", function(){
       data.append("course[voting]", !window.store.state.course.voting)
       data.append("course[course_id]", course_id)
       // window.store.state.course.voting= !prev_status
+      console.log(`about to send ajax`)
       Rails.ajax({
         url: `/courses/${course_id}/toggle_voting`,
         type: "PATCH",
         data: data,
         dataType: "json",
         success: (data) => {
+          console.log(`ajax received`)
           console.dir(data.voting) 
           $("#toggle-button").removeAttr("disabled");
           console.log(`current status ${window.store.state.course.voting}`)
