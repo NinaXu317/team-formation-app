@@ -157,7 +157,7 @@ document.addEventListener("turbolinks:load", function(){
         dataType: "json",
         success: (data) => {
           console.log(`ajax received`)
-          console.dir(data.voting) 
+          console.dir(data) 
           if (prev_status == data.voting) {
             console.log(`previous and current status are equal, changing current:`)
             data.voting = !data.voting
