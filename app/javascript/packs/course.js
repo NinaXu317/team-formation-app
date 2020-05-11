@@ -194,6 +194,11 @@ document.addEventListener("turbolinks:load", function(){
             $("#toggle-button").text( 'End Voting and Allow Preferences')
             $(".warnings").show()
           }
+        },
+        error: function(data) {
+          console.log( `error`)
+          console.log(data)
+          console.dir(data)
         }
       })
       
