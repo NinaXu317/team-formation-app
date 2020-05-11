@@ -37,12 +37,12 @@
             <strong><%= @course.name %></strong>
           </p>
 
-          <p>
+          <p class="secondary-title">
             <strong>Pin:</strong>
             <%= @course.pin %>
           </p>
 
-          <p>
+          <p class="secondary-title">
             <strong>Professor:</strong>
             <% professor = @course.professor %>
             <%= professor.firstname + ' '+ professor.lastname  %>
@@ -61,14 +61,14 @@
             </div>
             
             
-              <% if !get_message(@course).empty? %>
+              
               <div id="active3-warning-show">
                 <img id="active3-img" src="/assets/yellow-alert.png" height="22" width="22">
-                <p class="warning" id="warning-message"> <%= get_message(@course) %> </p>
+                <p class="warning" id="warning-message"> Less than 3 active projects </p>
               </div>
-              <% else %>
+              
               <div id="active3-warning-hide"></div>
-              <% end %>
+              
 
               <div class="warnings">
                 <img src="/assets/yellow-alert.png" height="22" width="22">
