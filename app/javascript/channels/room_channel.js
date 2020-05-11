@@ -7,12 +7,16 @@ document.addEventListener('turbolinks:load', function(){
   console.log(consumer.subscriptions)
   for (var i=0; i<consumer.subscriptions.subscriptions.length; i++){
     var ident = consumer.subscriptions.subscriptions[i].identifier
+    consumer.subscriptions.subscriptions[i].unsubscribe()
+    consumer.subscriptions.subscriptions[i].disconnect()
     console.dir(ident)
     console.log(room_id)
     if (ident == `{"channel":"RoomChannel","id":"${room_id}"}`) {
+      console.log('exists already')
       exists_already = true
     }
   }
+  console.log(exists_already)
   if(room && !exists_already){
     console.log("exist!")
     console.log($('#classroom').attr('data-room-id'))
