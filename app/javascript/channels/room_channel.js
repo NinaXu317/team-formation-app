@@ -2,7 +2,18 @@ import consumer from "./consumer"
 var subscription
 document.addEventListener('turbolinks:load', function(){
   let room = document.getElementById('classroom')
-  if(room){
+  var room_id = $('#classroom').attr('data-room-id')
+  var exists_already = false
+  console.log(consumer.subscriptions)
+  for (var i=0; i<consumer.subscriptions.subscriptions.length; i++){
+    var ident = consumer.subscriptions.subscriptions[i].identifier
+    console.dir(ident)
+    console.log(room_id)
+    if (ident == `{"channel":"RoomChannel","id":"${room_id}"}`) {
+      exists_already = true
+    }
+  }
+  if(room && !exists_already){
     console.log("exist!")
     console.log($('#classroom').attr('data-room-id'))
     subscription = consumer.subscriptions.create({
