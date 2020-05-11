@@ -71,7 +71,7 @@
                             </div>
                         </div>
                     </a>
-                  
+                    <p>&nbsp</p>
                     <div v-if="course.voting==true" class = 'single-project-container-stu'>
                         <div class= 'container project-container project-container-input'>
                         <textarea v-model="messages['holdprojects']" class="form-control editbox-stu editbox-name" placeholder="Project Name"></textarea>
