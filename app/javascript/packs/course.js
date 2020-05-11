@@ -26,10 +26,28 @@ window.store = new Vuex.Store({
         }
       },
       moveCard(state, data){
+        console.log(data)
         const old_card_index = state.groups.findIndex((item)=>item.id==data.id)
         state.groups.splice(old_card_index, 1)
         state.groups.splice(data.position-1,0,data)
+        var active_groups = state.groups.filter((item)=>item.active == true)
         console.log(`in window store index: ${data.position-1}`)
+        if(active_groups.length>=3 && state.course.voting==false){
+          $(".header").hide()
+          $(".disabled").hide()
+          $(".enabled").show()
+        }else {
+          if(active_groups.length<3){
+            $("#active3-warning-show").show()
+            $("#active3-warning-hide").hide()
+          }else{
+            $("#active3-warning-show").hide()
+            $("#active3-warning-hide").show()
+          }
+          $(".header").show()
+          $(".disabled").show()
+          $(".enabled").hide()
+        }
       },
       vote(state, data){
         const card_index = state.groups.findIndex((item)=>item.id==data.id)
