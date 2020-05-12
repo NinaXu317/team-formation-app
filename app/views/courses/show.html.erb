@@ -190,10 +190,10 @@
                 <div id = "toggle-container">
                   <% if @course.voting==true %>
                   <p class="status" id="status">Current Process: Voting</p>
-                  <button class="btn btn-primary btn-lg" id="toggle-button"> End Voting and Allow Preferences</button>
+                  <button class="btn btn-primary btn-lg" id="toggle-button" data-turbolinks="false"> End Voting and Allow Preferences</button>
                   <%else%>
                   <p class="status" id="status">Current Process: Preference Filling</p>
-                  <button class="btn btn-primary btn-lg" id="toggle-button"> Resume Voting</button>
+                  <button class="btn btn-primary btn-lg" id="toggle-button" data-turbolinks="false"> Resume Voting</button>
                   <%end%>
 
                 </div>
