@@ -30,6 +30,7 @@ window.store = new Vuex.Store({
         const old_card_index = state.groups.findIndex((item)=>item.id==data.id)
         state.groups.splice(old_card_index, 1)
         state.groups.splice(data.position-1,0,data)
+        console.log(data.course_id)
         var active_groups = state.groups.filter((item)=>item.active == true)
         console.log(`in window store index: ${data.position-1}`)
         if(active_groups.length>=3 && state.course.voting==false){
