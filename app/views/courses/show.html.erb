@@ -142,7 +142,8 @@
 
         <% elsif current_user_type == "student" %>
           <div class='col course-button-column-stu'>
-            <%if @course.voting==false then %>
+            
+            <div id="create-preference-show">
               <%if !Preference.find_by(student_id:current_user.id, course_id:@course.id).nil?%>
                 <img src="/assets/green_check.jpg" height="22" width="22">
                 <p class ="warning"> Your preference has been recorded</p>
@@ -152,11 +153,14 @@
               <%= link_to new_preference_path(course: @course) do %>
                 <button class="btn btn-outline-primary addButton btn-lg"></i> Create Preference</button>
               <% end %>
-            <%else%>
+            </div>
+           
+            <div id="create-preference-hide">
               <img src="/assets/yellow-alert.png" height="32" width="32"> 
               <p class ="warning"> Can not create preferences until voting has ended </p>
               <br> <br>
-            <%end%>
+            </div>
+            
           </div>
         <% end %>
       </div>

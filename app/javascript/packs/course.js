@@ -58,6 +58,14 @@ window.store = new Vuex.Store({
         console.log(state.course)
         state.course = data
         console.log(state.course)
+        console.log(data.voting)
+        if(data.voting==false){
+          $("#create-preference-show").show()
+          $("#create-preference-hide").hide()
+        }else{
+          $("#create-preference-show").hide()
+          $("#create-preference-hide").show()
+        }
       }
     }
 })
@@ -120,6 +128,7 @@ document.addEventListener("turbolinks:load", function(){
       $(".header").hide()
       $(".disabled").hide()
       $(".enabled").show()
+      
     } else {
       console.log(`showing header`)
       $(".header").show()
@@ -135,9 +144,14 @@ document.addEventListener("turbolinks:load", function(){
     }
     if(voting=="true"){
       $(".warnings").show()
+      $("#create-preference-show").hide()
+      $("#create-preference-hide").show()
     }else{
       $(".warnings").hide()
+      $("#create-preference-show").show()
+      $("#create-preference-hide").hide()
     }
+
     $("#toggle-button").on('click', function(event){
       $("#toggle-button").attr("disabled","disabled");
       console.log(window.store.state.course.id)
