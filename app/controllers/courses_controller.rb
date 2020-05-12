@@ -28,11 +28,12 @@ class CoursesController < ApplicationController
     respond_to do |format|
       if @course.update(course_params)        
         @room = Course.find_by(params[:course_id])
-        puts "Broadcasting"
+        puts "Broadcasting to #{@room.id.to_s}"
         RoomChannel.broadcast_to @room, { commit: 'toggleVoting', payload: render_to_string(:show, formats: [:json]) }
         format.json { render :show, status: :ok, location: @course }
     
       else
+        puts "\n\n\n ******** course not saved *************\n\n\n"
         format.json { render json: @course.errors, status: :unprocessable_entity }
       end
     end

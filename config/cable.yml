@@ -6,5 +6,10 @@ test:
 
 production:
   adapter: redis
-  url: <%= ENV.fetch("REDISTOGO_URL") { "redis://localhost:6379/1" } %>
+  url: <%= ENV.fetch("REDISTOGO_URL") %>
   channel_prefix: capstone_project_production
+  host: pike.redistogo.com
+  port: 10794
+  inline: true
+  timeout: 1
+ 
