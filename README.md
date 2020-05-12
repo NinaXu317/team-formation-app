@@ -1,31 +1,15 @@
 # README
 
-This is the Rails1 application for PA, by Lu Zhai
+This is the Team Formation App.
 
-## Getting started
-To get started with the app, clone the repo https://github.com/reedandchrissy/Rails1.git 
-and then install the needed gems:
-```
-$ bundle install --without production
-```
+## Description
 
-
-Things you may want to cover:
-
-* Ruby version ruby '2.6.5'
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+name: Team Formation
+blurb: Our app Teamation designs to make forming students into teams for a group project convenient for professors while also fair and effective for the students. Our app does this by separating the group making process into four processes: project brainstorming, voting, preference creation, and finally group creation.
+course: CS166B
+semester: 2020 (Spring)
+github: https://github.com/ditsky/team-formation-app
+application: http://teamation.herokuapp.com/
+presentation: https://docs.google.com/presentation/d/1_l3VfnunR4D0IxlsDT6SThap-ufKkTQL8BRL_BUkHWs/edit?usp=sharing
+image: https://i.imgur.com/QB3Y28b.png
+team: Sam Ruditsky, Lu Zhai, Andrew Yan
