@@ -52,8 +52,10 @@ class StudentsController < ApplicationController
     @student = Student.new(student_params)
     respond_to do |format|
       if @student.save
-        @student.send_activation_email
-        format.html { redirect_to root_url, notice: 'Please check your email to activate your account.' }
+        @student.activated = true
+        log_in(@student, "student")
+        
+        format.html { redirect_to root_url}
         format.json { render :show, status: :created, location: @student }
       else
         format.html { render :new }
