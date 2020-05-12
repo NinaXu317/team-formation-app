@@ -77,6 +77,7 @@
           
           </a>
           </draggable>
+          <p>&nbsp</p>
           <div class = 'single-project-container-stu'>
             <div class= 'container project-container project-container-input'>
               <textarea v-model="messages['holdprojects']" class="form-control editbox-stu editbox-name" placeholder="Project Name"></textarea>

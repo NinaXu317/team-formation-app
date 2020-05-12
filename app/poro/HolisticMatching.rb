@@ -189,10 +189,10 @@ class HolisticMatching < ProjectMatching
             end
         end
 
-        if(counter==1) then
+        if(counter<1) then
             return -1
         else
-            return (Math.log(counter.to_f/14)-Math.log(0.5))/Math.log(1.5+counter.to_f/14)
+            return (Math.log(counter.to_f/14+0.5)-Math.log(0.5))/Math.log(2+counter.to_f/14)
         end
     end
 

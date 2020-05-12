@@ -147,20 +147,26 @@ document.addEventListener("turbolinks:load", function(){
       var prev_status = window.store.state.course.voting
       var data = new FormData
       data.append("course[voting]", !window.store.state.course.voting)
-      data.append("course[course_id]", course_id)
+      data.append("course[id]", course_id)
+      console.dir(data.keys)
+      console.dir(data.values)
       // window.store.state.course.voting= !prev_status
+      console.log(`about to send ajax`)
       Rails.ajax({
         url: `/courses/${course_id}/toggle_voting`,
         type: "PATCH",
         data: data,
         dataType: "json",
         success: (data) => {
-          console.dir(data.voting) 
+          console.log(`ajax received`)
+          console.dir(data) 
+          if (prev_status == data.voting) {
+            console.log(`previous and current status are equal, changing current:`)
+            data.voting = !data.voting
+          }
           $("#toggle-button").removeAttr("disabled");
-          console.log(`current status ${window.store.state.course.voting}`)
+          console.log(`current status ${data.voting}`)
           console.log(`previous status ${prev_status}`)
-          console.log(`active3: `)
-          console.log(`data  `) 
           var active_count = window.store.state.groups.filter((group)=>group.active==true).length
           console.log(active_count)
           if (active_count>=3 && data.voting == false){
@@ -190,6 +196,11 @@ document.addEventListener("turbolinks:load", function(){
             $("#toggle-button").text( 'End Voting and Allow Preferences')
             $(".warnings").show()
           }
+        },
+        error: function(data) {
+          console.log( `error`)
+          console.log(data)
+          console.dir(data)
         }
       })
       
