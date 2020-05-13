@@ -46,4 +46,8 @@ class Preference < ApplicationRecord
            !Group.where(course_id: course_id, id: second).empty? && 
            !Group.where(course_id: course_id, id: third).empty?
   end
+
+  def choicesAreValid
+    return (first.active && second.active && third.active)
+  end
 end

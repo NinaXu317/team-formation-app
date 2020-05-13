@@ -47,7 +47,7 @@ module GroupCreationManager
         def validatePreferences(preferences)
             students_with_invalid_preferences = []
             preferences.each do |preference|
-                if !preference.choicesArePresent || !preference.course.active
+                if !preference.choicesArePresent || !preference.choicesAreValid
                     students_with_invalid_preferences << Student.find(preference.student_id).full_name
                 end
             end
