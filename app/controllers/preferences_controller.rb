@@ -8,7 +8,8 @@ class PreferencesController < ApplicationController
         @course = Course.find(params[:course])
         if @course.has_enough_projects
           @preference = Preference.new
-          @projects = @course.groups.all
+          # @projects = @course.groups.all
+          @projects = @course.groups.where(active:true).all
           @students = @course.students.all
         else
           flash[:alert] = "Can not create preferences until there are at least three active projects"
