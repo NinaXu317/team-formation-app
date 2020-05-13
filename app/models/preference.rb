@@ -48,6 +48,8 @@ class Preference < ApplicationRecord
   end
 
   def choicesAreValid
-    return (first.active && second.active && third.active)
+    return (Group.where(course_id: course_id, id: first).active 
+      && Group.where(course_id: course_id, id: second).active 
+      && Group.where(course_id: course_id, id: third).active)
   end
 end
