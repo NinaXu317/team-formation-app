@@ -71,7 +71,7 @@ module GroupCreationManager
                 errors << no_groups()
             end
           
-            project_students_difference = course.active_groups.size - course.students.size
+            project_students_difference = course.active_groups - course.students.size
             if project_students_difference > 0
                 errors << more_projects_than_students(project_students_difference)
             end
