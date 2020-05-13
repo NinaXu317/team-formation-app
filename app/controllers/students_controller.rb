@@ -51,8 +51,9 @@ class StudentsController < ApplicationController
   def create
     @student = Student.new(student_params)
     respond_to do |format|
+      @student.activated = true
       if @student.save
-        @student.activated = true
+        # @student.activated = true
         log_in(@student, "student")
         
         format.html { redirect_to root_url}

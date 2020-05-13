@@ -27,8 +27,9 @@ class ProfessorsController < ApplicationController
   def create
     @professor = Professor.new(professor_params)
     respond_to do |format|
+      @professor.activated = true
       if @professor.save
-        @professor.activated = true
+        # @professor.activated = true
         log_in(@professor, "professor")
         
         format.html { redirect_to root_url }
