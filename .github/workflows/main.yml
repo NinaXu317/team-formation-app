@@ -36,7 +36,10 @@ jobs:
 
       - name: Install Dependencies
         run:
-          sudo apt-get install -yqq libpq-dev
+          sudo apt-get -yqq install libpq-dev
+
+      - name: Build App
+        run:
           gem install bundler
 
       - name: Install Gems
