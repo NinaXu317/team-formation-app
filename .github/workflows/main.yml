@@ -34,6 +34,10 @@ jobs:
         with:
           ruby-version: 2.6.5
 
+      - uses: Borales/actions-yarn@v2.3.0
+        with:
+          cmd: install
+
       - name: Install Dependencies
         run:
           sudo apt-get -yqq install libpq-dev
