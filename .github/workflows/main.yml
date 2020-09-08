@@ -16,8 +16,9 @@ jobs:
   test:
     services:
       db:
-        image: postgress:12
-        ports: ['5432:5432']
+        image: postgres:12
+        ports:
+          - 5432:5432
         options: --health-interval 10ms --health-timeout 500ms --health-retries 15
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -29,7 +30,7 @@ jobs:
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1.45.0
         with:
-          ruby-version: 2.7.1
+          ruby-version: 2.6.5
 
       - name: Install Dependencies
         run:
