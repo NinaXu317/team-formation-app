@@ -17,10 +17,11 @@ jobs:
     services:
       db:
         image: postgres:12
-        ports:
-          - 5432:5432
+        ports: ['5432:5432']
         env:
+          POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: postgres
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
@@ -33,7 +34,6 @@ jobs:
         uses: ruby/setup-ruby@v1.45.0
         with:
           ruby-version: 2.6.5
-
       - uses: Borales/actions-yarn@v2.3.0
         with:
           cmd: install
@@ -48,7 +48,7 @@ jobs:
 
       - name: Install Gems
         run:
-          bundle install
+          bundle install --jobs 4 --retry 3
 
       - name: Prepare Database
         run:
