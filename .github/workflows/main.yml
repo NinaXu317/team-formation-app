@@ -20,7 +20,7 @@ jobs:
         ports: ['5432:5432']
         env:
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
+          POSTGRES_PASSWORD: ""
           POSTGRES_DB: postgres
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     # The type of runner that the job will run on
@@ -60,7 +60,6 @@ jobs:
           POSTGRES_HOST: localhost
           POSTGRES_PORT: 5432
           POSTGRES_USER: postgres
-          POSTGRES_PASSWORD: postgres
           RAILS_ENV: test
         run:
           bundle exec rails test
