@@ -57,6 +57,8 @@ jobs:
 
       - name: Run Tests
         env:
-          DATABASE_URL: postgres://postgres:@localhost:5432/capstone_project_test
+          PGHOST: localhost
+          PGUSER: postgres
+          RAILS_ENV: test
         run:
           bundle exec rails test
