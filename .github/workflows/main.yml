@@ -53,7 +53,7 @@ jobs:
       - name: Prepare Database
         run:
           sudo service postgresql start
-          bundle exec rails db:prepare RAILS_ENV=test
+          bundle exec rails db:prepare
 
       - name: Run Tests
         env:
