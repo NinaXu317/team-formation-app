@@ -19,11 +19,13 @@ default: &default
   encoding: unicode
   # For details on connection pooling, see Rails configuration guide
   # https://guides.rubyonrails.org/configuring.html#database-pooling
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+#  pool: <%#= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
 
 development:
   <<: *default
   database: capstone_project_development
+  username: postgres
+  password: postgres
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
@@ -58,6 +60,8 @@ development:
 test:
   <<: *default
   database: capstone_project_test
+  username: postgres
+  password: postgres
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -76,11 +80,11 @@ test:
 # You can use this database configuration with:
 #
 #   production:
-#     url: <%= ENV['DATABASE_URL'] %>
+#     url: <%#= ENV['DATABASE_URL'] %>
 #
 production:
   <<: *default
   database: capstone_project_production
-  username: capstone_project
-  password: <%= ENV['CAPSTONE_PROJECT_DATABASE_PASSWORD'] %>
-  url: <%= ENV['DATABASE_URL'] %>
+#  username: capstone_project
+#  password: <%#= ENV['CAPSTONE_PROJECT_DATABASE_PASSWORD'] %>
+#  url: <%#= ENV['DATABASE_URL'] %>
