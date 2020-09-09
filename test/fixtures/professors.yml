@@ -11,11 +11,13 @@ admin:
 one:
   firstname: MyString
   lastname: MyString
-  email: MyString
+  email: MyString@example.com
+  password_digest: <%= Professor.digest('MyString') %>
   activated: true
 
 two:
   firstname: MyString
   lastname: MyString
   email: MyString
+  password_digest: <%= Professor.digest('MyString') %>
   activated: true
