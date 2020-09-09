@@ -11,7 +11,7 @@ class CreateAccountTest < ActionDispatch::IntegrationTest
                         password_confirmation: "password"}}
                 assert_response :redirect
                 follow_redirect!
-                assert_response :success
+                assert_response :redirect
         end
 
         test "can create professor account" do
@@ -23,7 +23,7 @@ class CreateAccountTest < ActionDispatch::IntegrationTest
                         password_confirmation: "password"}}
                 assert_response :redirect
                 follow_redirect!
-                assert_response :success
+                assert_response :redirect
         end
 
 
