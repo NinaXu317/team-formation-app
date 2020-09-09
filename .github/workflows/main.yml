@@ -51,6 +51,9 @@ jobs:
           bundle install --jobs 4 --retry 3
 
       - name: Prepare Database
+        env:
+          DATABASE_URL: "postgres://postgres:postgres@localhost/postgres"
+          RAILS_ENV: test
         run:
           bundle exec rails db:prepare
 
