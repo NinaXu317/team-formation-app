@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class ProfessorCreateCourseTest < ActionDispatch::IntegrationTest
-    i_suck_and_my_tests_are_order_dependent!
     include SessionsHelper
 
     setup do
@@ -18,8 +17,8 @@ class ProfessorCreateCourseTest < ActionDispatch::IntegrationTest
     test "should get new" do
         log_in_as(@user)
         # assert_redirected_to @user
-        # get new_course_url
-        assert_response :redirect
+        get new_course_url
+        assert_response :success
     end
 
     # test "create new course" do
