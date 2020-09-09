@@ -13,4 +13,10 @@ FakeCourse:
 FakeCourse2:
   name: FakeCourse2
   pin: 1113
-  professor: admin
+  professor: MyString
+
+FakeCourse3:
+  name: FakeCourse3
+  pin: 1111
+  professor: MyString
+
