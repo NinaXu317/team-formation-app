@@ -56,7 +56,7 @@ describe HolisticMatching do
 
     it "can parse Team schedule"do
         result = @matcher.holistic_algorithm
-        puts result.inspect
+        # puts result.inspect
         result.wont_be_empty
 
         # puts "the common available slots for this team is"
