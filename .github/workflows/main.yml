@@ -52,7 +52,6 @@ jobs:
 
       - name: Prepare Database
         run:
-          sudo service postgresql start
           bundle exec rails db:prepare
 
       - name: Run Tests
