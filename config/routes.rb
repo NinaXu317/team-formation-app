@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-
+  devise_for :students, path: 'students'
+  devise_for :professors, path: 'professors'
+  
   get 'pages/home'
 
   get 'student_login', to: 'sessions#new_student'
