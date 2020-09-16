@@ -22,7 +22,7 @@ class RandomMatching < Matching
             temp_project_index = (temp_project_index+1) % @projects.size
             
         end
-        puts "\n\n\n\n" + result.inspect + "\n\n\n\n"
+        # puts "\n\n\n\n" + result.inspect + "\n\n\n\n"
         @matched_groups = result
     end
 end

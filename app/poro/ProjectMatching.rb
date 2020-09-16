@@ -16,8 +16,8 @@ class ProjectMatching < Matching
         @grousizemin=0
         @groupsizemax=0
         groupsizefloat= @preferences.length.to_f/@projects.length
-        puts "There are this many projects:",@projects.length
-        puts "There are this many students:",@preferences.length
+        # puts "There are this many projects:",@projects.length
+        # puts "There are this many students:",@preferences.length
         if groupsizefloat.floor == groupsizefloat then
             @groupsizemax= groupsizefloat
             @grousizemin= groupsizefloat
@@ -37,7 +37,7 @@ class ProjectMatching < Matching
             temp_project_choice = x[:first]
             result[temp_project_choice] << x[:student_id]
         end
-        puts "Before moving people: " + result.inspect
+        # puts "Before moving people: " + result.inspect
         result = move_people(result)
         @matched_groups = result
     end
@@ -53,7 +53,7 @@ class ProjectMatching < Matching
                 while(result[mostpopular_project].length>@groupsizemax && i>=0)
                     #move students ID from this popular array to other array that are incomplete
                     unlucky_student= result[mostpopular_project][i]
-                    second_choice= @preferences.find {|project| project['student_id']= unlucky_student} [:second]
+                    second_choice= @preferences.find { |project| project['student_id'] = unlucky_student}[:second]
                     if(result[second_choice].length < @groupsizemax) then
                         result[mostpopular_project].delete(unlucky_student)
                         result[second_choice] << unlucky_student
@@ -69,7 +69,7 @@ class ProjectMatching < Matching
                     #move students ID from this popular array to other array that are incomplete 
                     unlucky_student= result[mostpopular_project][i]
                     #puts @preferences.inspect
-                    second_choice= @preferences.find {|project| project['student_id']= unlucky_student} [:third]
+                    second_choice= @preferences.find {|project| project['student_id']= unlucky_student}[:third]
                     if(result[second_choice].length < @groupsizemax) then
                         result[mostpopular_project].delete(unlucky_student)
                         result[second_choice] << unlucky_student
@@ -80,7 +80,7 @@ class ProjectMatching < Matching
             
             #(4) If the array is still overpopulated, use random algo to move students out
             while result[mostpopular_project].length > @groupsizemax 
-                puts @grousizemin.inspect
+                # puts @grousizemin.inspect
                 poor_student = result[mostpopular_project].delete(result[mostpopular_project].sample)
                 result[result.find{|key,value| key != mostpopular_project && value.length<=@grousizemin}[0]] << poor_student
             end
@@ -99,7 +99,7 @@ class ProjectMatching < Matching
             result[unfilled[0]] << poor_student
             unfilled = result.find{|key,value| value.length<@grousizemin}
         end
-        puts "current form after project Assign:", result.inspect
+        # puts "current form after project Assign:", result.inspect
         return result
     end
 

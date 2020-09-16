@@ -3,6 +3,8 @@ require_relative '../config/environment'
 require 'rails/test_help'
 require 'minitest/spec'
 require 'minitest/autorun'
+require 'simplecov'
+SimpleCov.start 'rails'
 
 class ActiveSupport::TestCase
   # Run tests in parallel with specified workers

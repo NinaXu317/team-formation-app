@@ -15,14 +15,15 @@ class HolisticMatching < ProjectMatching
         match()
         initial_team = @matched_groups
         result = initial_team
+        # if there's only one team, return result
         if (result.keys.size==1) then
             return result
         end
-        puts "result: " + result.inspect
+        # puts "result: " + result.inspect
         @preferences_hash = convertAH_toHH()
         #iterate swapping certain number of time
         highest_score = get_score(result)
-        puts  "score before the holistic algorithm is",highest_score
+        # puts  "score before the holistic algorithm is",highest_score
 
         swap_history = []
         swap_history << initial_team
@@ -36,7 +37,7 @@ class HolisticMatching < ProjectMatching
             end
             #temp_formation = the hash or arrays after a swap 
             swap_history << temp_formation
-            puts "temp_formation: " + temp_formation.inspect
+            # puts "temp_formation: " + temp_formation.inspect
             temp_score = get_score(temp_formation)
             # if(temp_score<0) then next end
             # # puts temp_score
@@ -46,7 +47,7 @@ class HolisticMatching < ProjectMatching
             end
             i=i+1
         end
-        puts "score after the holistic algorithm is",highest_score, result.inspect
+        # puts "score after the holistic algorithm is",highest_score, result.inspect
         @matched_groups = result
     end
 
